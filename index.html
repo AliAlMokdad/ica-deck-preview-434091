@@ -136,7 +136,7 @@ h2.head{font-size:clamp(30px,3.9vw,44px);font-weight:800;letter-spacing:-.02em;c
 .detail .nav button:hover{border-color:var(--red);color:var(--red)}
 
 /* ============ WORKFLOWS / PROJECT CYCLE ============ */
-.cyc-label{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--g3);margin:6px 0 8px}
+.cyc-label{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--g2);margin:8px 0 9px}
 .cycle{display:flex;align-items:stretch;gap:0;margin-bottom:4px}
 .added{display:flex;gap:14px;margin-bottom:4px;max-width:540px}
 .cyc-arrow{display:flex;align-items:center;color:var(--g4);font-weight:700;padding:0 8px;flex:0 0 auto}
@@ -144,9 +144,9 @@ h2.head{font-size:clamp(30px,3.9vw,44px);font-weight:800;letter-spacing:-.02em;c
 .pcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
 .pcard.open{outline:2px solid var(--pc);outline-offset:-1px}
 .pcard .ph-h{padding:14px 14px 13px}
-.pcard .ph-rn{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--pc);letter-spacing:.08em}
-.pcard .ph-nm{font-size:15px;font-weight:700;color:var(--ink);margin-top:5px;line-height:1.15}
-.pcard .ph-ct{margin-top:10px;font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--g3);background:var(--g6);display:inline-block;border-radius:20px;padding:2px 9px}
+.pcard .ph-rn{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--pc);letter-spacing:.08em}
+.pcard .ph-nm{font-size:17px;font-weight:700;color:var(--ink);margin-top:5px;line-height:1.15}
+.pcard .ph-ct{margin-top:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--g3);background:var(--g6);display:inline-block;border-radius:20px;padding:2px 10px}
 .pcard.oos{opacity:.6;border-style:dashed}
 .pcard.oos:hover{transform:none;box-shadow:var(--shadow)}
 .oos-tag{position:absolute;top:8px;right:8px;font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#fff;background:var(--g3);border-radius:5px;padding:2px 7px}
@@ -2528,7 +2528,7 @@ function vClass(label){ var l=(label||"").toUpperCase();
 
 function buildWorkflows(){
   function card(p, extra, tag){
-    var rn = (extra==="oos"||extra==="added-card") ? "ADDED" : "PHASE "+p.rn;
+    var rn = "PHASE "+p.rn;
     return '<div class="pcard '+(extra||"")+'" data-ph="'+p.rn+'" style="--pc:'+p.color+'">'+(tag?'<div class="oos-tag">'+tag+'</div>':'')+'<div class="ph-h"><div class="ph-rn">'+rn+'</div><div class="ph-nm">'+esc(p.name)+'</div><div class="ph-ct">'+WORKFLOWS[p.rn].length+' workflows</div></div></div>';
   }
   var cyc="";
@@ -2540,7 +2540,7 @@ function buildWorkflows(){
     '<p class="lead rv">The finance workflows across the project cycle, with audit and the other relevant SOPs alongside it. Open a phase, then open any workflow to see its full flow.</p>'+
     '<div class="cyc-label rv">The project cycle</div>'+
     '<div class="cycle rv">'+cyc+'</div>'+
-    '<div class="cyc-label rv">Added</div>'+
+    '<div class="cyc-label rv">Alongside the project cycle</div>'+
     '<div class="added rv">'+added+'</div>'+
     '<div class="wf-panel" id="wf-panel"></div>'+
     '</div>';
@@ -2687,7 +2687,7 @@ var AUDIT_SOP = {
     ["RESPONSIBLE","v-ini","Host National Society authorised person","For partner field audits, owns the process: prepares the terms of reference, engages the auditor, prepares the partner financial statements, coordinates the audit and its meetings, and drafts and implements the Plan of Action."],
     ["RESPONSIBLE","v-pre","Country Office Finance Focal Point","For country office and consolidated audits, prepares the terms of reference, the financial statements and the reconciliations, coordinates with the auditors and leads the Plan of Action. In partner field audits, supports the partner and quality assures their statements against Kompas."],
     ["QUALITY ASSURES","v-qa","International Controller and Adviser","Quality assures the financial deliverables, coordinates the headquarters level audits and the headquarters auditors, checks donor compliance, tests implementation of the action points, and files the full package in Atlas."],
-    ["SUPERVISES","v-sub","Head of International Finance","Supervises the process, is consulted on deviations and on special or urgent headquarters audits, and coordinates the timing and fees for audits performed at headquarters."]
+    ["SUPERVISES","v-sub","Head of International Finance","Supervises the process and is consulted on deviations and on special or urgent headquarters audits. With the International Controller and Adviser, agrees the timing and the audit fees for audits performed at headquarters."]
   ],
   steps:[
     "Determine whether the project, the country office accounts, or a consolidated set requires a periodic external audit, and confirm the audit form and scope against the signed grant agreement and the donor audit instructions.",
@@ -2695,14 +2695,14 @@ var AUDIT_SOP = {
     "Appoint auditors who are registered, independent, a chartered or certified public accountant affiliated to an international firm, and GDPR compliant, bound by an engagement letter that sets scope and reporting, and changed preferably every five years.",
     "Procure audit services under section 4.0 of the DRC procedures for external consultants. Where a partner has already appointed an auditor, evaluate it against the DRC criteria with the ICA and the portfolio adviser and record a note to file, escalating any deviation.",
     "Prepare the terms of reference and fold in the donor specifics: the EU INTPA Expenditure Verification Report follows the INTPA EVR terms, ECHO follows the Certified Financial Statements guidelines, and for signed EU contracts the terms of reference in the contract prevail.",
-    "Prepare and quality assure the financial statements before the audit, reconciling cash transfers and opening balances against Kompas and the previous audit, with the country office finance focal point quality assuring partner statements and preparing the country office and consolidated statements under the country manager's supervision.",
+    "Prepare and quality assure the financial statements before the audit, reconciling cash transfers and opening balances against Kompas and the previous audit, with the Country Office Finance Focal Point quality assuring partner statements and preparing the country office and consolidated statements under the Country Manager's supervision.",
     "For the annual DANIDA SPA audit, run a local audit covering funds transferred to the partner plus a consolidated audit at headquarters covering all SPA projects, each coordinated by the dedicated ICA. Where requirements compete, for example SPA and EU INTPA, keep the financial statements non-donor-specific and charge the SPA audit fee only to the SPA grant.",
     "Hold the kick-off meeting at least one week before the audit, between the auditors, the partner or country office finance representatives and the DRC country team, to agree logistics, counterparts and the documents to prepare.",
     "During the on-site fieldwork the auditors lead, all supporting documents are available, and the project focal points stay available for interviews, sampling, substantive testing and audit queries.",
     "Hold the exit meeting to wrap up the fieldwork and summarise the findings, providing clarifications and noting any outstanding documents before the draft report is released.",
     "Review the draft report with the partner and the country team, supported by the ICA, and coordinate a single set of comments back to the auditors.",
     "On approval, obtain the signed report with, as a minimum, the auditor's opinion, the management letter and the representation letter, and draw up a Plan of Action that lists each finding, the unit concerned, the corrective measure, the deadline, and the positions responsible for implementing and for following up. The ICA files the full package in Atlas.",
-    "Where the level of risk warrants, agree an internal audit, a pre-audit or a remote desk review between the Internal Control and Compliance Section and the country manager. Where an on-site audit is impossible, transfer the files to a secure location, a neighbouring country office, or headquarters.",
+    "Where the level of risk warrants, agree an internal audit, a pre-audit or a remote desk review between the Internal Control and Compliance Section and the Country Manager. Where an on-site audit is impossible, transfer the files to a secure location, a neighbouring country office, or headquarters.",
     "After completion, the Internal Control and Compliance Section runs a post-audit review of recurrent findings and systemic weaknesses, captures good practice, and feeds the learning into SOP updates, monitoring visits and risk mitigation."
   ],
   tools:["Audit Terms of Reference template (SPA and non-EU)","Auditors' proposals evaluation grid","Audit process chronogram template","DRC International procurement procedures","Project SOP: Closure and Completion","MOFA DANIDA SPA administrative guidelines 2022-2026","DRC SPA and other non-EU grants audit requirements","Example of Country Office annual report"],
