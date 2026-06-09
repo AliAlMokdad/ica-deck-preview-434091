@@ -462,7 +462,7 @@ mark.hl{background:var(--red-soft);color:var(--ink);border-radius:3px;padding:0 
     <p>You control every reveal. Nothing jumps ahead of you.</p>
     <div class="help-row"><span class="keys"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b></span> jump to a tab</div>
     <div class="help-row"><span class="keys"><b>←</b><b>→</b></span> step through the active tab</div>
-    <div class="help-row"><span class="keys"><b>Esc</b></span> back to the cover</div>
+    <div class="help-row"><span class="keys"><b>Esc</b></span> leaves a search box, then back to the cover</div>
     <div class="help-row"><span class="keys"><b>?</b></span> show or hide this panel</div>
     <button class="help-close" id="helpclose">Got it</button>
   </div>
@@ -2631,7 +2631,7 @@ function wfRoles(w){ var out=[]; (w.steps||[]).forEach(function(s){ if(s&&s.role
 function buildFlowSVG(steps, opt){
   opt=opt||{}; var big=!!opt.big;
   steps=(steps||[]).filter(function(s){ return s && s.role && !isArtifactRole(s.role); });
-  if(!steps.length) return '<div class="flow-hint">No step-level flow recorded for this workflow.</div>';
+  if(!steps.length) return '<div class="flow-hint">This entry is documented as rules and references rather than a step-by-step hand-off, so there is no swimlane to draw.</div>';
   var seen=[]; steps.forEach(function(s){ if(seen.indexOf(s.role)<0) seen.push(s.role); });
   var SW=big?288:200, SG=big?48:24, LL=big?260:188, PAD=big?28:14;
   var afs=big?14:10.5, alh=big?20:14, actMax=big?29:22;
@@ -2917,6 +2917,7 @@ function hubIndex(){
 function hubSearch(qRaw){
   var ql=hubNorm(qRaw);
   var toks=ql.split(/[^a-z0-9&\/-]+/).filter(function(t){ return t.length>1 && !HUB_STOP[t]; });
+  var idm=ql.match(/(\d{1,2}\.\d{1,2})/);
   var phr={}; if(ql.length>=4) phr[ql.trim()]=1;
   HUB_SYN.forEach(function(g){ for(var i=0;i<g.length;i++){ if(ql.indexOf(g[i])>=0){ g.forEach(function(s){ phr[s]=1; }); break; } } });
   toks.forEach(function(t){ if(t.length>=4) phr[t]=1; });
@@ -2930,6 +2931,7 @@ function hubSearch(qRaw){
   idx.forEach(function(d){
     var score=0, ans=[], bestStep=null, bestHits=0, toolHits=[];
     if(toks.some(function(t){ return t===d.id.toLowerCase(); })) score+=50;
+    if(idm&&d.id.toLowerCase()===idm[1]) score+=60;
     var tl=hubNorm(d.title), pp=hubNorm(d.purpose);
     phrases.forEach(function(p){ if(tl.indexOf(p)>=0) score+=24; if(pp.indexOf(p)>=0) score+=9; });
     if(ql.trim().length>=4 && tl.indexOf(ql.trim())>=0) score+=30;
