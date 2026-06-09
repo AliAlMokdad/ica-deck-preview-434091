@@ -448,7 +448,7 @@ var PHASES = [
   {rn:"III", name:"Implementation", color:"var(--p3)"},
   {rn:"IV",  name:"Completion",  color:"var(--p4)"},
   {rn:"V",   name:"DRC Audit",   color:"var(--p5)"},
-  {rn:"VI",  name:"Emergency Intervention", color:"var(--p6)"}
+  {rn:"VI",  name:"Other Relevant SOPs", color:"var(--p6)"}
 ];
 var WORKFLOWS = {
   "I":[["1.1","Appraisal of Opportunity (Go / No-Go)"],["1.2","DRC Financing and Kompas Setup (pre-grant)"],["1.3","Needs Assessment"],["1.4","Proposal Development"],["1.5","Grant Agreement (pre-signatory)"]],
@@ -456,7 +456,7 @@ var WORKFLOWS = {
   "III":[["3.1","Project Agreement (with HNS / partners)"],["3.2","Project Kick-off Meeting"],["3.3","Contracting the Local Auditor"],["3.4","Establishing the Baseline"],["3.5","EU Donor Communication and Visibility"],["3.6","Create Procurement Plan"],["3.7","Project Monitoring"],["3.8","Project and Portfolio Follow-Up (PPFU)","deep"],["3.9","Internal Reporting: Project Progress Report"],["3.10","External Donor Reporting"],["3.11","Amendments"],["3.12","Reviews and Evaluations"]],
   "IV":[["4.1","Final Narrative Report"],["4.2","Financial Report (Final)","deep"],["4.3","Audit Report"],["4.4","Assets Handover"],["4.5","Closure of Accounts and Project in Kompas"],["4.6","Documentation and Record Keeping"]],
   "V":[["5.1","Introduction, Scope and Structure"],["5.2","Roles Matrix: HNS Local Audit"],["5.3","Roles Matrix: CO and Consolidated Audits"],["5.4","Audit Process Management"],["5.5","Audit of DANIDA-funded Projects"],["5.6","Audit of EU INTPA, ECHO and Other Donors"],["5.7","Audit Fees, Internal and Remote Audits"]],
-  "VI":[["E.1","Emergency Activation (initiation, request, kick-off)"],["E.2","Fast-Track Finance Setup and Funds Transfer"],["E.3","Surge Deployment and Proposal Development"],["E.4","Handover to Portfolio"],["E.5","Scale Up / Step Up (conditional)"]]
+  "VI":[["5.1","Anti-corruption and Fraud Deterrence"],["5.2","Risk Based Approach (RBA)"],["5.3","Disaster and Crisis (D&C)"],["5.4","Anchor Budget"],["5.5","Year-end Annual Closing"],["5.6","COMB (CO / RO track)"],["5.7","Global Projects (open)"]]
 };
 var DEEP = {
   "3.8":{title:"Project and Portfolio Follow-Up (PPFU)", phaseColor:"var(--p3)",
@@ -1917,7 +1917,8 @@ var WF_DETAIL = [
   "purpose": "Verbatim from the V02 draft: 'Audits are integral to DRC's governance and accountability, helping to strengthen internal controls, enhance transparency, and ensure the efficient use of resources.' Scope (verbatim): 'This SOP applies to all internal and external audit activities conducted across (DRC) supported projects within the scope of its international operations, including regional and Country Offices (CO), partner organizations, and any other implementing entities. It covers audits related to financial management, compliance, and internal control systems. The SOP ensures uniform audit practices and consistent compliance monitoring across all locations and project phases.' Caveat (verbatim): 'The scope of this document is based on standard situations with our main donors and does not consider other exceptions or special situations that might also occur. These will be treated on a case-by-case decision-making basis through the relevant management line.'",
   "raci": {
    "OVERALL ACCOUNTABILITY": "Country Manager (CM) \u2014 verbatim: 'Manager is overall accountable for the process, ensuring quality of the process and overall respect of the set deadlines.'",
-   "STATUS": "V02 PRE-FINAL draft on SharePoint. Pending Phase 2 finalisation and stakeholder validation"
+   "STATUS": "V02 PRE-FINAL draft on SharePoint. Pending Phase 2 finalisation and stakeholder validation",
+   "RECEIVES": "DRC HQ Focal Point (Head of Global Partnerships)"
   },
   "steps": [
    {
@@ -2277,226 +2278,239 @@ var WF_DETAIL = [
   "status": "not-yet-validated"
  },
  {
-  "id": "E.1",
+  "id": "5.1",
   "phase": "VI",
-  "title": "E.1 Emergency Activation (Steps 1-3: Initiation, Request, Kick-off)",
-  "sop_source": "04 Emergency Intervention SOP - 2025.pdf, Steps 1-3 (p.5-13)",
-  "purpose": "Country Manager observes hazard or onset of emergency, submits an Emergency Request, and convenes a Kick-off Meeting once the Operations Coordinator is appointed by the Disaster & Crisis Response Unit. Approval thresholds (verbatim from SOP p.10): below 1M DKK \u2192 Team Coordinator \u2013 Global Response; 1-3M DKK \u2192 Head of Disaster & Crisis Response; above 3M DKK \u2192 International Director.",
+  "title": "5.1 Anti-corruption and Fraud Deterrence (finance)",
+  "sop_source": "DRC Anti-Corruption Policy (Executive Board, November 2025); DRC Fraud Allegation Reporting Form; DRC whistleblower scheme",
+  "purpose": "How DRC's stance against corruption and fraud applies to international operations finance: a mandatory duty to report suspected fraud or corruption, the reporting tools, and the finance controls that deter it. Classification B, Priority P2.",
+  "raci": {
+   "REPORTS": "Any DRC staff or delegate in international operations",
+   "RECEIVES": "DRC HQ Focal Point (Head of Global Partnerships)",
+   "SCREENS": "External law firm, for anonymous reports",
+   "QUALITY ASSURES": "International Controller and Adviser",
+   "APPROVES": "Country Management line"
+  },
+  "steps": [
+   {
+    "role": "Any DRC staff or delegate",
+    "action": "On becoming aware of, or having reason to suspect, any corrupt, fraudulent, collusive or coercive practice or breach of agreement, report it to DRC HQ in writing within five days."
+   },
+   {
+    "role": "Any DRC staff or delegate",
+    "action": "Submit the DRC Fraud Allegation Reporting Form to the DRC HQ Focal Point, completing at least the allegation and investigation sections and attaching supporting documents."
+   },
+   {
+    "role": "DRC HQ Focal Point",
+    "action": "Acknowledgement follows within seven days, with status feedback within three months. An anonymous channel is available, with initial screening by the external law firm, and whistleblowers are protected from retaliation."
+   },
+   {
+    "role": "Country Management line",
+    "action": "Record the value at risk and the financial implication for DRC funded projects, and decide and document corrective, preventive and mitigating actions with timelines."
+   },
+   {
+    "role": "International Controller and Adviser",
+    "action": "Quality assure the related bookings, apply ineligible-cost analysis and reversal discipline, and confirm the new internal controls that close the weakness are in place and archived in Atlas."
+   }
+  ],
+  "tools": [
+   "DRC Fraud Allegation Reporting Form",
+   "DRC Anti-Corruption Policy 2025",
+   "DRC whistleblower scheme"
+  ],
+  "status": "In scope, Class B, P2"
+ },
+ {
+  "id": "5.2",
+  "phase": "VI",
+  "title": "5.2 Risk Based Approach (RBA) to financial control and compliance",
+  "sop_source": "DRC Risk Management Framework v2021.0; Finance master plan 2022; SOP Monthly and Quarterly CO tasks",
+  "purpose": "How DRC proportions the intensity of financial control, compliance, quality assurance and monitoring to assessed risk, rather than treating every country and project identically. Classification B, Priority P1.",
+  "raci": {
+   "OWNS THE FRAMEWORK": "Risk Adviser",
+   "ASSESSES": "Project Manager at project level, Country Manager at country level",
+   "APPROVES BY RISK FACTOR": "Senior Management for extreme, Head of Region for high, Country Manager for serious",
+   "DECIDES MONITORING AND QA": "International Finance Manager",
+   "AUTHORISES QUARTERLY DOWNGRADE": "Head of International Finance"
+  },
+  "steps": [
+   {
+    "role": "Project Manager and Country Manager",
+    "action": "Carry out the mandatory risk assessment at project and country level, assessing corruption first, then financial and compliance risks, scoring each as impact times likelihood."
+   },
+   {
+    "role": "Risk Adviser",
+    "action": "Apply the monetised impact scale (critical above 3,000,000 DKK, severe up to 1,000,000, moderate up to 500,000, minor up to 100,000) so the risk factor gives an objective control trigger."
+   },
+   {
+    "role": "International Finance Manager",
+    "action": "Use the risk factor to set re-assessment frequency (extreme weekly or bi-weekly, high monthly, medium to low quarterly) and to decide the need for a monitoring visit and the depth of donor budget and donor report quality assurance."
+   },
+   {
+    "role": "Head of International Finance",
+    "action": "Where the country risk assessment allows, authorise some monthly control tasks to run quarterly. Any budget line variance of ten per cent or more is explained and discussed with the Country Manager."
+   },
+   {
+    "role": "Senior Management, Head of Region or Country Manager",
+    "action": "Approve mitigation by risk factor, and feed residual risks into the portfolio dialogue and the global risk register."
+   }
+  ],
+  "tools": [
+   "DRC Risk Management Framework v2021",
+   "Risk Assessment Tool 2021",
+   "Finance master plan"
+  ],
+  "status": "In scope, Class B, P1"
+ },
+ {
+  "id": "5.3",
+  "phase": "VI",
+  "title": "5.3 Disaster and Crisis (D&C) Specific Financial Procedures",
+  "sop_source": "04 Emergency Intervention SOP 2025 (v0.3); DRC International intranet",
+  "purpose": "The parallel fast-track finance procedure for acute humanitarian responses, on a 0 to 12 month horizon, which mobilises funds within days and then transitions the project into the standard project cycle. Classification B, Priority P1.",
   "raci": {
    "INITIATES": "Country Manager",
-   "PREPARES": "Country Manager",
-   "QUALITY ASSURES": "Operations Coordinator",
-   "APPROVES": "Team Coordinator \u2013 Global Response (below 1M DKK) / Head of Disaster & Crisis Response (1-3M DKK) / International Director (above 3M DKK)"
+   "COORDINATES": "Operations Coordinator and the Disaster and Crisis Response Unit",
+   "SETS UP FINANCE": "International Controller and Adviser with the Country Finance Officer",
+   "APPROVES": "Team Coordinator Global Response, Head of Disaster and Crisis Response, or International Director, by threshold",
+   "HANDS OVER": "Portfolio Advisor"
   },
   "steps": [
    {
     "role": "Country Manager",
-    "action": "Step 1 \u2014 Emergency Response Initiation: monitors humanitarian needs, observes hazard or onset, signals to HQ."
+    "action": "Observe the hazard or onset, submit the Emergency Request with an initial budget envelope, and convene the kick-off once the Operations Coordinator is appointed."
    },
    {
-    "role": "Country Manager",
-    "action": "Step 2 \u2014 Emergency Request: submits the Emergency Request, including initial budget envelope and approval threshold."
+    "role": "Approving authority",
+    "action": "Approve by threshold: below 1,000,000 DKK the Team Coordinator Global Response, 1 to 3,000,000 the Head of Disaster and Crisis Response, above 3,000,000 the International Director."
    },
    {
-    "role": "Team Coordinator \u2013 Global Response",
-    "action": "Approves emergency responses below 1M DKK (delegated authority, SOP p.10)."
+    "role": "International Controller and Adviser",
+    "action": "Set up the grant and project in Kompas and process a fast-track transfer of up to 1,000,000 DKK to the country office, while the Country Finance Officer builds the work breakdown and uploads the initial budget."
    },
    {
-    "role": "Head of Disaster & Crisis Response",
-    "action": "Approves emergency responses between 1M and 3M DKK (SOP p.10)."
+    "role": "Project Manager",
+    "action": "Lead the rapid needs assessment, complete the Emergency Management Tool within 10 days of approval and the Emergency Project Document within 45 days of the response, with the ICA quality assuring the budget."
    },
    {
-    "role": "International Director",
-    "action": "Approves emergency responses above 3M DKK (SOP p.10)."
+    "role": "Portfolio Advisor",
+    "action": "Take over HQ responsibility by day 45 once the Emergency Project Document is final, after which the project runs under the standard Implementation SOP."
    },
    {
-    "role": "Disaster & Crisis Response Unit",
-    "action": "Appoints the Operations Coordinator (OpsCo) for the response before the kick-off meeting."
-   },
-   {
-    "role": "Operations Coordinator",
-    "action": "Step 3 \u2014 Kick-off Meeting: facilitates kick-off, documents decisions and action points, opens the Atlas case for the response."
+    "role": "Country Manager and Head of Disaster and Crisis Response",
+    "action": "Where the response escalates, an IFRC appeal opens, or total funding exceeds 5,000,000 DKK, jointly convene a scale up or step up meeting, which may establish an HQ task force."
    }
   ],
   "tools": [
    "Emergency Request form",
-   "Atlas case opening",
-   "Kick-off meeting agenda + minutes template"
+   "Emergency Management Tool (10-day deadline)",
+   "Emergency Project Document (45-day deadline)"
   ],
-  "status": "not-yet-validated"
+  "status": "In scope, Class B, P1"
  },
  {
-  "id": "E.2",
+  "id": "5.4",
   "phase": "VI",
-  "title": "E.2 Fast-Track Finance Setup & Funds Transfer (Step 4)",
-  "sop_source": "04 Emergency Intervention SOP - 2025.pdf, Step 4 (p.13-14)",
-  "purpose": "Open the emergency project in Kompas and execute the fast-track transfer so that costs can be booked from Day 1 and the field can disburse. The SOP describes this as 'immediate' / 'Initiate fast track finance procedures transferring up to 1 million DKK' (no specific hour-count is given in the source).",
+  "title": "5.4 Anchor Budget",
+  "sop_source": "Country Finance Officer Induction Program; Annual Finance Cycle; Anchor Budget template; 1st Budget Forecast",
+  "purpose": "DRC's annual organisation-wide planning baseline, set near year start, that anchors each country and global area's expected portfolio and against which the in-year budget forecasts are measured. Classification B, Priority P1.",
   "raci": {
-   "INITIATES": "Operations Coordinator",
-   "PREPARES": "Country Finance Officer (WBS, budget upload)",
-   "QUALITY ASSURES": "International Controller and Adviser (ICA)",
-   "APPROVES": "International Controller and Adviser (ICA)"
+   "PROPOSES": "Budget-holding finance lead at HQ and regional level",
+   "REVIEWS": "Regional Office finance management",
+   "VALIDATES AND APPROVES": "Head of Region line",
+   "CONTROLS": "HQ Finance controller function"
   },
   "steps": [
    {
-    "role": "Operations Coordinator",
-    "action": "Notifies ICA + Country Finance Officer that the approved Emergency Request is ready for fast-track setup."
+    "role": "Budget-holding finance lead",
+    "action": "Build the annual anchor budget in the third quarter using the Anchor Budget template, covering each country and global budget area and each grant type."
    },
    {
-    "role": "International Controller and Adviser (ICA)",
-    "action": "Verbatim from \u00a74.2: Initiates the project setup in Kompas. Creates the Grant, Grant Project Contract, Grant Project, Project Contract (incl. Funding Sources and Funding Limits), and Operational Project (Time and Material)."
+    "role": "Regional Office finance management",
+    "action": "Review and provide remarks, then route the anchor for validation through the Head of Region line."
    },
    {
-    "role": "Country Finance Officer",
-    "action": "Creates the WBS in country, uploads the initial budget against the new Operational Project."
+    "role": "HQ Finance controller function",
+    "action": "Consolidate and control the anchor budget as the un-weighted planning baseline for the year."
    },
    {
-    "role": "International Controller and Adviser (ICA)",
-    "action": "Processes the fast-track transfer (up to 1M DKK) to the country office."
+    "role": "Budget-holding finance lead",
+    "action": "In the first quarter, revise the anchor and prepare the first budget forecast, which reprojects each project weighted by probability of contract and adds the standard seven per cent admin fee line."
+   },
+   {
+    "role": "Regional Office finance management",
+    "action": "Compare the forecast against the anchor line by line, so projects signed after the anchor show as positive variances and dropped or rescoped projects as negative, driving the in-year conversation."
    }
   ],
   "tools": [
-   "Kompas Grant + Grant Project + Operational Project (fast-track)",
-   "WBS template",
-   "Fast-track transfer authorisation form"
+   "Anchor Budget template",
+   "1st Budget Forecast template",
+   "Annual Finance Cycle"
   ],
-  "status": "not-yet-validated"
+  "status": "In scope, Class B, P1"
  },
  {
-  "id": "E.3",
+  "id": "5.5",
   "phase": "VI",
-  "title": "E.3 Surge Deployment & Proposal Development (Steps 5-8)",
-  "sop_source": "04 Emergency Intervention SOP - 2025.pdf, Steps 5-8 (p.15-21)",
-  "purpose": "Surge staff and ERU deploy while the field-led team builds the Rapid Needs Assessment, the Emergency Management Tool, and the Emergency Project Document. Hard deadlines (verbatim): Emergency Management Tool 'must be completed latest by the 10 days from the approval date of an Emergency Request' (p.18); Emergency Project Document 'must be completed latest within 45 days from the initiation of the response \u2013 approval of an emergency request' (p.20). Surge missions are 'up to 6 months' (p.15).",
+  "title": "5.5 Year-end Annual Closing",
+  "sop_source": "Annual Finance Cycle; DRC Financial Checklist Control; SOP Monthly and Quarterly CO tasks",
+  "purpose": "The annual financial close of the international portfolio in Kompas, with its statutory and donor deadlines, sitting on top of the recurring monthly closure controls. Classification B, Priority P2.",
   "raci": {
-   "INITIATES": "Country Manager / Operations Coordinator",
-   "PREPARES": "Project Manager (Operations Manager / OpsMan) + Operations Coordinator + Senior Deployment Specialist",
-   "QUALITY ASSURES": "International Controller and Adviser (ICA) for finance; Operations Coordinator for HQ programmatic",
-   "APPROVES": "Head of Disaster & Crisis Response (staff request) / Country Manager (needs assessment, EMT, Project Document)"
+   "BOOKS AND RECONCILES": "Country Office Finance Officer",
+   "QUALITY ASSURES": "International Controller and Adviser",
+   "SIGNS OFF": "Country Manager",
+   "SETS FREQUENCY": "Head of International Finance",
+   "CONSOLIDATES": "HQ Finance controller function"
   },
   "steps": [
    {
-    "role": "Operations Coordinator",
-    "action": "Step 5 \u2014 Surge Deployment: works with Senior Deployment Specialist + Administrative Coordinator to identify and mobilise surge staff and ERU components (mission scope 'up to 6 months')."
+    "role": "Country Office Finance Officer",
+    "action": "Book all records in Kompas and accrue invoices by 31 January, and ensure host national society project reporting to DRC is in by the same date."
    },
    {
-    "role": "Senior Deployment Specialist",
-    "action": "Prepares the deployment package: candidate selection (with Roster Manager), contracts, briefing pack."
+    "role": "International Controller and Adviser",
+    "action": "Quality assure the bookings, carrying the monthly model into the close: country booking by working day two, controller quality assurance by working day four, and Kompas closure by working day six."
    },
    {
-    "role": "Head of Disaster & Crisis Response",
-    "action": "Approves the staff deployment request (per SOP p.15 RACI)."
-   },
-   {
-    "role": "Project Manager",
-    "action": "Step 6 \u2014 Rapid Needs Assessment: leads the field assessment in cooperation with the HNS."
-   },
-   {
-    "role": "Project Manager",
-    "action": "Step 7 \u2014 Emergency Management Tool: completes the EMT 'latest by 10 days from the approval date of an Emergency Request' (SOP p.18)."
-   },
-   {
-    "role": "Project Manager",
-    "action": "Step 8 \u2014 Emergency Project Document: completes the Emergency Project Document 'latest within 45 days from the initiation of the response' (SOP p.20)."
-   },
-   {
-    "role": "International Controller and Adviser (ICA)",
-    "action": "QA the budget within the Emergency Project Document. Signs off on financial elements."
+    "role": "Country Office Finance Officer",
+    "action": "Complete the year-end reconciliations (bank, cash, intercompany which must be nil, debtor, creditor and accruals) and run the annual cost distribution, keeping reversals disciplined under the REV prefix."
    },
    {
     "role": "Country Manager",
-    "action": "Approves the needs assessment, EMT, and Emergency Project Document for HQ submission."
+    "action": "Sign off the Print Journal test report and the control checklist before posting, and confirm all support is archived in Atlas and Kompas."
+   },
+   {
+    "role": "HQ Finance controller function",
+    "action": "Consolidate the portfolio: audit reports by 30 April and the MFA annual consolidated report with the audited statement by 30 June, after the organisation-wide interim audit in the fourth quarter."
    }
   ],
   "tools": [
-   "Rapid Needs Assessment template",
-   "Emergency Management Tool (EMT) \u2014 10-day deadline",
-   "Emergency Project Document \u2014 45-day deadline",
-   "Surge deployment contracts + briefing pack",
-   "ERU readiness register"
+   "Annual Finance Cycle",
+   "DRC Financial Checklist Control",
+   "Monthly closure deadlines"
   ],
-  "status": "not-yet-validated"
+  "status": "In scope, Class B, P2"
  },
  {
-  "id": "E.4",
+  "id": "5.6",
   "phase": "VI",
-  "title": "E.4 Handover to Portfolio (Step 9)",
-  "sop_source": "04 Emergency Intervention SOP - 2025.pdf, Step 9 (p.22)",
-  "purpose": "After the Emergency Project Document is finalised and approved, the HQ responsibility for the response operation transfers from Disaster & Crisis Response + Operations Coordinator to the Portfolio Advisor. Verbatim hard deadline (p.22): handover 'latest 45 days after the approval of the emergency request and when the Emergency Project Document has been finalized and approved.' Post-handover the project runs under the General Implementation SOP for the remainder of its 0-12 month life. The Operations Coordinator remains in the QA loop for monthly progress reports and serves as technical emergency advisor.",
-  "raci": {
-   "INITIATES": "Operations Coordinator",
-   "PREPARES": "Operations Coordinator / Portfolio Advisor",
-   "NOTE": "Section 9 RACI in source has ONLY Initiates and Prepares rows \u2014 no QA or Approves rows. The post-handover QA loop is described in \u00a79.2 narrative below",
-   "POST-HANDOVER QA LOOP": "Operations Coordinator \u2014 per \u00a79.2 narrative: 'shall be kept in the quality assurance loop for the monthly progress reports and function as technical emergency advisor.'"
-  },
-  "steps": [
-   {
-    "role": "Operations Coordinator",
-    "action": "Confirms Emergency Project Document is finalised and approved (gate for the handover)."
-   },
-   {
-    "role": "Operations Coordinator",
-    "action": "Convenes the handover meeting with the Portfolio Advisor. Walks through scope, budget, partners, risk register, deliverables."
-   },
-   {
-    "role": "Portfolio Advisor / Portfolio Team",
-    "action": "Receives the handover. From this point the project runs under the General Implementation SOP (Phase III)."
-   },
-   {
-    "role": "Operations Coordinator",
-    "action": "Remains in QA loop for monthly progress reports + serves as technical emergency advisor through to closure (per SOP p.22 \u00a79.2)."
-   },
-   {
-    "role": "Country Manager",
-    "action": "Submits monthly progress reports to OpsCo (per SOP p.7) for the remaining 0-12 month window."
-   }
-  ],
-  "tools": [
-   "Handover meeting template",
-   "Monthly Progress Report (Emergency SOP \u00a79.2 \u2014 NOT to be confused with the Closure SOP F.1 'Project Progress Report' final-report template)",
-   "General Implementation SOP (post-handover)"
-  ],
-  "status": "not-yet-validated"
+  "title": "5.6 COMB (Country Office Master Budget)",
+  "sop_source": "Steps, CO Monthly Financial Report and Master Budget; COMB templates 2026",
+  "purpose": "The Country Office Master Budget is the country office's consolidated annual budget, allocating shared costs (the A3 shared cost and the regional office contribution) to each project and showing any funding gap. In this suite it is addressed under the Country Office and Regional Office track, so it is referenced here rather than detailed.",
+  "raci": {},
+  "steps": [],
+  "tools": [],
+  "status": "Addressed under the CO and RO track"
  },
  {
-  "id": "E.5",
+  "id": "5.7",
   "phase": "VI",
-  "title": "E.5 Scale Up / Step Up (CONDITIONAL, Step 10)",
-  "sop_source": "04 Emergency Intervention SOP - 2025.pdf, Step 10 / Scale Up / Step Up chapter (p.23)",
-  "purpose": "Conditional sidecar workflow \u2014 NOT part of the standard linear flow. Triggered only by (verbatim from SOP p.23): 'Major change in the response situation affecting the response (e.g. escalation of the emergency, IFRC appeal) / Additional substantial funding (MFA, PNS, ECHO, etc) / Total funding increased to above 5 million DKK.' Adjusts organisational structure, secures additional surge or funding resources, may establish an HQ task force.",
-  "raci": {
-   "INITIATES": "Operations Coordinator",
-   "PREPARES": "Operations Coordinator",
-   "QUALITY ASSURES": "Team Coordinator \u2013 Global Response",
-   "APPROVES": "Head of Disaster & Crisis Response (jointly with Country Manager)"
-  },
-  "steps": [
-   {
-    "role": "Operations Coordinator",
-    "action": "Identifies the trigger: escalation, IFRC appeal, additional substantial funding, OR total funding crossing 5M DKK."
-   },
-   {
-    "role": "Operations Coordinator",
-    "action": "Convenes the scale up / step up meeting with HQ + country leadership."
-   },
-   {
-    "role": "Team Coordinator \u2013 Global Response",
-    "action": "Quality-assures the proposed organisational structure changes, surge needs, and funding scope."
-   },
-   {
-    "role": "Country Manager",
-    "action": "Joint approver of the scale up / step up decision alongside the Head of Disaster & Crisis Response."
-   },
-   {
-    "role": "Head of Disaster & Crisis Response",
-    "action": "Approves the scale up / step up. May establish an HQ task force depending on scale."
-   }
-  ],
-  "tools": [
-   "Scale up / step up decision template",
-   "HQ task force terms of reference (if invoked)"
-  ],
-  "status": "not-yet-validated"
+  "title": "5.7 Specifics on Global Projects",
+  "sop_source": "AM SOPs Mapping (open question); 2026 Budget Forecast, Global budget areas",
+  "purpose": "An open question in the architecture: whether global and multi-country projects, for example the strategic-partnership global thematic areas coordinated at HQ level, need finance procedures distinct from country-anchored projects. To be scoped with the International Department.",
+  "raci": {},
+  "steps": [],
+  "tools": [],
+  "status": "Open question, to be scoped"
  }
 ];
 var WFD={}; WF_DETAIL.forEach(function(w){ WFD[w.id]=w; });
@@ -2519,11 +2533,11 @@ function buildWorkflows(){
   }
   var cyc="";
   CYCLE.forEach(function(rn,i){ cyc+=card(phaseOf(rn)); if(i<CYCLE.length-1) cyc+='<div class="cyc-arrow">&rarr;</div>'; });
-  var added=card(phaseOf("V"),"added-card")+card(phaseOf("VI"),"oos","Out of scope");
+  var added=card(phaseOf("V"),"added-card")+card(phaseOf("VI"),"added-card");
   var html='<div class="wrap">'+
     '<div class="kicker rv">Tab 02</div>'+
     '<h2 class="head rv">Financial workflows within the project cycle</h2>'+
-    '<p class="lead rv">Thirty-nine finance workflows. Four phases form the project cycle, with audit added. Emergency response is shown for completeness but sits outside this engagement. Open a phase, then open any workflow to see its full flow.</p>'+
+    '<p class="lead rv">The finance workflows across the project cycle, with audit and the other relevant SOPs alongside it. Open a phase, then open any workflow to see its full flow.</p>'+
     '<div class="cyc-label rv">The project cycle</div>'+
     '<div class="cycle rv">'+cyc+'</div>'+
     '<div class="cyc-label rv">Added</div>'+
@@ -2531,7 +2545,7 @@ function buildWorkflows(){
     '<div class="wf-panel" id="wf-panel"></div>'+
     '</div>';
   $("#tab-workflows").innerHTML=html;
-  $all("#tab-workflows .pcard").forEach(function(c){ c.addEventListener("click",function(){ var rn=c.getAttribute("data-ph"); if(rn==="VI"){ setOpen("VI"); renderOOS(); } else if(openPhase===rn){ closePanel(); } else { renderPhase(rn); } }); });
+  $all("#tab-workflows .pcard").forEach(function(c){ c.addEventListener("click",function(){ var rn=c.getAttribute("data-ph"); if(openPhase===rn){ closePanel(); } else { renderPhase(rn); } }); });
 }
 function setOpen(rn){ openPhase=rn; $all("#tab-workflows .pcard").forEach(function(c){ c.classList.toggle("open", c.getAttribute("data-ph")===rn); }); $all("#tab-workflows .role-btn").forEach(function(b){ b.classList.remove("on"); }); }
 function closePanel(){ openPhase=null; var p=$("#wf-panel"); if(p) p.classList.remove("show"); $all("#tab-workflows .pcard").forEach(function(c){ c.classList.remove("open"); }); }
@@ -2692,7 +2706,7 @@ var AUDIT_SOP = {
     "After completion, the Internal Control and Compliance Section runs a post-audit review of recurrent findings and systemic weaknesses, captures good practice, and feeds the learning into SOP updates, monitoring visits and risk mitigation."
   ],
   tools:["Audit Terms of Reference template (SPA and non-EU)","Auditors' proposals evaluation grid","Audit process chronogram template","DRC International procurement procedures","Project SOP: Closure and Completion","MOFA DANIDA SPA administrative guidelines 2022-2026","DRC SPA and other non-EU grants audit requirements","Example of Country Office annual report"],
-  signoff:[["Last updated","Draft V02, August (pre-final)"],["Status","Draft, not yet validated"],["Owner","Internal Control and Compliance Section"],["Approved by","To be confirmed at Co-design"]]
+  signoff:[["Version","Draft V02 (pre-final)"],["Status","Not yet validated"],["Owner","Internal Control and Compliance"],["Approved by","Pending validation"]]
 };
 var tplMode = "structure";
 function buildTemplate(){
