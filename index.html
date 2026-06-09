@@ -2541,7 +2541,7 @@ function isArtifactRole(r){ return /section\s|to be extracted|pre-final|no raci 
 function cleanAct(a){ return String(a).replace(/^Verbatim from[^:]*:\s*/i,'').replace(/\s*\(§[^)]*\)/g,'').replace(/\s*\(p\.[^)]*\)/gi,'').replace(/^["'‘’“”]+/,'').replace(/["'‘’“”]+$/,'').replace(/\s+/g,' ').trim(); }
 function wrapText(t,max){ var words=String(t).split(/\s+/),lines=[],cur=""; for(var i=0;i<words.length;i++){ var tst=(cur+" "+words[i]).trim(); if(tst.length<=max){cur=tst;}else{ if(cur)lines.push(cur); cur=words[i]; } } if(cur)lines.push(cur); return lines; }
 var _mctx=null;
-function textPx(s,font){ try{ if(!_mctx) _mctx=document.createElement('canvas').getContext('2d'); _mctx.font=font; return _mctx.measureText(String(s)).width; }catch(e){ return String(s).length*7; } }
+function textPx(s,font){ try{ if(!_mctx) _mctx=document.createElement('canvas').getContext('2d'); _mctx.font=font; if(String(_mctx.font).indexOf('px')<0) return String(s).length*9; return _mctx.measureText(String(s)).width; }catch(e){ return String(s).length*9; } }
 function wrapPx(text,maxPx,font){ var words=String(text).split(/\s+/), lines=[], cur=""; for(var i=0;i<words.length;i++){ var word=words[i]; if(!word) continue; while(textPx(word,font)>maxPx && word.length>1){ var n=word.length; while(n>1 && textPx(word.slice(0,n),font)>maxPx) n--; n=Math.max(1,n); if(cur){ lines.push(cur); cur=""; } lines.push(word.slice(0,n)); word=word.slice(n); } var tst=cur?cur+" "+word:word; if(textPx(tst,font)<=maxPx){ cur=tst; } else { if(cur) lines.push(cur); cur=word; } } if(cur) lines.push(cur); return lines.length?lines:['']; }
 function cleanRole(t){ t=String(t); t=t.replace(/\s*\([^)]*(?:SOP\s*§|RACI table|Phase\s*\d|stakeholder validation|ambiguity|body text|named under|next pass|to be extracted)[^)]*\)/gi,''); t=t.replace(/\s*-\s*however[\s\S]*$/i,''); t=t.replace(/\s*\(\s*\)/g,'').replace(/\s+/g,' ').trim(); t=t.replace(/[\s,;:.]+$/,'').replace(/-+$/,'').trim(); return t; }
 function wfRoles(w){ var out=[]; (w.steps||[]).forEach(function(s){ if(s&&s.role&&!isArtifactRole(s.role)&&out.indexOf(s.role)<0) out.push(s.role); }); if(w.raci){ Object.keys(w.raci).forEach(function(k){ var r=w.raci[k]; if(r&&!isArtifactRole(r)&&out.indexOf(r)<0) out.push(r); }); } return out; }
@@ -2581,7 +2581,7 @@ function buildFlowSVG(steps, opt){
     p.push('<circle cx="'+(x+(big?26:18))+'" cy="'+cy+'" r="'+ncr+'" fill="#fff"/>');
     p.push('<text x="'+(x+(big?26:18))+'" y="'+(cy+nfs*0.34)+'" text-anchor="middle" font-family="Consolas,monospace" font-size="'+nfs+'" font-weight="700" fill="#E30A0B">'+(j+1)+'</text>');
     var lines=wrapped[j], ty0=cy-(lines.length-1)*alh/2+afs*0.34;
-    lines.forEach(function(ln,k){ p.push('<text x="'+(x+padL)+'" y="'+(ty0+k*alh)+'" font-family="Inter,Segoe UI,sans-serif" font-size="'+afs+'" fill="#fff">'+esc(ln)+'</text>'); });
+    lines.forEach(function(ln,k){ var lw=textPx(ln,actFont); var tl=(lw>1?'textLength="'+lw.toFixed(1)+'" lengthAdjust="spacingAndGlyphs" ':''); p.push('<text x="'+(x+padL)+'" y="'+(ty0+k*alh)+'" '+tl+'font-family="Inter,Segoe UI,sans-serif" font-weight="400" font-size="'+afs+'" fill="#fff">'+esc(ln)+'</text>'); });
   });
   for(var j=0;j<steps.length-1;j++){
     var x1=boxX(j)+SW, x2=boxX(j+1), y1=boxMidY(j), y2=boxMidY(j+1);
