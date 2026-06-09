@@ -2540,6 +2540,9 @@ function renderPhase(rn){
 function isArtifactRole(r){ return /section\s|to be extracted|pre-final|no raci table|next pass|verbatim content|^\s*$|^\s*DRC\s*$|^All projects$|^Per donor|^Not in SOP/i.test(String(r)); }
 function cleanAct(a){ return String(a).replace(/^Verbatim from[^:]*:\s*/i,'').replace(/\s*\(§[^)]*\)/g,'').replace(/\s*\(p\.[^)]*\)/gi,'').replace(/^["'‘’“”]+/,'').replace(/["'‘’“”]+$/,'').replace(/\s+/g,' ').trim(); }
 function wrapText(t,max){ var words=String(t).split(/\s+/),lines=[],cur=""; for(var i=0;i<words.length;i++){ var tst=(cur+" "+words[i]).trim(); if(tst.length<=max){cur=tst;}else{ if(cur)lines.push(cur); cur=words[i]; } } if(cur)lines.push(cur); return lines; }
+var _mctx=null;
+function textPx(s,font){ try{ if(!_mctx) _mctx=document.createElement('canvas').getContext('2d'); _mctx.font=font; return _mctx.measureText(String(s)).width; }catch(e){ return String(s).length*7; } }
+function wrapPx(text,maxPx,font){ var words=String(text).split(/\s+/), lines=[], cur=""; for(var i=0;i<words.length;i++){ var word=words[i]; if(!word) continue; while(textPx(word,font)>maxPx && word.length>1){ var n=word.length; while(n>1 && textPx(word.slice(0,n),font)>maxPx) n--; n=Math.max(1,n); if(cur){ lines.push(cur); cur=""; } lines.push(word.slice(0,n)); word=word.slice(n); } var tst=cur?cur+" "+word:word; if(textPx(tst,font)<=maxPx){ cur=tst; } else { if(cur) lines.push(cur); cur=word; } } if(cur) lines.push(cur); return lines.length?lines:['']; }
 function cleanRole(t){ t=String(t); t=t.replace(/\s*\([^)]*(?:SOP\s*§|RACI table|Phase\s*\d|stakeholder validation|ambiguity|body text|named under|next pass|to be extracted)[^)]*\)/gi,''); t=t.replace(/\s*-\s*however[\s\S]*$/i,''); t=t.replace(/\s*\(\s*\)/g,'').replace(/\s+/g,' ').trim(); t=t.replace(/[\s,;:.]+$/,'').replace(/-+$/,'').trim(); return t; }
 function wfRoles(w){ var out=[]; (w.steps||[]).forEach(function(s){ if(s&&s.role&&!isArtifactRole(s.role)&&out.indexOf(s.role)<0) out.push(s.role); }); if(w.raci){ Object.keys(w.raci).forEach(function(k){ var r=w.raci[k]; if(r&&!isArtifactRole(r)&&out.indexOf(r)<0) out.push(r); }); } return out; }
 function buildFlowSVG(steps, opt){
@@ -2552,8 +2555,10 @@ function buildFlowSVG(steps, opt){
   var boxPadY=big?15:9, boxGapY=big?22:12, minBox=big?44:26, MAXLN=big?28:4;
   var rfs=big?15:10.5, rlh=big?20:13, rolMax=big?28:18;
   var nfs=big?15:10.5, ncr=big?15:11, padL=big?52:34;
-  /* PASS 1: wrap each action, size each box to its lines */
-  var wrapped=steps.map(function(s){ var ln=wrapText(cleanAct(s.action),actMax); if(!ln.length) ln=['']; if(ln.length>MAXLN){ ln=ln.slice(0,MAXLN); ln[MAXLN-1]=String(ln[MAXLN-1]).replace(/.$/,'')+'…'; } return ln; });
+  var actFont=afs+"px 'Inter','Segoe UI',sans-serif", roleFont="700 "+rfs+"px 'Inter','Segoe UI',sans-serif";
+  var actMaxPx=SW-padL-(big?18:12), roleMaxPx=LL-(big?24:21);
+  /* PASS 1: wrap each action to fit the box in real pixels, size each box to its lines */
+  var wrapped=steps.map(function(s){ var ln=wrapPx(cleanAct(s.action),actMaxPx,actFont); if(ln.length>MAXLN){ ln=ln.slice(0,MAXLN); ln[MAXLN-1]=String(ln[MAXLN-1]).replace(/.$/,'')+'…'; } return ln; });
   var boxH=wrapped.map(function(ln){ return Math.max(minBox, ln.length*alh+2*boxPadY); });
   var laneH=seen.map(function(){ return minBox+2*boxPadY+2*boxGapY; });
   steps.forEach(function(s,j){ var li=seen.indexOf(s.role); if(boxH[j]+2*boxGapY>laneH[li]) laneH[li]=boxH[j]+2*boxGapY; });
@@ -2561,7 +2566,7 @@ function buildFlowSVG(steps, opt){
   var H=acc+PAD, W=LL+steps.length*(SW+SG)-SG+PAD;
   var p=['<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" class="wf-svg">'];
   p.push('<defs><marker id="wfarr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#9a979a"/></marker></defs>');
-  var rolesWrapped=seen.map(function(r){ return wrapText(String(r),rolMax).slice(0,3); });
+  var rolesWrapped=seen.map(function(r){ return wrapPx(String(r),roleMaxPx,roleFont).slice(0,3); });
   seen.forEach(function(role,i){ var y=laneY[i], lh=laneH[i];
     p.push('<rect x="0" y="'+y+'" width="'+W+'" height="'+lh+'" fill="'+(i%2?'#faf7f3':'#f1ece5')+'"/>');
     var rls=rolesWrapped[i], cy=y+lh/2, sy=cy-(rls.length-1)*rlh/2+rfs*0.34;
