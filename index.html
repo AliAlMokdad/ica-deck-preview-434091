@@ -314,16 +314,26 @@ ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;lef
 .ex-note{margin:22px auto 0;max-width:780px;text-align:center;font-size:13.5px;color:var(--g2);background:var(--g6);border:1px solid var(--rule);border-radius:10px;padding:13px 22px;line-height:1.5}
 
 /* ============ ONE-STOP-SHOP (TAB 05) ============ */
-.hub-searchwrap{position:relative;max-width:880px;margin:6px 0 14px}
+.hub-hero{max-width:760px;margin:8vh auto 30px;text-align:center;transition:margin .4s ease}
+.hub-hero.compact{margin:4px auto 22px}
+.hub-logo{font-size:clamp(38px,5vw,58px);font-weight:800;letter-spacing:-.03em;color:var(--ink);margin:12px 0 28px;line-height:1;transition:font-size .35s ease,margin .35s ease}
+.hub-logo b{color:var(--red);font-weight:800}
+.hub-hero.compact .hub-logo{font-size:24px;margin:2px 0 14px}
+.hub-tip{font-family:var(--mono);font-size:11px;color:var(--g4);margin-top:16px;letter-spacing:.03em}
+.hub-hero.compact .hub-tip{display:none}
+#hub-out{max-width:880px;margin:0 auto}
+.hub-searchwrap{position:relative;max-width:660px;margin:0 auto}
+.ov-skel .sl{height:13px;border-radius:7px;background:linear-gradient(90deg,var(--g6) 25%,#f8f5f0 37%,var(--g6) 63%);background-size:400% 100%;animation:ovShim 1.1s linear infinite;margin:11px 0}
+@keyframes ovShim{0%{background-position:100% 0}100%{background-position:-100% 0}}
+@media (prefers-reduced-motion:reduce){.ov-skel .sl{animation:none}}
+.ov-fade{animation:rise .35s ease both}
+.ov-tag[data-open]{cursor:pointer}
+.ov-tag[data-open]:hover{text-decoration:underline;text-underline-offset:2px}
 #hub-q{width:100%;font-family:inherit;font-size:18.5px;color:var(--ink);background:#fff;border:1px solid var(--g5);border-radius:32px;padding:17px 26px 17px 58px;box-shadow:0 2px 8px rgba(32,33,36,.12);outline:none;transition:border-color .2s,box-shadow .2s;caret-color:var(--red)}
 #hub-q::placeholder{color:var(--g4)}
 #hub-q:hover{box-shadow:0 3px 12px rgba(32,33,36,.18)}
 #hub-q:focus{border-color:var(--red);box-shadow:0 0 0 4px var(--red-soft),0 3px 12px rgba(32,33,36,.14)}
 .hub-mag{position:absolute;left:22px;top:50%;transform:translateY(-50%);color:var(--g4);pointer-events:none}
-.hub-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px;max-width:880px}
-.hub-chips button{font-family:var(--mono);font-size:12px;color:var(--g2);background:#fff;border:1px solid var(--rule);border-radius:20px;padding:6px 13px;transition:.15s}
-.hub-chips button:hover{border-color:var(--red);color:var(--red)}
-.hub-honest{font-family:var(--mono);font-size:11px;color:var(--g4);margin:6px 0 18px;letter-spacing:.03em}
 .hub-count{font-family:var(--mono);font-size:12px;color:var(--g3);margin:4px 0 10px}
 .hub-ov{background:linear-gradient(180deg,#fff,#fdfbf7);border:1px solid var(--rule);border-radius:16px;padding:17px 22px 14px;margin:0 0 16px;max-width:880px;box-shadow:var(--shadow);animation:rise .3s ease both;position:relative;overflow:hidden}
 .hub-ov::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),#E67E22,#5B7C99,var(--red));opacity:.8}
@@ -2970,34 +2980,64 @@ function hubFirstSentence(t,max){
   if(s.length>max){ s=s.slice(0,max); var sp=s.lastIndexOf(" "); if(sp>40) s=s.slice(0,sp); s+="…"; }
   return s;
 }
+function hubSentences(t){ t=String(t||"").replace(/\s+/g," ").trim(); if(!t) return []; var parts=t.split(". "), out=[]; for(var i=0;i<parts.length;i++){ var s=parts[i].trim(); if(!s) continue; if(i<parts.length-1&&!/[.!?]$/.test(s)) s+="."; out.push(s); } return out; }
+function hubBestSentence(t, needles, max){
+  var ss=hubSentences(t); if(!ss.length) return "";
+  var best=ss[0], bs=-1;
+  for(var i=0;i<ss.length;i++){ var sl=ss[i].toLowerCase(), sc=0; for(var j=0;j<(needles||[]).length;j++){ var n=needles[j]; if(n&&n.length>2&&sl.indexOf(n)>=0) sc++; } if(sc>bs){ bs=sc; best=ss[i]; } }
+  if(best.length>max){ best=best.slice(0,max); var sp=best.lastIndexOf(" "); if(sp>40) best=best.slice(0,sp); best+="…"; }
+  return best;
+}
 function hubOverview(r){
   var hits=r.hits; if(!hits.length) return "";
-  var top=hits[0], d=top.d;
-  var p1=hubFirstSentence(d.purpose,250);
-  var ks=top.step?hubFirstSentence(top.step.act,230):"";
-  if(/deadline|due date|due\b|by when|\bwhen\b|\bdate\b|timing/.test(r.ql||"")){
-    for(var di=0;di<d.steps.length;di++){ var da=d.steps[di].act; if(/\b\d{1,2} (January|February|March|April|May|June|July|August|September|October|November|December)\b|\bworking day\b|\bWD\d\b|\bwithin \d|\bQ[1-4]\b|\bat least (one|a) week\b|\b\d{1,3} days?\b/i.test(da)){ ks=hubFirstSentence(da,230); break; } }
-  }
-  var second=(hits[1]&&hits[1].score>=top.score*0.55)?hits[1]:null;
-  var p2=second?hubFirstSentence(second.d.purpose,170):"";
+  var top=hits[0], d=top.d, ql=r.ql||"";
+  var DATE_RX=/\b\d{1,2} (January|February|March|April|May|June|July|August|September|October|November|December)\b|\bworking day\b|\bWD\d\b|\bwithin \d|\bQ[1-4]\b|\bat least (one|a) week\b|\b\d{1,3} days?\b/i;
+  var deadlineMode=/deadline|due|by when|\bwhen\b|\bdate\b|timing|how long/.test(ql);
+  var feeMode=/\bfee\b|\bfees\b|budget|cost|charge/.test(ql);
+  var systemMode=/kompas|atlas/.test(ql);
   var rows=[], seen={};
   if(r.whoMode){ hits.slice(0,6).forEach(function(h){ h.ans.forEach(function(a){ if(isArtifactRole(a.role)) return; var k=a.verb+"|"+a.role; if(seen[k]) return; seen[k]=1; rows.push({a:a, d:h.d}); }); }); }
+  var ev=[], evSeen={};
+  function harvest(rx, capTotal){
+    for(var hi=0; hi<Math.min(3,hits.length)&&ev.length<capTotal; hi++){
+      var dd=hits[hi].d;
+      for(var si=0; si<dd.steps.length&&ev.length<capTotal; si++){
+        var ss=hubSentences(dd.steps[si].act);
+        for(var k2=0;k2<ss.length;k2++){ var s2=ss[k2]; if(rx.test(s2)){ var kk=s2.toLowerCase().slice(0,60); if(evSeen[kk]) break; evSeen[kk]=1; ev.push({t:(s2.length>235?s2.slice(0,232)+"…":s2), d:dd}); break; } }
+      }
+    }
+  }
+  if(deadlineMode) harvest(DATE_RX,2);
+  else if(feeMode) harvest(/\bfee|\bbudget|\bcost|charged|budgeted/i,2);
+  else if(systemMode) harvest(/kompas|atlas/i,2);
+  var p1=hubBestSentence(d.purpose, r.needles, 250);
+  var ks=(!ev.length&&top.step)?hubBestSentence(top.step.act, r.needles, 230):"";
+  var second=(hits[1]&&hits[1].score>=top.score*0.55)?hits[1]:null;
+  var p2=(second&&!ev.length&&!rows.length)?hubBestSentence(second.d.purpose, r.needles, 170):"";
   var body="";
   if(p1) body+='<p class="ov-p">'+hubHL(p1, r.needles)+'</p>';
   if(rows.length){ body+=rows.slice(0,4).map(function(x){ return '<div class="ov-row"><span class="ov-verb">'+esc(x.a.verb)+'</span><span class="ov-role">'+hubHL(x.a.role, r.needles)+'</span><span class="ov-wf" data-open="'+esc(x.d.key)+'">'+esc(x.d.id)+'</span></div>'; }).join(""); }
+  ev.forEach(function(e2){ body+='<p class="ov-p"><span class="ov-tag" data-open="'+esc(e2.d.key)+'">'+esc(e2.d.id)+'</span>'+hubHL(e2.t, r.needles)+'</p>'; });
   if(ks&&!rows.length) body+='<p class="ov-p"><span class="ov-tag">Key step</span>'+hubHL(ks, r.needles)+'</p>';
-  if(!rows.length&&p2&&p2!==p1&&second) body+='<p class="ov-p ov-dim">'+hubHL(p2, r.needles)+'</p>';
+  if(p2&&p2!==p1) body+='<p class="ov-p ov-dim">'+hubHL(p2, r.needles)+'</p>';
   if(!body) return "";
   var src=hits.slice(0,3).map(function(h){ var t=h.d.title.length>36?h.d.title.slice(0,35)+"…":h.d.title; return '<span class="ov-src" data-open="'+esc(h.d.key)+'">'+esc(h.d.id)+' &middot; '+esc(t)+'</span>'; }).join("");
   return '<div class="hub-ov"><div class="ov-k"><span class="ov-spark">&#10022;</span>Overview<span class="ov-note">assembled live from the SOP text below, every line traceable to its source</span></div>'+body+'<div class="ov-srcs"><span class="ov-srclab">Sources</span>'+src+'</div></div>';
 }
+var HUB_TOK=0;
 function hubRender(q){
-  var out=$("#hub-out"); if(!out) return;
+  var out=$("#hub-out"), hero=$("#hub-hero"); if(!out) return;
   q=String(q||"").trim();
+  if(hero) hero.classList.toggle("compact", q.length>=2);
   if(q.length<2){ out.innerHTML=""; return; }
+  var tok=++HUB_TOK;
   var r=hubSearch(q), hits=r.hits, html="";
-  if(!hits.length){ out.innerHTML='<div class="hub-none">No match for that in the current SOPs. Try a system ("Kompas", "Atlas"), a role ("ICA", "Country Manager"), a donor ("SPA", "ECHO"), or one of the suggestions above.</div>'; return; }
-  html+=hubOverview(r);
+  if(!hits.length){ out.innerHTML='<div class="hub-none">No match for that in the current SOPs. Try a system ("Kompas", "Atlas"), a role ("ICA", "Country Manager"), or a donor ("SPA", "ECHO").</div>'; return; }
+  var reduce=false; try{ reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){}
+  var ovHtml=hubOverview(r);
+  if(ovHtml&&!reduce){
+    html+='<div class="hub-ov ov-skel" id="hub-ovskel"><div class="ov-k"><span class="ov-spark">&#10022;</span>Overview<span class="ov-note">reading the SOPs…</span></div><div class="sl" style="width:88%"></div><div class="sl" style="width:97%"></div><div class="sl" style="width:62%"></div></div>';
+  } else { html+=ovHtml; }
   html+='<div class="hub-count">'+hits.length+(hits.length===1?" workflow matches":" workflows match")+'</div>';
   hits.slice(0,8).forEach(function(h){
     var d=h.d, p=phaseOf(d.w.phase)||{};
@@ -3012,24 +3052,30 @@ function hubRender(q){
   });
   if(hits.length>8) html+='<div class="hub-more">+ '+(hits.length-8)+' more, refine the search to narrow it</div>';
   out.innerHTML=html;
+  if(ovHtml&&!reduce){
+    setTimeout(function(){
+      if(tok!==HUB_TOK) return;
+      var sk=$("#hub-ovskel"); if(!sk) return;
+      var dv=document.createElement("div"); dv.innerHTML=ovHtml;
+      var nd=dv.firstChild; if(nd&&nd.classList) nd.classList.add("ov-fade");
+      sk.parentNode.replaceChild(nd, sk);
+    }, 430);
+  }
 }
 function buildHub(){
-  var idx=hubIndex(), nSteps=0, roles={}, tools={};
-  idx.forEach(function(d){ nSteps+=d.steps.length; d.raci.forEach(function(r){ if(r.role&&!isArtifactRole(r.role)) roles[r.role]=1; }); d.steps.forEach(function(s){ if(s.role&&!isArtifactRole(s.role)) roles[s.role]=1; }); d.tools.forEach(function(t){ tools[t]=1; }); });
-  var chips=["audit fees","who approves the Go / No-Go","year-end deadlines","Kompas setup","plan of action","emergency fast-track","who quality assures donor reporting","amendments"];
+  hubIndex();
   var html='<div class="wrap">'+
-    '<div class="kicker rv">Tab 05</div>'+
-    '<h2 class="head rv">The one-stop-shop, live</h2>'+
-    '<p class="lead rv">Type a topic, a tool, a role, or a question. It searches every workflow, every step, every role and every tool in the current SOPs, and takes you straight to the flow.</p>'+
-    '<div class="hub-searchwrap rv"><svg class="hub-mag" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21" stroke-linecap="round"></line></svg><input id="hub-q" type="text" autocomplete="off" spellcheck="false" placeholder="Search the SOPs, or ask: who approves the Go / No-Go?"></div>'+
-    '<div class="hub-chips rv">'+chips.map(function(c){ return '<button data-q="'+esc(c)+'">'+esc(c)+'</button>'; }).join("")+'</div>'+
-    '<div class="hub-honest rv">'+WF_DETAIL.length+' workflows &middot; '+nSteps+' steps &middot; '+Object.keys(tools).length+' tools indexed &middot; offline &middot; nothing generated, every result traceable to its SOP</div>'+
+    '<div class="hub-hero" id="hub-hero">'+
+      '<div class="kicker rv">Tab 05</div>'+
+      '<h2 class="hub-logo rv">One<b>-</b>stop<b>-</b>shop</h2>'+
+      '<div class="hub-searchwrap rv"><svg class="hub-mag" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21" stroke-linecap="round"></line></svg><input id="hub-q" type="text" autocomplete="off" spellcheck="false" placeholder="Search the SOPs, or ask: who approves the Go / No-Go?"></div>'+
+      '<div class="hub-tip rv">Searches every workflow, step, role and tool in the current SOPs. Offline, every answer traceable.</div>'+
+    '</div>'+
     '<div id="hub-out"></div>'+
     '</div>';
   $("#tab-hub").innerHTML=html;
   var inp=$("#hub-q"), tmr=null;
   inp.addEventListener("input", function(){ clearTimeout(tmr); tmr=setTimeout(function(){ hubRender(inp.value); }, 120); });
-  $all("#tab-hub .hub-chips button").forEach(function(b){ b.addEventListener("click", function(){ inp.value=b.getAttribute("data-q"); hubRender(inp.value); inp.focus(); }); });
   $("#tab-hub").addEventListener("click", function(e){ var el=e.target; while(el&&el.getAttribute){ var k=el.getAttribute("data-open"); if(k){ hubOpen(k); return; } el=el.parentNode; } });
 }
 
