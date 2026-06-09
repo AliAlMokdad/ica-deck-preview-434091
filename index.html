@@ -312,6 +312,45 @@ ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;lef
 .card .del:hover{color:var(--red)}
 .ex-foot{margin-top:20px;text-align:center;font-size:15px;color:var(--g2);font-style:italic}
 .ex-note{margin:22px auto 0;max-width:780px;text-align:center;font-size:13.5px;color:var(--g2);background:var(--g6);border:1px solid var(--rule);border-radius:10px;padding:13px 22px;line-height:1.5}
+
+/* ============ ONE-STOP-SHOP (TAB 05) ============ */
+.hub-searchwrap{position:relative;max-width:880px;margin:6px 0 14px}
+#hub-q{width:100%;font-family:inherit;font-size:19px;color:var(--ink);background:#fff;border:2px solid var(--rule);border-radius:14px;padding:17px 22px 17px 56px;box-shadow:var(--shadow);outline:none;transition:border-color .2s,box-shadow .2s;caret-color:var(--red)}
+#hub-q::placeholder{color:var(--g4)}
+#hub-q:focus{border-color:var(--red);box-shadow:0 0 0 4px var(--red-soft),var(--shadow)}
+.hub-mag{position:absolute;left:21px;top:50%;transform:translateY(-50%) rotate(-45deg);color:var(--g4);font-size:19px;pointer-events:none}
+.hub-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px;max-width:880px}
+.hub-chips button{font-family:var(--mono);font-size:12px;color:var(--g2);background:#fff;border:1px solid var(--rule);border-radius:20px;padding:6px 13px;transition:.15s}
+.hub-chips button:hover{border-color:var(--red);color:var(--red)}
+.hub-honest{font-family:var(--mono);font-size:11px;color:var(--g4);margin:6px 0 18px;letter-spacing:.03em}
+.hub-count{font-family:var(--mono);font-size:12px;color:var(--g3);margin:4px 0 10px}
+.hub-ans{background:var(--ink);color:#fff;border-radius:13px;padding:16px 20px;margin:0 0 14px;max-width:880px;box-shadow:var(--shadow);animation:rise .3s ease both}
+.hub-ans .ha-k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#ff8a8a;margin-bottom:8px}
+.ha-row{display:flex;gap:11px;align-items:baseline;padding:7px 0;border-top:1px solid rgba(255,255,255,.09);flex-wrap:wrap}
+.ha-row:first-of-type{border-top:0}
+.ha-verb{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.05em;color:#fff;background:var(--red);border-radius:5px;padding:3px 9px;text-transform:uppercase;flex:0 0 auto}
+.ha-role{font-weight:700;font-size:14.5px}
+.ha-wf{font-family:var(--mono);font-size:11px;color:#b9b6bd;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.ha-wf:hover{color:#fff}
+.hub-res{background:#fff;border:1px solid var(--rule);border-left:4px solid var(--pc,var(--red));border-radius:11px;padding:14px 18px;margin-bottom:10px;max-width:880px;box-shadow:var(--shadow);cursor:pointer;transition:.16s;animation:rise .3s ease both}
+.hub-res:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.hr-top{display:flex;align-items:center;gap:10px}
+.hr-id{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--pc,var(--red))}
+.hr-ph{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--g4)}
+.hr-open{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--g2);border:1px solid var(--rule);border-radius:7px;padding:4px 11px;flex:0 0 auto}
+.hub-res:hover .hr-open{border-color:var(--pc,var(--red));color:var(--pc,var(--red))}
+.hr-title{font-size:16.5px;font-weight:700;color:var(--ink);margin:5px 0 3px}
+.hr-snip{font-size:13px;color:var(--g2);margin:5px 0;line-height:1.5}
+.hr-k{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.08em;color:var(--g4);text-transform:uppercase;margin-right:7px}
+mark.hl{background:var(--red-soft);color:var(--ink);border-radius:3px;padding:0 2px}
+.hub-ans mark.hl{background:rgba(227,10,11,.4);color:#fff}
+.hr-tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+.hr-tools span{font-family:var(--mono);font-size:10px;color:var(--g2);background:var(--g6);border:1px solid var(--rule);border-radius:6px;padding:2px 8px}
+.hub-none{background:#fff;border:1px dashed var(--g5);border-radius:11px;padding:18px 20px;color:var(--g2);font-size:14px;max-width:880px}
+.hub-more{font-family:var(--mono);font-size:11px;color:var(--g4);margin:4px 0 0}
+.hub-origin{margin-top:26px;background:#fff;border:1px dashed var(--g5);border-radius:11px;padding:14px 20px;max-width:880px}
+.hub-origin .ho-k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.hub-origin p{margin:0;font-size:13.5px;color:var(--g2);line-height:1.55}
 .ex-foot b{color:var(--red);font-style:normal;font-weight:700}
 .ex-reset{margin-left:14px;font-family:var(--mono);font-size:11px;color:var(--g4);border:1px solid var(--rule);border-radius:6px;padding:3px 9px;font-style:normal}
 .ex-reset:hover{border-color:var(--red);color:var(--red)}
@@ -345,6 +384,7 @@ ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;lef
   .col{min-height:220px}
   .tpl-anatomy{grid-template-columns:1fr}
   .bar-right .kbd-hint{display:none}
+  .tabbtn span.lbl{display:none}
 }
 @media (max-width:720px){
   .tab{padding:26px 20px 50px}
@@ -395,6 +435,7 @@ ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;lef
     <section class="tab" id="tab-workflows"></section>
     <section class="tab" id="tab-template"></section>
     <section class="tab" id="tab-exercise"></section>
+    <section class="tab" id="tab-hub"></section>
   </main>
 </div>
 
@@ -403,7 +444,7 @@ ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;lef
   <div class="help-card">
     <h3>Driving the room</h3>
     <p>You control every reveal. Nothing jumps ahead of you.</p>
-    <div class="help-row"><span class="keys"><b>1</b><b>2</b><b>3</b><b>4</b></span> jump to a tab</div>
+    <div class="help-row"><span class="keys"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b></span> jump to a tab</div>
     <div class="help-row"><span class="keys"><b>←</b><b>→</b></span> step through the active tab</div>
     <div class="help-row"><span class="keys"><b>Esc</b></span> back to the cover</div>
     <div class="help-row"><span class="keys"><b>?</b></span> show or hide this panel</div>
@@ -421,7 +462,8 @@ var TABS = [
   {id:"process",   n:"01", label:"Process"},
   {id:"workflows", n:"02", label:"Workflows"},
   {id:"template",  n:"03", label:"Template"},
-  {id:"exercise",  n:"04", label:"Exercise"}
+  {id:"exercise",  n:"04", label:"Exercise"},
+  {id:"hub",       n:"05", label:"One-stop-shop"}
 ];
 
 var MILESTONES = [
@@ -2513,7 +2555,7 @@ var WF_DETAIL = [
   "status": "Open question, to be scoped"
  }
 ];
-var WFD={}; WF_DETAIL.forEach(function(w){ WFD[w.id]=w; });
+var WFD={}; WF_DETAIL.forEach(function(w){ WFD[w.phase+":"+w.id]=w; });
 var CYCLE=["I","II","III","IV"];
 var STEPORDER=["I","II","III","IV","V"];
 function phaseOf(rn){ return PHASES.filter(function(x){return x.rn===rn;})[0]; }
@@ -2621,7 +2663,8 @@ function buildFlowSVG(steps, opt){
   p.push('</svg>'); return p.join("");
 }
 function renderWF(id, rn, roleKey){
-  var w=WFD[id], panel=$("#wf-panel"), p=phaseOf((w&&w.phase)||rn)||phaseOf("III");
+  var w=WFD[(rn||"")+":"+id]; if(!w){ for(var wi=0;wi<WF_DETAIL.length;wi++){ if(WF_DETAIL[wi].id===id){ w=WF_DETAIL[wi]; break; } } }
+  var panel=$("#wf-panel"), p=phaseOf((w&&w.phase)||rn)||phaseOf("III");
   if(!w){ if(roleKey){ renderRole(roleKey); } else { renderPhase(rn); } return; }
   var svg=buildFlowSVG(w.steps);
   var raciRows=""; if(w.raci){ Object.keys(w.raci).forEach(function(k){ var raw=w.raci[k], role=cleanRole(raw); if(role&&!isArtifactRole(raw)){ raciRows+='<div class="rcr"><span class="rcr-k '+vClass(k)+'">'+esc(k)+'</span><span class="rcr-v">'+esc(role)+'</span></div>'; } }); }
@@ -2808,6 +2851,163 @@ function timerCtl(a){
 }
 function setTimerLabel(l){ var b=$('#timer button[data-t="start"]'); if(b) b.textContent=l; }
 
+/* ===================== BUILD: ONE-STOP-SHOP (TAB 05) ===================== */
+var HUB_STOP={"the":1,"a":1,"an":1,"of":1,"to":1,"in":1,"on":1,"for":1,"and":1,"or":1,"is":1,"are":1,"who":1,"whom":1,"whose":1,"what":1,"when":1,"where":1,"which":1,"do":1,"does":1,"how":1,"with":1,"by":1,"at":1,"it":1,"its":1,"this":1,"that":1,"we":1,"you":1,"my":1,"our":1,"their":1,"be":1,"can":1,"must":1,"shall":1,"should":1};
+var HUB_SYN=[
+ ["go/no-go","go / no-go","go no-go","gonogo","no-go","appraisal of opportunity","appraisal"],
+ ["terms of reference","tor","tors"],
+ ["plan of action","poa","action plan"],
+ ["expenditure verification","evr"],
+ ["certified financial statements","cfs"],
+ ["host national society","hns","national society"],
+ ["international controller","adviser","ica"],
+ ["country manager","cm"],
+ ["finance focal point","country finance officer","coffp","cfo"],
+ ["head of international finance","hoif"],
+ ["portfolio follow-up","portfolio follow up","ppfu"],
+ ["risk and issue monitoring","rim"],
+ ["strategic partnership","spa"],
+ ["danida","mfa","mofa","ministry of foreign affairs"],
+ ["risk based approach","risk-based","rba"],
+ ["emergency","disaster","crisis","d&c","fast-track","fast track"],
+ ["anchor budget","anchor"],
+ ["master budget","comb"],
+ ["year-end","year end","annual closing","annual closure","closing","closure"],
+ ["kick-off","kickoff","kick off"],
+ ["amendment","amendments","modification"],
+ ["handover","hand-over","hand over"],
+ ["anti-corruption","anticorruption","corruption","fraud","whistleblower"],
+ ["audit fees","fees"],
+ ["budget forecast","forecast"],
+ ["exchange rate","currency"],
+ ["quality assures","quality assurance","qa"]
+];
+var HUB_IDX=null;
+function hubNorm(s){ return String(s||"").toLowerCase(); }
+function hubLev1(a,b){ if(a===b) return true; var la=a.length, lb=b.length; if(Math.abs(la-lb)>1) return false; var i=0,j=0,e=0; while(i<la&&j<lb){ if(a.charAt(i)===b.charAt(j)){i++;j++;continue;} if(++e>1) return false; if(la>lb){i++;} else if(lb>la){j++;} else {i++;j++;} } return e+(la-i)+(lb-j)<=1; }
+function hubIndex(){
+  if(HUB_IDX) return HUB_IDX;
+  HUB_IDX=WF_DETAIL.map(function(w){
+    var steps=(w.steps||[]).map(function(s,i){ return {n:i+1, role:String((s&&s.role)||""), act:cleanAct((s&&s.action)||"")}; }).filter(function(s){ return s.act; });
+    var raci=[]; if(w.raci){ Object.keys(w.raci).forEach(function(k){ raci.push({verb:String(k), role:String(w.raci[k]||"")}); }); }
+    var tools=(w.tools||[]).map(String);
+    var blob=hubNorm([w.id,w.title,w.purpose||"",steps.map(function(s){return s.role+" "+s.act;}).join(" "),raci.map(function(r){return r.verb+" "+r.role;}).join(" "),tools.join(" "),w.sop_source||"",w.status||""].join(" "));
+    var words=blob.split(/[^a-z0-9]+/).filter(function(x){return x.length>1;});
+    var wordset={}; words.forEach(function(x){ wordset[x]=1; });
+    return {w:w, key:w.phase+":"+w.id, id:String(w.id), title:cleanTitle(w.title), purpose:String(w.purpose||""), steps:steps, raci:raci, tools:tools, blob:blob, words:words, wordset:wordset};
+  });
+  return HUB_IDX;
+}
+function hubSearch(qRaw){
+  var ql=hubNorm(qRaw);
+  var toks=ql.split(/[^a-z0-9&\/-]+/).filter(function(t){ return t.length>1 && !HUB_STOP[t]; });
+  var phr={}; if(ql.length>=4) phr[ql.trim()]=1;
+  HUB_SYN.forEach(function(g){ for(var i=0;i<g.length;i++){ if(ql.indexOf(g[i])>=0){ g.forEach(function(s){ phr[s]=1; }); break; } } });
+  toks.forEach(function(t){ if(t.length>=4) phr[t]=1; });
+  var phrases=Object.keys(phr);
+  var shortToks=toks.filter(function(t){ return t.length<4; });
+  var rxShort=shortToks.length?new RegExp("\\b("+shortToks.map(function(t){return t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");}).join("|")+")\\b","i"):null;
+  var needles=phrases.concat(shortToks);
+  var whoMode=/(^|\s)(who|whom|whose)\b/.test(ql)||/(approv|accountab|responsib|supervis|quality assur|prepar|initiat)/.test(ql);
+  function fieldHit(text){ var t=hubNorm(text); for(var i=0;i<phrases.length;i++){ if(t.indexOf(phrases[i])>=0) return true; } return rxShort?rxShort.test(t):false; }
+  var idx=hubIndex(), out=[];
+  idx.forEach(function(d){
+    var score=0, ans=[], bestStep=null, bestHits=0, toolHits=[];
+    if(toks.some(function(t){ return t===d.id.toLowerCase(); })) score+=50;
+    var tl=hubNorm(d.title), pp=hubNorm(d.purpose);
+    phrases.forEach(function(p){ if(tl.indexOf(p)>=0) score+=24; if(pp.indexOf(p)>=0) score+=9; });
+    if(ql.trim().length>=4 && tl.indexOf(ql.trim())>=0) score+=30;
+    if(rxShort&&rxShort.test(tl)) score+=10;
+    if(rxShort&&rxShort.test(pp)) score+=4;
+    d.raci.forEach(function(r){ if(fieldHit(r.verb+" "+r.role)){ score+=whoMode?20:12; ans.push(r); } });
+    var stepSc=0;
+    d.steps.forEach(function(s){ var st=s.role+" "+s.act; if(fieldHit(st)){ var stl=hubNorm(st), hits=0; phrases.forEach(function(p){ if(stl.indexOf(p)>=0) hits++; }); if(rxShort&&rxShort.test(stl)) hits++; stepSc+=5+hits*2; if(hits>=bestHits){ bestHits=hits; bestStep=s; } } });
+    score+=Math.min(stepSc,30);
+    d.tools.forEach(function(t){ if(fieldHit(t)){ score+=11; toolHits.push(t); } });
+    var covered=0;
+    toks.forEach(function(t){
+      var ok = t.length>=4 ? d.blob.indexOf(t)>=0 : (d.wordset[t]===1);
+      if(!ok&&t.length>=5){ for(var i=0;i<d.words.length;i++){ var wd=d.words[i]; if(wd.length>=4&&Math.abs(wd.length-t.length)<=1&&hubLev1(t,wd)){ ok=true; score+=3; break; } } }
+      if(ok) covered++;
+    });
+    if(toks.length&&covered===toks.length) score+=16;
+    if(score<=0) return;
+    out.push({d:d, score:score, ans:ans, step:bestStep, tools:toolHits});
+  });
+  out.sort(function(a,b){ return b.score-a.score; });
+  return {hits:out, whoMode:whoMode, needles:needles, fieldHit:fieldHit};
+}
+function hubHL(text, needles){
+  var t=esc(String(text));
+  var ps=(needles||[]).filter(function(p){ return p&&p.length>2; }).sort(function(a,b){ return b.length-a.length; });
+  if(!ps.length) return t;
+  var rx=new RegExp("("+ps.map(function(p){ return p.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }).join("|")+")","gi");
+  return t.replace(rx,'<mark class="hl">$1</mark>');
+}
+function hubSnip(text, needles, max){
+  max=max||175; var t=String(text), tl=t.toLowerCase(), pos=-1;
+  var ps=(needles||[]).slice().sort(function(a,b){ return b.length-a.length; });
+  for(var i=0;i<ps.length;i++){ var p=tl.indexOf(ps[i]); if(p>=0){ pos=p; break; } }
+  if(t.length<=max) return hubHL(t, needles);
+  var start=pos>50?pos-50:0;
+  var slice=(start>0?"…":"")+t.slice(start, start+max)+(start+max<t.length?"…":"");
+  return hubHL(slice, needles);
+}
+function hubOpen(key){
+  var w=WFD[key]; if(!w) return;
+  go("workflows"); renderPhase(w.phase); renderWF(w.id, w.phase);
+}
+function hubRender(q){
+  var out=$("#hub-out"); if(!out) return;
+  q=String(q||"").trim();
+  if(q.length<2){ out.innerHTML=""; return; }
+  var r=hubSearch(q), hits=r.hits, html="";
+  if(!hits.length){ out.innerHTML='<div class="hub-none">No match for that in the current SOPs. Try a system ("Kompas", "Atlas"), a role ("ICA", "Country Manager"), a donor ("SPA", "ECHO"), or one of the suggestions above.</div>'; return; }
+  if(r.whoMode){
+    var rows=[], seen={};
+    hits.slice(0,6).forEach(function(h){ h.ans.forEach(function(a){ if(isArtifactRole(a.role)) return; var k=a.verb+"|"+a.role+"|"+h.d.key; if(seen[k]) return; seen[k]=1; rows.push({a:a, d:h.d}); }); });
+    if(rows.length){
+      html+='<div class="hub-ans"><div class="ha-k">Straight from the SOPs</div>'+rows.slice(0,4).map(function(x){
+        return '<div class="ha-row"><span class="ha-verb">'+esc(x.a.verb)+'</span><span class="ha-role">'+hubHL(x.a.role, r.needles)+'</span><span class="ha-wf" data-open="'+esc(x.d.key)+'">'+esc(x.d.id)+' &middot; '+esc(x.d.title)+'</span></div>';
+      }).join("")+'</div>';
+    }
+  }
+  html+='<div class="hub-count">'+hits.length+(hits.length===1?" workflow matches":" workflows match")+'</div>';
+  hits.slice(0,8).forEach(function(h){
+    var d=h.d, p=phaseOf(d.w.phase)||{};
+    var snips="";
+    if(r.fieldHit(d.purpose)){ snips+='<div class="hr-snip"><span class="hr-k">Purpose</span>'+hubSnip(d.purpose, r.needles)+'</div>'; }
+    if(h.step){ snips+='<div class="hr-snip"><span class="hr-k">Step '+h.step.n+(h.step.role&&!isArtifactRole(h.step.role)?" &middot; "+esc(h.step.role):"")+'</span>'+hubSnip(h.step.act, r.needles)+'</div>'; }
+    if(!snips&&d.purpose){ snips='<div class="hr-snip"><span class="hr-k">Purpose</span>'+hubSnip(d.purpose, r.needles)+'</div>'; }
+    var tl=h.tools.length?'<div class="hr-tools">'+h.tools.slice(0,3).map(function(t){ return "<span>"+hubHL(t, r.needles)+"</span>"; }).join("")+'</div>':"";
+    html+='<div class="hub-res" data-open="'+esc(d.key)+'" style="--pc:'+(p.color||"var(--red)")+'">'+
+      '<div class="hr-top"><span class="hr-id">'+esc(d.id)+'</span><span class="hr-ph">Phase '+esc(d.w.phase)+' &middot; '+esc(p.name||"")+'</span><button class="hr-open" data-open="'+esc(d.key)+'">Open the flow &rarr;</button></div>'+
+      '<div class="hr-title">'+hubHL(d.title, r.needles)+'</div>'+snips+tl+'</div>';
+  });
+  if(hits.length>8) html+='<div class="hub-more">+ '+(hits.length-8)+' more, refine the search to narrow it</div>';
+  out.innerHTML=html;
+}
+function buildHub(){
+  var idx=hubIndex(), nSteps=0, roles={}, tools={};
+  idx.forEach(function(d){ nSteps+=d.steps.length; d.raci.forEach(function(r){ if(r.role&&!isArtifactRole(r.role)) roles[r.role]=1; }); d.steps.forEach(function(s){ if(s.role&&!isArtifactRole(s.role)) roles[s.role]=1; }); d.tools.forEach(function(t){ tools[t]=1; }); });
+  var chips=["audit fees","who approves the Go / No-Go","year-end deadlines","Kompas setup","plan of action","emergency fast-track","who quality assures donor reporting","amendments"];
+  var html='<div class="wrap">'+
+    '<div class="kicker rv">Tab 05</div>'+
+    '<h2 class="head rv">The one-stop-shop, live</h2>'+
+    '<p class="lead rv">Type a topic, a tool, a role, or a question. It searches every workflow, every step, every role and every tool in the current SOPs, and takes you straight to the flow.</p>'+
+    '<div class="hub-searchwrap rv"><span class="hub-mag">&#9906;</span><input id="hub-q" type="text" autocomplete="off" spellcheck="false" placeholder="Try: audit fees... or ask: who approves the Go / No-Go?"></div>'+
+    '<div class="hub-chips rv">'+chips.map(function(c){ return '<button data-q="'+esc(c)+'">'+esc(c)+'</button>'; }).join("")+'</div>'+
+    '<div class="hub-honest rv">'+WF_DETAIL.length+' workflows &middot; '+nSteps+' steps &middot; '+Object.keys(tools).length+' tools indexed &middot; offline &middot; nothing generated, every result traceable to its SOP</div>'+
+    '<div id="hub-out"></div>'+
+    '<div class="hub-origin rv"><div class="ho-k">Why this tab exists</div><p>In the first ICA meeting on 4 June, the room asked for a "one-stop-shop", "everything in one place", "a lookup tool, where to refer to". This is the seed of it, searching the current SOPs as they stand today. What it should grow into is part of today\'s exercise.</p></div>'+
+    '</div>';
+  $("#tab-hub").innerHTML=html;
+  var inp=$("#hub-q"), tmr=null;
+  inp.addEventListener("input", function(){ clearTimeout(tmr); tmr=setTimeout(function(){ hubRender(inp.value); }, 120); });
+  $all("#tab-hub .hub-chips button").forEach(function(b){ b.addEventListener("click", function(){ inp.value=b.getAttribute("data-q"); hubRender(inp.value); inp.focus(); }); });
+  $("#tab-hub").addEventListener("click", function(e){ var el=e.target; while(el&&el.getAttribute){ var k=el.getAttribute("data-open"); if(k){ hubOpen(k); return; } el=el.parentNode; } });
+}
+
 /* ===================== NAVIGATION ===================== */
 function go(tabId){
   view = tabId;
@@ -2816,6 +3016,7 @@ function go(tabId){
   var active = $("#tab-"+tabId);
   if(active){ active.scrollTop=0; revealIn(active); }
   if(tabId==="exercise"){ var i=$("#ex-input"); if(i) setTimeout(function(){ i.focus(); },130); }
+  if(tabId==="hub"){ var hq=$("#hub-q"); if(hq) setTimeout(function(){ hq.focus(); },150); }
 }
 function revealIn(scope){
   var items=$all(".rv",scope);
@@ -2838,7 +3039,7 @@ document.addEventListener("keydown",function(e){
   if(view==="cover"){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); enterApp(); } return; }
   if($("#help").classList.contains("show")){ if(e.key==="Escape"||e.key==="?"){ toggleHelp(false); } return; }
   if(typing){ if(e.key==="Escape"){ ae.blur(); } return; }
-  if(e.key>="1"&&e.key<="4"){ go(TABS[+e.key-1].id); return; }
+  if(e.key>="1"&&e.key<="5"){ var tt=TABS[+e.key-1]; if(tt){ go(tt.id); } return; }
   if(e.key==="?"){ toggleHelp(true); return; }
   if(e.key==="Escape"){ $("#cover").classList.remove("gone"); $("#app").classList.remove("on"); view="cover"; return; }
   if(e.key==="ArrowRight"||e.key==="ArrowLeft"){
@@ -2879,6 +3080,7 @@ buildProcess();
 buildWorkflows();
 buildTemplate();
 buildExercise();
+buildHub();
 </script>
 </body>
 </html>
