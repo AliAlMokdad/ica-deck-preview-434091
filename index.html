@@ -294,6 +294,8 @@ ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;lef
 .cg-lead{font-size:16.5px;font-weight:700;color:var(--ink);margin-bottom:11px}
 .cg-q{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px}
 .cg-q li{font-size:16.5px;color:var(--g2);line-height:1.42}
+.cg-eg{margin-top:13px;border-top:1px dashed var(--rule);padding-top:11px;font-size:14px;font-style:italic;color:var(--g2);line-height:1.45}
+.cg-eg-k{display:block;font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--g4);margin-bottom:4px}
 .col .body{flex:1;padding:14px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
 .col .empty{color:var(--g4);font-size:10px;text-align:center;margin:auto;font-style:italic;opacity:.6}
 .card{background:#fff;border:1px solid var(--rule);border-left:3px solid var(--cc);border-radius:9px;padding:10px 12px;font-size:13.5px;color:var(--ink);box-shadow:0 1px 3px rgba(20,18,20,.05);position:relative;animation:cardin .42s cubic-bezier(.2,.8,.2,1) both}
@@ -470,9 +472,9 @@ var DEEP = {
 };
 
 var EX_COLS = [
-  {c:"keep", icon:"✓", title:"Keep it", lead:"What is worth keeping", cc:"var(--keep)", q:["In the layout and structure we have now","On SharePoint and how the SOPs are stored","In how we write, edit and update the SOPs","What already works and should not change","What helps a new colleague find the right SOP quickly"]},
-  {c:"leave", icon:"✕", title:"Leave it", lead:"What we should leave behind", cc:"var(--leave)", q:["In the layout and structure","On SharePoint and how the SOPs are stored","In how we write, edit and update the SOPs","What is duplicated, outdated or never used","What slows us down or causes confusion"]},
-  {c:"introduce", icon:"+", title:"Introduce", lead:"What we should introduce", cc:"var(--intro)", q:["To the layout and structure","To SharePoint and storage","To how we write, edit and update the SOPs","What is missing that would make an SOP easier to find and follow","What would keep them current and clearly owned"]}
+  {c:"keep", icon:"✓", title:"Keep it", lead:"What is worth keeping", cc:"var(--keep)", q:["In the layout and structure we have now","On SharePoint and how the SOPs are stored","In how we write, edit and update the SOPs","What already works and should not change","What helps a new colleague find the right SOP quickly"], eg:"The peer support and buddy system that helps new colleagues learn the role"},
+  {c:"leave", icon:"✕", title:"Leave it", lead:"What we should leave behind", cc:"var(--leave)", q:["In the layout and structure","On SharePoint and how the SOPs are stored","In how we write, edit and update the SOPs","What is duplicated, outdated or never used","What slows us down or causes confusion"], eg:"The same rule being applied in different ways across offices"},
+  {c:"introduce", icon:"+", title:"Introduce", lead:"What we should introduce", cc:"var(--intro)", q:["To the layout and structure","To SharePoint and storage","To how we write, edit and update the SOPs","What is missing that would make an SOP easier to find and follow","What would keep them current and clearly owned"], eg:"One place to look things up: a single hub for the current procedure"}
 ];
 
 /* ===================== STATE ===================== */
@@ -2634,27 +2636,32 @@ var TPL_SECTIONS = [
 var AUDIT_SOP = {
   crumb:"Phase V · DRC Audit", title:"Audit of DRC International Projects", id:"V",
   chips:["Phase V · DRC Audit","Internal and external audits","Draft V02 · not yet validated"],
-  definition:"This SOP establishes a consistent framework for conducting internal and external audits across all Danish Red Cross supported projects in its international operations, covering regional and country offices, host national societies and other implementing partners. The control objective is to confirm compliance with donor requirements, internal policies and legal obligations, and to strengthen internal control, transparency and the efficient use of resources. Situations outside the standard donor cases are handled case by case through the relevant management line.",
+  definition:"This SOP establishes a consistent framework for conducting internal and external audits of Danish Red Cross supported international operations, covering host national society partner field audits, country office accounts audits, and consolidated project audits run at country level or at headquarters. It confirms compliance with donor requirements, internal policies and legal obligations, and strengthens internal control, transparency and the efficient use of resources across all locations and project phases. It applies to regional and country offices, partner organisations and other implementing entities. Situations outside the standard donor cases are handled case by case through the relevant management line.",
   raci:[
-    ["ACCOUNTABLE","v-app","Country Manager","Oversees the audit and ensures the schedule and deadlines are respected. For country office and consolidated audits, approves the terms of reference and leads the auditor selection."],
-    ["PREPARES","v-pre","Country Office Finance Focal Point","For country office and consolidated audits, prepares the terms of reference and the draft financial statements, reconciles cash transfers and opening balances against Kompas, coordinates with the auditors and drafts the Plan of Action."],
-    ["PREPARES","v-ini","Host National Society authorised person","For partner field audits, owns the process: prepares the terms of reference, organises the audit and its meetings, and drafts the Plan of Action."],
-    ["QUALITY ASSURES","v-qa","International Controller and Adviser","Quality assures the financial deliveries, coordinates the HQ-level audits, checks compliance with donor requirements and files the full audit package in Atlas."],
-    ["SUPERVISES","v-sub","Head of International Finance","Supervises the process, is consulted on deviations and on special or urgent HQ audits, and coordinates the timing and fees with the HQ auditors."]
+    ["ACCOUNTABLE","v-app","Country Manager","Holds overall accountability for the audit, oversees it, and ensures the quality of the process and respect of deadlines. For country office and consolidated audits, reviews and approves the terms of reference, leads the auditor selection, and signs the audit service contract."],
+    ["RESPONSIBLE","v-ini","Host National Society authorised person","For partner field audits, owns the process: prepares the terms of reference, engages the auditor, prepares the partner financial statements, coordinates the audit and its meetings, and drafts and implements the Plan of Action."],
+    ["RESPONSIBLE","v-pre","Country Office Finance Focal Point","For country office and consolidated audits, prepares the terms of reference, the financial statements and the reconciliations, coordinates with the auditors and leads the Plan of Action. In partner field audits, supports the partner and quality assures their statements against Kompas."],
+    ["QUALITY ASSURES","v-qa","International Controller and Adviser","Quality assures the financial deliverables, coordinates the headquarters level audits and the headquarters auditors, checks donor compliance, tests implementation of the action points, and files the full package in Atlas."],
+    ["SUPERVISES","v-sub","Head of International Finance","Supervises the process, is consulted on deviations and on special or urgent headquarters audits, and coordinates the timing and fees for audits performed at headquarters."]
   ],
   steps:[
-    "The auditor must be registered in country, independent, a chartered or certified public accountant affiliated to an international firm, and GDPR compliant, selected through the partner's procurement and changed preferably every five years.",
-    "Audit services are procured in line with section 4.0 of the DRC procedures for external consultants. Where a partner has already appointed an auditor, the Country Manager records a note to file after consulting the ICA and the portfolio adviser.",
-    "The country office team, the partner and the ICA prepare the audit, making the financial statements and supporting documents ready, with cash transfers and opening balances reconciled against Kompas and the previous audit.",
-    "A kick-off meeting is held at least one week before the audit, between the auditors, the partner and the DRC country team, to agree logistics, counterparts and the documents to prepare.",
-    "The auditors lead the on-site fieldwork, reviewing selected transactions and performing substantive testing, with the project team and supporting documents available.",
-    "An exit meeting closes the fieldwork, summarises the findings and notes any outstanding documents before the draft report is released.",
-    "The auditors submit the draft report; the partner, the country team, the ICA and project management review it and provide comments.",
-    "After approval the auditors transmit the signed final report with the auditor's opinion, the management letter and the representation letter, and project management draws up a Plan of Action that lists each finding, the unit concerned, the corrective measure, the deadline, and the positions responsible for implementing and for following up.",
-    "The Internal Control and Compliance Section runs a post-audit review of recurrent findings and systemic weaknesses, captures good practice, and feeds the learning into SOP updates, monitoring visits and risk mitigation."
+    "Determine whether the project, the country office accounts, or a consolidated set requires a periodic external audit, and confirm the audit form and scope against the signed grant agreement and the donor audit instructions.",
+    "Budget the audit fees: the full fee in the donor approved budget for non-SPA projects, and for DANIDA SPA projects only the local audit fee in the project budget, since the SPA global audit fee is budgeted centrally at headquarters.",
+    "Appoint auditors who are registered, independent, a chartered or certified public accountant affiliated to an international firm, and GDPR compliant, bound by an engagement letter that sets scope and reporting, and changed preferably every five years.",
+    "Procure audit services under section 4.0 of the DRC procedures for external consultants. Where a partner has already appointed an auditor, evaluate it against the DRC criteria with the ICA and the portfolio adviser and record a note to file, escalating any deviation.",
+    "Prepare the terms of reference and fold in the donor specifics: the EU INTPA Expenditure Verification Report follows the INTPA EVR terms, ECHO follows the Certified Financial Statements guidelines, and for signed EU contracts the terms of reference in the contract prevail.",
+    "Prepare and quality assure the financial statements before the audit, reconciling cash transfers and opening balances against Kompas and the previous audit, with the country office finance focal point quality assuring partner statements and preparing the country office and consolidated statements under the country manager's supervision.",
+    "For the annual DANIDA SPA audit, run a local audit covering funds transferred to the partner plus a consolidated audit at headquarters covering all SPA projects, each coordinated by the dedicated ICA. Where requirements compete, for example SPA and EU INTPA, keep the financial statements non-donor-specific and charge the SPA audit fee only to the SPA grant.",
+    "Hold the kick-off meeting at least one week before the audit, between the auditors, the partner or country office finance representatives and the DRC country team, to agree logistics, counterparts and the documents to prepare.",
+    "During the on-site fieldwork the auditors lead, all supporting documents are available, and the project focal points stay available for interviews, sampling, substantive testing and audit queries.",
+    "Hold the exit meeting to wrap up the fieldwork and summarise the findings, providing clarifications and noting any outstanding documents before the draft report is released.",
+    "Review the draft report with the partner and the country team, supported by the ICA, and coordinate a single set of comments back to the auditors.",
+    "On approval, obtain the signed report with, as a minimum, the auditor's opinion, the management letter and the representation letter, and draw up a Plan of Action that lists each finding, the unit concerned, the corrective measure, the deadline, and the positions responsible for implementing and for following up. The ICA files the full package in Atlas.",
+    "Where the level of risk warrants, agree an internal audit, a pre-audit or a remote desk review between the Internal Control and Compliance Section and the country manager. Where an on-site audit is impossible, transfer the files to a secure location, a neighbouring country office, or headquarters.",
+    "After completion, the Internal Control and Compliance Section runs a post-audit review of recurrent findings and systemic weaknesses, captures good practice, and feeds the learning into SOP updates, monitoring visits and risk mitigation."
   ],
-  tools:["Audit Terms of Reference template (SPA and non-EU)","Auditors' proposals evaluation grid","Audit process chronogram template","DRC International procurement procedures","Project SOP: Closure and Completion","MOFA DANIDA SPA administrative guidelines 2022-2026"],
-  signoff:[["Last updated","Draft V02, August (pre-final)"],["Approved by","Not yet validated"],["Owner","Internal Control and Compliance Section"]]
+  tools:["Audit Terms of Reference template (SPA and non-EU)","Auditors' proposals evaluation grid","Audit process chronogram template","DRC International procurement procedures","Project SOP: Closure and Completion","MOFA DANIDA SPA administrative guidelines 2022-2026","DRC SPA and other non-EU grants audit requirements","Example of Country Office annual report"],
+  signoff:[["Last updated","Draft V02, August (pre-final)"],["Status","Draft, not yet validated"],["Owner","Internal Control and Compliance Section"],["Approved by","To be confirmed at Co-design"]]
 };
 var tplMode = "structure";
 function buildTemplate(){
@@ -2705,7 +2712,7 @@ function renderAuditSop(s){
 function buildExercise(){
   var cols = EX_COLS.map(function(c){
     var qs = c.q.map(function(q){ return '<li>'+esc(q)+'</li>'; }).join("");
-    return '<div class="col" data-c="'+c.c+'"><div class="ch"><div class="ico">'+c.icon+'</div><h3>'+esc(c.title)+'</h3></div><div class="cguide"><div class="cg-lead">'+esc(c.lead)+'</div><ol class="cg-q">'+qs+'</ol></div><div class="body" id="body-'+c.c+'"></div></div>';
+    return '<div class="col" data-c="'+c.c+'"><div class="ch"><div class="ico">'+c.icon+'</div><h3>'+esc(c.title)+'</h3></div><div class="cguide"><div class="cg-lead">'+esc(c.lead)+'</div><ol class="cg-q">'+qs+'</ol>'+(c.eg?'<div class="cg-eg"><span class="cg-eg-k">From our first meeting</span>'+esc(c.eg)+'</div>':'')+'</div><div class="body" id="body-'+c.c+'"></div></div>';
   }).join("");
   var html = '<div class="wrap">'+
     '<div class="kicker rv">Tab 04</div>'+
