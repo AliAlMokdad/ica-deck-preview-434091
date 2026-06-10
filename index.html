@@ -290,6 +290,19 @@ ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;lef
 .timer.big .tnum{font-size:72px}
 .timer.big .tctl{margin-top:12px;gap:8px}
 .timer.big .tctl button{padding:7px 16px;font-size:14px}
+#timer-fs{position:fixed;inset:0;z-index:95;background:var(--night);display:none;flex-direction:column;align-items:center;justify-content:center;gap:34px}
+#timer-fs.show{display:flex;animation:fade .25s ease both}
+.tfs-num{font-family:var(--mono);font-size:clamp(110px,26vw,400px);font-weight:700;color:#fff;line-height:1;letter-spacing:.02em}
+#timer-fs.done .tfs-num{color:#ff7a7a;animation:tfsPulse 1.2s ease-in-out infinite}
+.tfs-ctl{display:flex;gap:12px}
+.tfs-ctl button{font-family:var(--mono);font-size:18px;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:10px;padding:12px 28px}
+.tfs-ctl button:hover{background:var(--red);border-color:var(--red)}
+.tfs-close{position:absolute;top:22px;right:26px;font-family:var(--mono);font-size:13px;color:#b9b6bd;border:1px solid rgba(255,255,255,.25);border-radius:8px;padding:8px 16px}
+.tfs-close:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.tfs-hint{font-family:var(--mono);font-size:12px;color:#85828c}
+#tnum{cursor:pointer}
+@keyframes tfsPulse{0%,100%{opacity:1}50%{opacity:.45}}
+@media (prefers-reduced-motion:reduce){#timer-fs.done .tfs-num{animation:none}}
 .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:12px}
 .col{background:var(--paper);border:1px solid var(--rule);border-top:4px solid var(--cc,var(--g4));border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-height:430px;box-shadow:var(--shadow)}
 .col[data-c=keep]{--cc:var(--keep)} .col[data-c=leave]{--cc:var(--leave)} .col[data-c=introduce]{--cc:var(--intro)}
@@ -477,6 +490,8 @@ mark.hl{background:var(--red-soft);color:var(--ink);border-radius:3px;padding:0 
 </div>
 
 <div id="flow-fs"><div class="ffs-bar"><span class="ffs-title" id="ffs-title"></span><button class="ffs-close" id="ffs-close">&#10005; close</button></div><div class="ffs-body" id="ffs-body"></div></div>
+
+<div id="timer-fs"><button class="tfs-close" id="tfs-close">&#10005; close</button><div class="tfs-num" id="tnum-fs">20:00</div><div class="tfs-ctl"><button data-t="start">start</button><button data-t="-">-5</button><button data-t="+">+5</button><button data-t="reset">reset</button></div><div class="tfs-hint">Esc or click outside the clock to exit</div></div>
 
 <script>
 "use strict";
@@ -2839,6 +2854,7 @@ function buildExercise(){  var cols = EX_COLS.map(function(c){
 }
 function wireExercise(){
   $all("#timer button").forEach(function(b){ b.addEventListener("click",function(){ timerCtl(b.getAttribute("data-t")); }); });
+  var tn=$("#tnum"); if(tn){ tn.title="Click for full screen"; tn.addEventListener("click",openTimerFS); }
   renderTimer();
 }
 function addCard(text){
@@ -2861,8 +2877,11 @@ function loadEx(){ try{ var d=JSON.parse(localStorage.getItem("drc_ica_ex")); if
 /* timer */
 function renderTimer(){
   var m=Math.floor(timer.sec/60), s=timer.sec%60;
-  var el=$("#tnum"); if(el) el.textContent=(m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+  var txt=(m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+  var el=$("#tnum"); if(el) el.textContent=txt;
+  var ef=$("#tnum-fs"); if(ef) ef.textContent=txt;
   var t=$("#timer"); if(t) t.classList.toggle("done", timer.sec===0);
+  var tf=$("#timer-fs"); if(tf) tf.classList.toggle("done", timer.sec===0);
 }
 function timerCtl(a){
   if(a==="start"){
@@ -2872,7 +2891,7 @@ function timerCtl(a){
   else if(a==="-"){ timer.sec=Math.max(0,timer.sec-300); renderTimer(); }
   else if(a==="reset"){ clearInterval(timer.h); timer.running=false; timer.sec=20*60; setTimerLabel("start"); renderTimer(); }
 }
-function setTimerLabel(l){ var b=$('#timer button[data-t="start"]'); if(b) b.textContent=l; }
+function setTimerLabel(l){ var b=$('#timer button[data-t="start"]'); if(b) b.textContent=l; var bf=$('#timer-fs button[data-t="start"]'); if(bf) bf.textContent=l; }
 
 /* ===================== BUILD: SEARCH (TAB 05) ===================== */
 var HUB_STOP={"the":1,"a":1,"an":1,"of":1,"to":1,"in":1,"on":1,"for":1,"and":1,"or":1,"is":1,"are":1,"who":1,"whom":1,"whose":1,"what":1,"when":1,"where":1,"which":1,"do":1,"does":1,"how":1,"with":1,"by":1,"at":1,"it":1,"its":1,"this":1,"that":1,"we":1,"you":1,"my":1,"our":1,"their":1,"be":1,"can":1,"must":1,"shall":1,"should":1};
@@ -3127,6 +3146,7 @@ $("#cover").addEventListener("click", enterApp);
 document.addEventListener("keydown",function(e){
   var ae = document.activeElement || document.body;
   var typing = /^(INPUT|TEXTAREA)$/.test(ae.tagName);
+  if($("#timer-fs").classList.contains("show")){ if(e.key==="Escape"){ closeTimerFS(); } return; }
   if($("#flow-fs").classList.contains("show")){ if(e.key==="Escape"){ closeFlowFS(); } return; }
   if(view==="cover"){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); enterApp(); } return; }
   if($("#help").classList.contains("show")){ if(e.key==="Escape"||e.key==="?"){ toggleHelp(false); } return; }
@@ -3161,6 +3181,14 @@ $("#helpclose").addEventListener("click",function(){ toggleHelp(false); });
 function openFlowFS(title, svg){ var f=$("#flow-fs"); if(!f) return; $("#ffs-title").textContent=title||"Procedure flow"; $("#ffs-body").innerHTML=svg||""; f.classList.add("show"); }
 function closeFlowFS(){ var f=$("#flow-fs"); if(f) f.classList.remove("show"); }
 (function(){ var x=$("#ffs-close"); if(x) x.addEventListener("click",closeFlowFS); })();
+function openTimerFS(){ var f=$("#timer-fs"); if(f){ f.classList.add("show"); renderTimer(); } }
+function closeTimerFS(){ var f=$("#timer-fs"); if(f) f.classList.remove("show"); }
+(function(){
+  var f=$("#timer-fs"); if(!f) return;
+  var x=$("#tfs-close"); if(x) x.addEventListener("click",closeTimerFS);
+  f.addEventListener("click",function(e){ if(e.target===f) closeTimerFS(); });
+  $all("#timer-fs .tfs-ctl button").forEach(function(b){ b.addEventListener("click",function(){ timerCtl(b.getAttribute("data-t")); }); });
+})();
 
 /* clock */
 function tick(){ var d=new Date(); var h=d.getHours(),m=d.getMinutes(); $("#clock").textContent=(h<10?"0":"")+h+":"+(m<10?"0":"")+m; }
