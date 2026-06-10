@@ -237,21 +237,21 @@ h2.head{font-size:clamp(30px,3.9vw,44px);font-weight:800;letter-spacing:-.02em;c
 .bar-logo{height:30px;width:auto;display:block;border-radius:3px}
 .bar-dept{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--g3);border-left:1px solid var(--rule);padding-left:11px}
 .seg{display:inline-flex;background:var(--g6);border-radius:10px;padding:4px;margin-bottom:22px;gap:3px}
-.seg button{padding:9px 18px;border-radius:7px;font-size:14px;font-weight:600;color:var(--g2);transition:.16s}
+.seg button{padding:12px 26px;border-radius:8px;font-size:16.5px;font-weight:600;color:var(--g2);transition:.16s}
 .seg button .sn{font-family:var(--mono);font-size:10px;color:var(--g4);margin-right:7px}
 .seg button.on{background:#fff;color:var(--ink);box-shadow:var(--shadow)}
 .seg button.on .sn{color:var(--red)}
-.tpl-hint{font-family:var(--mono);font-size:11px;color:var(--g4);margin:2px 0 16px}
+.tpl-hint{font-family:var(--mono);font-size:12.5px;color:var(--g4);margin:2px 0 16px}
 .tpl-sec{border:1px solid var(--rule);border-radius:11px;margin:0 0 10px;background:var(--paper);box-shadow:var(--shadow);overflow:hidden;max-width:880px;cursor:pointer;transition:border-color .16s}
 .tpl-sec:hover,.tpl-sec.open{border-color:var(--red)}
-.tpl-sec .ts-head{display:flex;align-items:center;gap:14px;padding:15px 18px}
-.tpl-sec .ts-n{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--red);flex:0 0 24px}
-.tpl-sec .ts-name{font-size:16px;font-weight:700;color:var(--ink)}
-.tpl-sec .ts-chev{margin-left:auto;color:var(--g4);font-size:12px;transition:transform .2s}
+.tpl-sec .ts-head{display:flex;align-items:center;gap:14px;padding:17px 20px}
+.tpl-sec .ts-n{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--red);flex:0 0 28px}
+.tpl-sec .ts-name{font-size:19px;font-weight:700;color:var(--ink)}
+.tpl-sec .ts-chev{margin-left:auto;color:var(--g4);font-size:14px;transition:transform .2s}
 .tpl-sec.open .ts-chev{transform:rotate(90deg);color:var(--red)}
 .tpl-sec .ts-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
-.tpl-sec.open .ts-body{max-height:260px}
-.tpl-sec .ts-body p{margin:0;padding:0 18px 16px 56px;color:var(--g2);font-size:13.5px}
+.tpl-sec.open .ts-body{max-height:320px}
+.tpl-sec .ts-body p{margin:0;padding:0 20px 18px 62px;color:var(--g2);font-size:16.5px;line-height:1.55}
 .sop{background:var(--paper);border:1px solid var(--rule);border-radius:14px;box-shadow:var(--shadow-lg);overflow:hidden;max-width:880px}
 .sop-top{border-top:6px solid var(--red);padding:22px 30px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
 .sop-top .crumb{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:700}
@@ -2780,12 +2780,12 @@ function renderOOS(){
 
 /* ===================== BUILD: TEMPLATE ===================== */
 var TPL_SECTIONS = [
-  ["Header","The SOP number, the title, and the phase it belongs to, so anyone can place it in the cycle at a glance."],
-  ["Definition","What the SOP governs and the control objective. One or two sentences, no preamble."],
-  ["Responsibilities","A RACI table of organisational positions, never names. Each row pairs a clear verb with a position: accountable, responsible, quality assures, supervises."],
-  ["Procedure","Numbered steps in DRC's voice, with the Kompas path inline and cross-references to other SOPs by number."],
-  ["Links to tools","The templates, forms and systems this SOP points to, so the user can act without leaving the page."],
-  ["Sign-off","When it was last updated, who approved it, and who owns it, so everyone trusts it is current."]
+  ["Header","The SOP number, the title, and the phase it belongs to."],
+  ["Definition","What the SOP governs and the control objective."],
+  ["Responsibilities","A RACI table of organisational positions or a procedure flow, never names. Each row pairs a clear verb with a position: accountable, responsible, quality assures, supervises."],
+  ["Procedure","Numbered steps, with the Kompas path if applicable."],
+  ["Links to tools","The templates, forms and systems this SOP points to."],
+  ["Sign-off","When it was last updated, who approved it, and who owns it."]
 ];
 var AUDIT_SOP = {
   crumb:"Phase V · DRC Audit", title:"Audit of DRC International Projects", id:"V",
@@ -2822,7 +2822,7 @@ function buildTemplate(){
   var html = '<div class="wrap">'+
     '<div class="kicker rv">Tab 03</div>'+
     '<h2 class="head rv">One SOP, harmonised</h2>'+
-    '<p class="lead rv">Every SOP follows the same shape, so once you have read one you can read them all. Open each part to see what it holds, then switch to a real one, the Audit SOP, filled into the same shape.</p>'+
+    
     '<div class="seg rv">'+
       '<button data-m="structure" class="on"><span class="sn">00</span>The structure</button>'+
       '<button data-m="audit"><span class="sn">V</span>Example: Audit SOP</button>'+
