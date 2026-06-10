@@ -3211,6 +3211,7 @@ function buildHub(){
 
 /* ===================== BUILD: UP AND DOWN (TAB 06) ===================== */
 var LAD_MODE=null;
+var LAD_TICK=0;
 var LAD_SC={
   steady:{sum:"Three things can change an organisation: it grows, it shrinks, or it changes shape. Press a scenario to see where the change lands.",
     foot:'Read it <b>down</b> to apply it. Read it <b>up</b> to justify it.'},
@@ -3282,6 +3283,7 @@ function ladMode(m){
   s.textContent=(m?LAD_SC[m]:LAD_SC.steady).sum;
   s.classList.add("sw");
   $("#lad-foot").innerHTML = m ? 'The higher the layer, the <b>slower</b> it changes. The lower the layer, the <b>faster</b> it moves.' : LAD_SC.steady.foot;
+  var myTick=++LAD_TICK;
   var cards=$all("#lad-frame .lad-card");
   cards.forEach(function(c,i){
     var bd=c.querySelector(".lad-badge"), tx=c.querySelector(".lad-imp-txt"), ticks=c.querySelectorAll(".lad-meter i"), k;
@@ -3289,7 +3291,7 @@ function ladMode(m){
     var r=LAD_SC[m].rows[i];
     bd.textContent=r.b; bd.className="lad-badge"+(r.tone==="hold"?"":" "+r.tone);
     tx.textContent=r.t;
-    for(k=0;k<ticks.length;k++){ (function(el,fill,d){ setTimeout(function(){ el.classList.toggle("f",fill); }, 180+d*55); })(ticks[k], k<r.lv, k); }
+    for(k=0;k<ticks.length;k++){ (function(el,fill,d){ setTimeout(function(){ if(LAD_TICK!==myTick) return; el.classList.toggle("f",fill); }, 180+d*55); })(ticks[k], k<r.lv, k); }
   });
 }
 
