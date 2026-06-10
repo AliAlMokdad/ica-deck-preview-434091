@@ -135,6 +135,19 @@ h2.head{font-size:clamp(30px,3.9vw,44px);font-weight:800;letter-spacing:-.02em;c
 .detail .nav{margin-top:20px;display:flex;gap:8px;font-family:var(--mono);font-size:13.5px;color:var(--g3)}
 .detail .nav button{border:1px solid var(--rule);border-radius:7px;padding:5px 12px;color:var(--g2)}
 .detail .nav button:hover{border-color:var(--red);color:var(--red)}
+.when-btn{margin-top:16px;font-family:var(--mono);font-size:12px;color:var(--g2);border:1px solid var(--rule);border-radius:8px;padding:6px 14px;transition:.15s;display:inline-block}
+.when-btn:hover{border-color:var(--red);color:var(--red)}
+.when-btn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.when-wrap{display:none;margin-top:14px}
+.when-wrap.open{display:block}
+.when-k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:9px}
+.when-days{display:flex;gap:8px;flex-wrap:wrap}
+.when-day{width:64px;background:#fff;border:1px solid var(--rule);border-top:3px solid var(--red);border-radius:9px;padding:8px 0 9px;text-align:center;box-shadow:var(--shadow);animation:dayIn .4s cubic-bezier(.2,.8,.2,1) both}
+.wd-n{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--g3)}
+.wd-d{display:block;font-size:22px;font-weight:800;color:var(--ink);margin-top:2px}
+.when-m{margin-top:8px;font-family:var(--mono);font-size:11px;color:var(--g3);letter-spacing:.06em}
+@keyframes dayIn{from{opacity:0;transform:translateY(10px) scale(.9)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.when-day{animation:none}}
 
 /* ============ WORKFLOWS / PROJECT CYCLE ============ */
 .cyc-label{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--g2);margin:8px 0 9px}
@@ -609,6 +622,10 @@ function buildProcess(){
   $all("#tab-process .tl-node").forEach(function(n){ n.addEventListener("click",function(){ msIdx=+n.getAttribute("data-i"); renderMs(); }); });
   renderMs();
 }
+var WHEN={
+  "05":{label:"Mid July", month:"July 2026", days:[["Mon","13"],["Tue","14"],["Wed","15"],["Thu","16"],["Fri","17"]]},
+  "07":{label:"First week of August", month:"August 2026", days:[["Mon","3"],["Tue","4"],["Wed","5"],["Thu","6"],["Fri","7"]]}
+};
 function renderMs(){
   var m = MILESTONES[msIdx];
   $all("#tab-process .tl-node").forEach(function(n,i){
@@ -616,10 +633,20 @@ function renderMs(){
     n.classList.toggle("done", MILESTONES[i].state==="done" && i<msIdx);
   });
   var d = $("#ms-detail"); if(!d) return;
+  var w = WHEN[m.n];
   d.innerHTML = '<div class="dt-step">Stage '+m.n+'</div><h3>'+esc(m.name)+'</h3>'+
     '<div class="dt-essence">'+esc(m.essence)+'</div><p>'+esc(m.text)+'</p>'+
+    (w?'<button class="when-btn" id="when-btn">&#9719; Target window</button><div class="when-wrap" id="when-wrap"></div>':'')+
     '<div class="nav"><button data-d="-1">← prev</button><button data-d="1">next →</button></div>';
   $all("#ms-detail .nav button").forEach(function(b){ b.addEventListener("click",function(){ stepMs(+b.getAttribute("data-d")); }); });
+  if(w){
+    var wb=$("#when-btn"), ww=$("#when-wrap");
+    wb.addEventListener("click",function(){
+      if(ww.classList.contains("open")){ ww.classList.remove("open"); wb.classList.remove("on"); ww.innerHTML=""; return; }
+      ww.innerHTML='<div class="when-k">Target window &middot; '+esc(w.label)+'</div><div class="when-days">'+w.days.map(function(dd,i){ return '<div class="when-day" style="animation-delay:'+(i*0.07)+'s"><span class="wd-n">'+esc(dd[0])+'</span><span class="wd-d">'+esc(dd[1])+'</span></div>'; }).join("")+'</div><div class="when-m">'+esc(w.month)+'</div>';
+      ww.classList.add("open"); wb.classList.add("on");
+    });
+  }
 }
 function stepMs(d){ msIdx=Math.max(0,Math.min(MILESTONES.length-1,msIdx+d)); renderMs(); }
 
