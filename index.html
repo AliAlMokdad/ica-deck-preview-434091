@@ -135,8 +135,8 @@ h2.head{font-size:clamp(30px,3.9vw,44px);font-weight:800;letter-spacing:-.02em;c
 .detail .nav{margin-top:20px;display:flex;gap:8px;font-family:var(--mono);font-size:13.5px;color:var(--g3)}
 .detail .nav button{border:1px solid var(--rule);border-radius:7px;padding:5px 12px;color:var(--g2)}
 .detail .nav button:hover{border-color:var(--red);color:var(--red)}
-.when-btn{margin-top:16px;font-family:var(--mono);font-size:12px;color:var(--g2);border:1px solid var(--rule);border-radius:8px;padding:6px 14px;transition:.15s;display:inline-block}
-.when-btn:hover{border-color:var(--red);color:var(--red)}
+.when-btn{margin-top:18px;font-family:var(--mono);font-size:14px;font-weight:700;color:var(--red);background:var(--red-soft);border:1.5px solid var(--red);border-radius:24px;padding:10px 22px;transition:.15s;display:inline-block;letter-spacing:.02em}
+.when-btn:hover{background:var(--red);color:#fff}
 .when-btn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .when-wrap{display:none;margin-top:14px}
 .when-wrap.open{display:block}
@@ -636,7 +636,7 @@ function renderMs(){
   var w = WHEN[m.n];
   d.innerHTML = '<div class="dt-step">Stage '+m.n+'</div><h3>'+esc(m.name)+'</h3>'+
     '<div class="dt-essence">'+esc(m.essence)+'</div><p>'+esc(m.text)+'</p>'+
-    (w?'<button class="when-btn" id="when-btn">&#9719; Target window</button><div class="when-wrap" id="when-wrap"></div>':'')+
+    (w?'<button class="when-btn" id="when-btn">&#9719; Target window &middot; '+esc(w.label)+'</button><div class="when-wrap" id="when-wrap"></div>':'')+
     '<div class="nav"><button data-d="-1">← prev</button><button data-d="1">next →</button></div>';
   $all("#ms-detail .nav button").forEach(function(b){ b.addEventListener("click",function(){ stepMs(+b.getAttribute("data-d")); }); });
   if(w){
