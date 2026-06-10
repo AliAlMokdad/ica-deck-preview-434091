@@ -313,7 +313,7 @@ ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;lef
 .ex-foot{margin-top:20px;text-align:center;font-size:15px;color:var(--g2);font-style:italic}
 .ex-note{margin:22px auto 0;max-width:780px;text-align:center;font-size:13.5px;color:var(--g2);background:var(--g6);border:1px solid var(--rule);border-radius:10px;padding:13px 22px;line-height:1.5}
 
-/* ============ ONE-STOP-SHOP (TAB 05) ============ */
+/* ============ SEARCH (TAB 05) ============ */
 .hub-hero{max-width:760px;margin:8vh auto 30px;text-align:center;transition:margin .4s ease}
 .hub-hero.compact{margin:4px auto 22px}
 .hub-logo{font-size:clamp(38px,5vw,58px);font-weight:800;letter-spacing:-.03em;color:var(--ink);margin:12px 0 28px;line-height:1;transition:font-size .35s ease,margin .35s ease}
@@ -479,7 +479,7 @@ var TABS = [
   {id:"workflows", n:"02", label:"Workflows"},
   {id:"template",  n:"03", label:"Template"},
   {id:"exercise",  n:"04", label:"Exercise"},
-  {id:"hub",       n:"05", label:"One-stop-shop"}
+  {id:"hub",       n:"05", label:"Search"}
 ];
 
 var MILESTONES = [
@@ -2867,7 +2867,7 @@ function timerCtl(a){
 }
 function setTimerLabel(l){ var b=$('#timer button[data-t="start"]'); if(b) b.textContent=l; }
 
-/* ===================== BUILD: ONE-STOP-SHOP (TAB 05) ===================== */
+/* ===================== BUILD: SEARCH (TAB 05) ===================== */
 var HUB_STOP={"the":1,"a":1,"an":1,"of":1,"to":1,"in":1,"on":1,"for":1,"and":1,"or":1,"is":1,"are":1,"who":1,"whom":1,"whose":1,"what":1,"when":1,"where":1,"which":1,"do":1,"does":1,"how":1,"with":1,"by":1,"at":1,"it":1,"its":1,"this":1,"that":1,"we":1,"you":1,"my":1,"our":1,"their":1,"be":1,"can":1,"must":1,"shall":1,"should":1};
 var HUB_SYN=[
  ["go/no-go","go / no-go","go no-go","gonogo","no-go","appraisal of opportunity","appraisal"],
@@ -3036,7 +3036,7 @@ function hubOverview(r){
   if(p2&&p2!==p1) body+='<p class="ov-p ov-dim">'+hubHL(p2, r.needles)+'</p>';
   if(!body) return "";
   var src=hits.slice(0,3).map(function(h){ var t=h.d.title.length>36?h.d.title.slice(0,35)+"…":h.d.title; return '<span class="ov-src" data-open="'+esc(h.d.key)+'">'+esc(h.d.id)+' &middot; '+esc(t)+'</span>'; }).join("");
-  return '<div class="hub-ov"><div class="ov-k"><span class="ov-spark">&#10022;</span>Overview<span class="ov-note">assembled live from the SOP text below, every line traceable to its source</span></div>'+body+'<div class="ov-srcs"><span class="ov-srclab">Sources</span>'+src+'</div></div>';
+  return '<div class="hub-ov"><div class="ov-k"><span class="ov-spark">&#10022;</span>Overview</div>'+body+'<div class="ov-srcs"><span class="ov-srclab">Sources</span>'+src+'</div></div>';
 }
 var HUB_TOK=0;
 function hubRender(q){
@@ -3081,7 +3081,7 @@ function buildHub(){
   var html='<div class="wrap">'+
     '<div class="hub-hero" id="hub-hero">'+
       '<div class="kicker rv">Tab 05</div>'+
-      '<h2 class="hub-logo rv">One<b>-</b>stop<b>-</b>shop</h2>'+
+      '<h2 class="hub-logo rv">Search</h2>'+
       '<div class="hub-searchwrap rv"><svg class="hub-mag" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21" stroke-linecap="round"></line></svg><input id="hub-q" type="text" autocomplete="off" spellcheck="false" placeholder="Search the SOPs, or ask: who approves the Go / No-Go?"></div>'+
       '<div class="hub-tip rv">Searches every workflow, step, role and tool in the current SOPs. Offline, every answer traceable.</div>'+
     '</div>'+
