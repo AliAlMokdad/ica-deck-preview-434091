@@ -424,6 +424,31 @@ ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;lef
 .lad-frame.m-up .lad-arrow,.lad-frame.m-down .lad-arrow,.lad-frame.m-re .lad-arrow{color:var(--red);animation:ladAr 1.5s ease-in-out infinite}
 @keyframes ladAr{0%,100%{opacity:.4}50%{opacity:1}}
 @media (prefers-reduced-motion:reduce){.lad-frame .lad-arrow{animation:none}.lad-sum.sw{animation:none}.lad-tag::before{animation:none}.lad-card,.lad-impact,.lad-meter i{transition:none}}
+/* ============ FROM THE ROOM (TAB 07) ============ */
+.fr-acc{background:#fff;border:1px solid var(--rule);border-left:7px solid var(--fc);border-radius:16px;margin:0 0 16px;box-shadow:var(--shadow);overflow:hidden;max-width:980px}
+.fr-head{display:flex;align-items:center;gap:16px;width:100%;padding:19px 24px;cursor:pointer;background:#fff;border:0;text-align:left;font-family:inherit;transition:background .18s}
+.fr-head:hover{background:var(--g6)}
+.fr-ico{width:42px;height:42px;border-radius:50%;background:var(--fc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;flex:0 0 42px}
+.fr-ttl{font-size:25px;font-weight:800;color:var(--ink);line-height:1}
+.fr-sub{font-family:var(--mono);font-size:12.5px;color:var(--g3);margin-top:6px;letter-spacing:.06em;text-transform:uppercase}
+.fr-count{margin-left:auto;font-family:var(--mono);font-size:14px;font-weight:700;color:var(--fc);border:1.5px solid var(--fc);border-radius:20px;padding:5px 15px;white-space:nowrap}
+.fr-chev{font-size:17px;color:var(--g3);transition:transform .3s ease;margin-left:4px}
+.fr-acc.open .fr-chev{transform:rotate(180deg)}
+.fr-body{max-height:0;overflow:hidden;transition:max-height .5s ease}
+.fr-acc.open .fr-body{max-height:1500px}
+.fr-list{padding:2px 26px 20px}
+.fr-item{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-top:1px dotted var(--rule)}
+.fr-item:first-child{border-top:0}
+.fr-acc.open .fr-item{animation:frIn .35s ease both;animation-delay:var(--d,0s)}
+@keyframes frIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.fr-n{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--fc);flex:0 0 30px;padding-top:3px}
+.fr-txt{font-size:17.5px;color:var(--body);line-height:1.5;flex:1}
+.fr-chip{font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:.04em;border-radius:16px;padding:4px 12px;white-space:nowrap;flex:0 0 auto;border:1px solid;align-self:flex-start;margin-top:2px}
+.fr-chip.a1{color:var(--p2);border-color:var(--p2)}
+.fr-chip.a2{color:var(--p3);border-color:var(--p3)}
+.fr-chip.a3{color:var(--p4);border-color:var(--p4)}
+.fr-chip.a4{color:var(--g3);border-color:var(--g4)}
+@media (prefers-reduced-motion:reduce){.fr-body,.fr-chev{transition:none}.fr-acc.open .fr-item{animation:none}}
 #hub-q{width:100%;font-family:inherit;font-size:18.5px;color:var(--ink);background:#fff;border:1px solid var(--g5);border-radius:32px;padding:17px 26px 17px 58px;box-shadow:0 2px 8px rgba(32,33,36,.12);outline:none;transition:border-color .2s,box-shadow .2s;caret-color:var(--red)}
 #hub-q::placeholder{color:var(--g4)}
 #hub-q:hover{box-shadow:0 3px 12px rgba(32,33,36,.18)}
@@ -548,6 +573,7 @@ mark.hl{background:var(--red-soft);color:var(--ink);border-radius:3px;padding:0 
     <section class="tab" id="tab-exercise"></section>
     <section class="tab" id="tab-hub"></section>
     <section class="tab" id="tab-ladder"></section>
+    <section class="tab" id="tab-room"></section>
   </main>
 </div>
 
@@ -556,7 +582,7 @@ mark.hl{background:var(--red-soft);color:var(--ink);border-radius:3px;padding:0 
   <div class="help-card">
     <h3>Driving the room</h3>
     <p>You control every reveal. Nothing jumps ahead of you.</p>
-    <div class="help-row"><span class="keys"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b></span> jump to a tab</div>
+    <div class="help-row"><span class="keys"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b></span> jump to a tab</div>
     <div class="help-row"><span class="keys"><b>←</b><b>→</b></span> step through the active tab</div>
     <div class="help-row"><span class="keys"><b>Esc</b></span> leaves a search box, then back to the cover</div>
     <div class="help-row"><span class="keys"><b>?</b></span> show or hide this panel</div>
@@ -578,7 +604,8 @@ var TABS = [
   {id:"template",  n:"03", label:"Template"},
   {id:"exercise",  n:"04", label:"Exercise"},
   {id:"hub",       n:"05", label:"Search"},
-  {id:"ladder",    n:"06", label:"Up and down"}
+  {id:"ladder",    n:"06", label:"Up and down"},
+  {id:"room",      n:"07", label:"From the room"}
 ];
 
 var MILESTONES = [
@@ -3295,6 +3322,73 @@ function ladMode(m){
   });
 }
 
+/* ===================== BUILD: FROM THE ROOM (TAB 07) ===================== */
+var ROOM={
+  keep:{t:"Keep it", sub:"What is worth keeping", ic:"✓", c:"#3E7C5A", items:[
+    ["Video Recordings with transcripts",2],
+    ["Link to SOPs from Int Finance Homepage & from Int Homepage",2],
+    ["Database to Develop additional materials, guides etc",2],
+    ["Project Lifecycle layout",1],
+    ["Overview of SOPs in International Dept.",1],
+    ["Referring to positions directly e.g. ICA",3],
+    ["Standard templates",3],
+    ["Links to external websites for donor guidelines",3],
+    ["Links to DRC intranet pages for DRC guidelines",3],
+    ["Roles and responsibilities matrix",3],
+    ["Specific “AX-09 How To Do” procedure notes",3]
+  ]},
+  leave:{t:"Leave it", sub:"What to leave behind", ic:"✕", c:"#A8632E", items:[
+    ["Detailed Step by Step Technical Sessions",4],
+    ["Silos processes (Unharmonised Processes) at Regional levels. E.g Cash SOPs.",2],
+    ["Complex Processes",2],
+    ["Overlapping and Contradictory Guidelines and SOPs",1],
+    ["Lack of Accountability",3],
+    ["Informal Approval processes / SOPs / Communications",4],
+    ["Subjective Interpretations and desire rather than Organisational Goal.",3],
+    ["Removing lack of referral Culture/Mechanism",4]
+  ]},
+  intro:{t:"Introduce", sub:"What to introduce", ic:"+", c:"#3A5C97", items:[
+    ["One source of information with one click (platform) at the SharePoint",2],
+    ["Clear Matrix on roles & responsibilities across departments",1],
+    ["Proper, clear & structured SOP (covering Templates, memos, thresholds, etc.)",3],
+    ["Super User for the SOP - or define the ownership whether it is by department or not",4],
+    ["Organigram Structure & their Roles / relationships",3],
+    ["Detailed Guidance on Procedures/Tasks required linked to financial Handbook",3]
+  ]}
+};
+function buildRoom(){
+  var AREAS={1:"Layout & structure",2:"SharePoint & storage",3:"Writing & updating",4:"Other"};
+  var order=["keep","leave","intro"];
+  var cards=order.map(function(k){
+    var g=ROOM[k];
+    var rows=g.items.map(function(it,i){
+      return '<div class="fr-item" style="--d:'+((i+1)*0.03).toFixed(2)+'s"><span class="fr-n">'+(i<9?'0':'')+(i+1)+'</span><span class="fr-txt">'+esc(it[0])+'</span><span class="fr-chip a'+it[1]+'">'+esc(AREAS[it[1]])+'</span></div>';
+    }).join("");
+    return '<div class="fr-acc rv" id="fr-'+k+'" style="--fc:'+g.c+'">'+
+      '<button class="fr-head" aria-expanded="false" data-fr="'+k+'">'+
+      '<span class="fr-ico" aria-hidden="true">'+g.ic+'</span>'+
+      '<span><span class="fr-ttl">'+esc(g.t)+'</span><div class="fr-sub">'+esc(g.sub)+'</div></span>'+
+      '<span class="fr-count">'+g.items.length+' points</span>'+
+      '<span class="fr-chev" aria-hidden="true">▾</span>'+
+      '</button><div class="fr-body"><div class="fr-list">'+rows+'</div></div></div>';
+  }).join("");
+  var html='<div class="wrap">'+
+    '<div class="kicker rv">Tab 07</div>'+
+    '<h2 class="head rv">From the room</h2>'+
+    '<p class="lead rv">Captured live in the exercise · ICA Workshop · 10 June 2026. Your words, your areas. Click a list to open it.</p>'+
+    cards+
+    '<div class="lad-foot rv">Your words, as you wrote them. This goes into the <b>Co-design</b> stage.</div>'+
+    '</div>';
+  $("#tab-room").innerHTML=html;
+  $all(".fr-head").forEach(function(b){ b.addEventListener("click",function(){ frToggle(b.getAttribute("data-fr")); }); });
+}
+function frToggle(k){
+  $all(".fr-acc").forEach(function(a){
+    if(a.id==="fr-"+k){ a.classList.toggle("open"); } else { a.classList.remove("open"); }
+    var hb=a.querySelector(".fr-head"); if(hb) hb.setAttribute("aria-expanded", a.classList.contains("open")?"true":"false");
+  });
+}
+
 /* ===================== NAVIGATION ===================== */
 function go(tabId){
   view = tabId;
@@ -3329,7 +3423,7 @@ document.addEventListener("keydown",function(e){
   if(view==="cover"){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); enterApp(); } return; }
   if($("#help").classList.contains("show")){ if(e.key==="Escape"||e.key==="?"){ toggleHelp(false); } return; }
   if(typing){ if(e.key==="Escape"){ ae.blur(); } return; }
-  if(e.key>="1"&&e.key<="6"){ var tt=TABS[+e.key-1]; if(tt){ go(tt.id); } return; }
+  if(e.key>="1"&&e.key<="7"){ var tt=TABS[+e.key-1]; if(tt){ go(tt.id); } return; }
   if(e.key==="?"){ toggleHelp(true); return; }
   if(e.key==="Escape"){ $("#cover").classList.remove("gone"); $("#app").classList.remove("on"); view="cover"; return; }
   if(e.key==="ArrowRight"||e.key==="ArrowLeft"){
@@ -3380,6 +3474,7 @@ buildTemplate();
 buildExercise();
 buildHub();
 buildLadder();
+buildRoom();
 </script>
 </body>
 </html>
