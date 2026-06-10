@@ -383,6 +383,45 @@ ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;lef
 .lad-arrow{display:flex;justify-content:center;color:var(--g4);font-size:20px;margin:7px 0;font-weight:700}
 .lad-foot{margin-top:22px;text-align:center;font-family:var(--mono);font-size:14.5px;letter-spacing:.04em;color:var(--g2)}
 .lad-foot b{color:var(--red);font-weight:700}
+.lad-ctl{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:18px 0 0}
+.lad-ctl-lbl{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g3);margin-right:4px}
+.lad-btn{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--red);background:var(--red-soft);border:1.5px solid var(--red);border-radius:24px;padding:9px 20px;cursor:pointer;transition:.18s;letter-spacing:.02em}
+.lad-btn:hover{background:var(--red);color:#fff}
+.lad-btn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lad-btn .ar{margin-right:7px}
+.lad-sum{margin:15px 0 0;max-width:900px;border-left:3px solid var(--red);padding:3px 0 3px 16px;font-size:16px;color:var(--g2);line-height:1.6}
+.lad-sum.sw{animation:ladSw .45s ease}
+@keyframes ladSw{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.lad-card{transition:margin-left .55s cubic-bezier(.22,.9,.3,1),transform .18s,box-shadow .18s}
+.lad-impact{max-height:0;opacity:0;overflow:hidden;margin-top:0;transition:max-height .5s ease,opacity .45s ease,margin-top .45s ease}
+.lad-frame.m-up .lad-impact,.lad-frame.m-down .lad-impact,.lad-frame.m-re .lad-impact{max-height:240px;opacity:1;margin-top:13px}
+.lad-card[data-lvl="4"] .lad-impact{transition-delay:0s}
+.lad-card[data-lvl="3"] .lad-impact{transition-delay:.08s}
+.lad-card[data-lvl="2"] .lad-impact{transition-delay:.16s}
+.lad-card[data-lvl="1"] .lad-impact{transition-delay:.24s}
+.lad-imp-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.lad-badge{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:20px;padding:4px 13px;border:1.5px solid var(--g4);color:var(--g2);background:#fff}
+.lad-badge.mid{border-color:var(--lc,var(--red));color:var(--lc,var(--red))}
+.lad-badge.max{border-color:var(--red);color:#fff;background:var(--red)}
+.lad-meter{display:inline-flex;align-items:center;gap:7px}
+.lad-mlbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--g4);margin-right:2px}
+.lad-meter i{width:15px;height:5px;border-radius:3px;background:var(--g5);transition:background .25s ease,transform .25s ease}
+.lad-meter i.f{background:var(--lc,var(--red));transform:scaleY(1.3)}
+.lad-imp-txt{font-size:16px;color:var(--body);line-height:1.55;margin:9px 0 0;max-width:660px}
+.lad-frame.m-up .lad-card[data-lvl="1"]{margin-left:4px}
+.lad-frame.m-up .lad-card[data-lvl="2"]{margin-left:12px}
+.lad-frame.m-up .lad-card[data-lvl="3"]{margin-left:28px}
+.lad-frame.m-up .lad-card[data-lvl="4"]{margin-left:38px}
+.lad-frame.m-down .lad-card[data-lvl="1"]{margin-left:-3px}
+.lad-frame.m-down .lad-card[data-lvl="2"]{margin-left:-9px}
+.lad-frame.m-down .lad-card[data-lvl="3"]{margin-left:-22px}
+.lad-frame.m-down .lad-card[data-lvl="4"]{margin-left:-17px}
+.lad-frame.m-re .lad-card[data-lvl="2"]{margin-left:16px}
+.lad-frame.m-re .lad-card[data-lvl="3"]{margin-left:-16px}
+.lad-frame.m-re .lad-card[data-lvl="4"]{margin-left:16px}
+.lad-frame.m-up .lad-arrow,.lad-frame.m-down .lad-arrow,.lad-frame.m-re .lad-arrow{color:var(--red);animation:ladAr 1.5s ease-in-out infinite}
+@keyframes ladAr{0%,100%{opacity:.4}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.lad-frame .lad-arrow{animation:none}.lad-sum.sw{animation:none}.lad-card,.lad-impact,.lad-meter i{transition:none}}
 #hub-q{width:100%;font-family:inherit;font-size:18.5px;color:var(--ink);background:#fff;border:1px solid var(--g5);border-radius:32px;padding:17px 26px 17px 58px;box-shadow:0 2px 8px rgba(32,33,36,.12);outline:none;transition:border-color .2s,box-shadow .2s;caret-color:var(--red)}
 #hub-q::placeholder{color:var(--g4)}
 #hub-q:hover{box-shadow:0 3px 12px rgba(32,33,36,.18)}
@@ -3169,6 +3208,32 @@ function buildHub(){
 }
 
 /* ===================== BUILD: UP AND DOWN (TAB 06) ===================== */
+var LAD_MODE=null;
+var LAD_SC={
+  steady:{sum:"Three things can change an organisation: it grows, it shrinks, or it changes shape. Press a scenario to see where the change lands.",
+    foot:'Read it <b>down</b> to apply it. Read it <b>up</b> to justify it.'},
+  up:{sum:"Growth enters from the bottom. Tools and procedures move first, the policy line holds. New volume is absorbed by adding workflows and access, not by rewriting principles.",
+    rows:[
+      {b:"Holds",tone:"hold",lv:1,t:"The boundaries do not move because the organisation grew. The policy is reviewed against the new scale, not rewritten for it."},
+      {b:"Holds its shape",tone:"hold",lv:2,t:"Still Preparation to Implementation to Closure. The same flow simply carries more countries and more volume."},
+      {b:"Changes most",tone:"max",lv:4,t:"New workflows are added and existing steps are split across more roles, so segregation of duties deepens as the team grows."},
+      {b:"Extends",tone:"mid",lv:5,t:"More users, more templates, new roles and access rights in Kompas. The systems move first, because they are the easiest layer to change."}
+    ]},
+  down:{sum:"Contraction tests the controls. When roles merge, segregation of duties is the first thing to re-check. Compensating controls are agreed before the old ones are switched off.",
+    rows:[
+      {b:"Still holds",tone:"hold",lv:1,t:"Anti-corruption does not relax because the organisation got smaller. The principles stay, only their footprint shrinks."},
+      {b:"Compresses",tone:"mid",lv:2,t:"The same cycle with fewer parallel tracks. Stages are combined in practice, but the order of the work does not change."},
+      {b:"Merges",tone:"max",lv:5,t:"One role now carries steps that used to be split between two. Segregation of duties comes under pressure, so compensating controls are agreed and documented before roles close."},
+      {b:"Consolidates",tone:"mid",lv:4,t:"Access rights are removed as roles close, licences are reduced, and records are kept to the retention rules even after the activity ends."}
+    ]},
+  re:{sum:"A restructure rarely changes what is done. It changes who does it. The documents that move are the ones that name roles, so every RACI is reviewed and confirmed.",
+    rows:[
+      {b:"Intact",tone:"hold",lv:1,t:"A new structure rarely needs new principles. The policy changes only if the mandate itself has changed."},
+      {b:"Hand-offs move",tone:"mid",lv:3,t:"The flow is the same work, but it crosses different desks. The points where one role passes the work to another are redrawn."},
+      {b:"RACI rewires",tone:"max",lv:5,t:"Same steps, new owners. Every workflow that names a role is reviewed, remapped and confirmed before the old mapping is retired."},
+      {b:"Reconfigured",tone:"mid",lv:3,t:"Approval chains and access rights follow the new structure, so Kompas is updated to mirror the new reporting lines."}
+    ]}
+};
 function buildLadder(){
   var L=[
     {w:"Policy", t:"The why", c:"var(--red)", d:"The principles and boundaries the organisation commits to. What must always hold, and what is never allowed. Set high, changed rarely.", chips:["Anti-Corruption Policy","Six Principles of Sound Financial Management","Counter-Terrorism"]},
@@ -3178,18 +3243,52 @@ function buildLadder(){
   ];
   var cards=L.map(function(x,i){
     var chips=x.chips.map(function(ch){ return '<span class="lad-chip">'+esc(ch)+'</span>'; }).join("");
-    return '<div class="lad-card rv" style="--lc:'+x.c+'"><div class="lad-left"><div class="lad-word">'+esc(x.w)+'</div><div class="lad-tagline">'+esc(x.t)+'</div></div><div class="lad-right"><p class="lad-def">'+esc(x.d)+'</p><div class="lad-chips">'+chips+'</div></div></div>'+(i<L.length-1?'<div class="lad-arrow rv">&darr;</div>':'');
+    var meter=''; for(var k=0;k<5;k++) meter+='<i></i>';
+    return '<div class="lad-card rv" data-lvl="'+(i+1)+'" style="--lc:'+x.c+'">'+
+      '<div class="lad-left"><div class="lad-word">'+esc(x.w)+'</div><div class="lad-tagline">'+esc(x.t)+'</div></div>'+
+      '<div class="lad-right"><p class="lad-def">'+esc(x.d)+'</p><div class="lad-chips">'+chips+'</div>'+
+      '<div class="lad-impact"><div class="lad-imp-head"><span class="lad-badge"></span><span class="lad-meter" aria-hidden="true"><span class="lad-mlbl">movement</span>'+meter+'</span></div><p class="lad-imp-txt"></p></div>'+
+      '</div></div>'+
+      (i<L.length-1?'<div class="lad-arrow rv">&darr;</div>':'');
   }).join("");
   var html='<div class="wrap">'+
     '<div class="kicker rv">Tab 06</div>'+
     '<h2 class="head rv">Up and down</h2>'+
-    '<div class="lad-frame rv"><div class="lad-tag">Governance</div>'+
+    '<div class="lad-ctl rv"><span class="lad-ctl-lbl">When the organisation changes</span>'+
+    '<button class="lad-btn" data-m="up" aria-pressed="false"><span class="ar">&uarr;</span>Scale up</button>'+
+    '<button class="lad-btn" data-m="down" aria-pressed="false"><span class="ar">&darr;</span>Scale down</button>'+
+    '<button class="lad-btn" data-m="re" aria-pressed="false"><span class="ar">&#8644;</span>Restructure</button></div>'+
+    '<p class="lad-sum rv" id="lad-sum">'+esc(LAD_SC.steady.sum)+'</p>'+
+    '<div class="lad-frame rv" id="lad-frame"><div class="lad-tag">Governance</div>'+
     '<p class="lad-note">Governance is the frame around all four: who owns each document, who approves changes, and how it stays current.</p>'+
     cards+
     '</div>'+
-    '<div class="lad-foot rv">Read it <b>down</b> to apply it. Read it <b>up</b> to justify it.</div>'+
+    '<div class="lad-foot rv" id="lad-foot">'+LAD_SC.steady.foot+'</div>'+
     '</div>';
   $("#tab-ladder").innerHTML=html;
+  $all(".lad-btn").forEach(function(b){ b.addEventListener("click",function(){ ladMode(b.getAttribute("data-m")); }); });
+}
+function ladMode(m){
+  if(LAD_MODE===m) m=null;
+  LAD_MODE=m;
+  var fr=$("#lad-frame");
+  fr.classList.remove("m-up","m-down","m-re");
+  if(m) fr.classList.add("m-"+m);
+  $all(".lad-btn").forEach(function(b){ var on=b.getAttribute("data-m")===m; b.classList.toggle("on",on); b.setAttribute("aria-pressed",on?"true":"false"); });
+  var s=$("#lad-sum");
+  s.classList.remove("sw"); void s.offsetWidth;
+  s.textContent=(m?LAD_SC[m]:LAD_SC.steady).sum;
+  s.classList.add("sw");
+  $("#lad-foot").innerHTML = m ? 'The higher the layer, the <b>slower</b> it changes. The lower the layer, the <b>faster</b> it moves.' : LAD_SC.steady.foot;
+  var cards=$all("#lad-frame .lad-card");
+  cards.forEach(function(c,i){
+    var bd=c.querySelector(".lad-badge"), tx=c.querySelector(".lad-imp-txt"), ticks=c.querySelectorAll(".lad-meter i"), k;
+    if(!m){ for(k=0;k<ticks.length;k++) ticks[k].classList.remove("f"); return; }
+    var r=LAD_SC[m].rows[i];
+    bd.textContent=r.b; bd.className="lad-badge"+(r.tone==="hold"?"":" "+r.tone);
+    tx.textContent=r.t;
+    for(k=0;k<ticks.length;k++){ (function(el,fill,d){ setTimeout(function(){ el.classList.toggle("f",fill); }, 180+d*55); })(ticks[k], k<r.lv, k); }
+  });
 }
 
 /* ===================== NAVIGATION ===================== */
