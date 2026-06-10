@@ -267,7 +267,7 @@ ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;lef
 .signoff .so .v{font-size:13px;font-weight:600;color:var(--ink);margin-top:3px}
 
 /* ============ EXERCISE ============ */
-.ex-top{display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:18px}
+.ex-top{display:flex;align-items:flex-end;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:20px}
 .ex-cap{flex:1 1 460px;background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
 .ex-cap .row{display:flex;gap:8px;align-items:center}
 .ex-cap input[type=text]{flex:1;border:1px solid var(--rule);border-radius:9px;padding:11px 13px;font-size:14.5px;font-family:inherit;color:var(--ink);outline:none}
@@ -286,23 +286,23 @@ ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;lef
 .timer .tctl button{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:4px 9px;color:#fff;font-family:var(--mono);font-size:12px}
 .timer .tctl button:hover{background:var(--red)}
 .timer.done .tnum{color:#ff7a7a}
-.timer.big{padding:18px 32px}
-.timer.big .tnum{font-size:54px}
+.timer.big{padding:24px 48px}
+.timer.big .tnum{font-size:72px}
 .timer.big .tctl{margin-top:12px;gap:8px}
-.timer.big .tctl button{padding:6px 13px;font-size:13px}
+.timer.big .tctl button{padding:7px 16px;font-size:14px}
 .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:12px}
-.col{background:var(--paper);border:1px solid var(--rule);border-top:4px solid var(--cc,var(--g4));border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-height:380px;box-shadow:var(--shadow)}
+.col{background:var(--paper);border:1px solid var(--rule);border-top:4px solid var(--cc,var(--g4));border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-height:430px;box-shadow:var(--shadow)}
 .col[data-c=keep]{--cc:var(--keep)} .col[data-c=leave]{--cc:var(--leave)} .col[data-c=introduce]{--cc:var(--intro)}
 .col .ch{padding:18px 20px 15px;display:flex;align-items:center;gap:13px}
-.col .ch .ico{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:25px;font-weight:700;flex:0 0 auto}
+.col .ch .ico{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700;flex:0 0 auto;box-shadow:0 6px 16px rgba(20,18,20,.22);animation:icoVibe 3s ease-in-out infinite}
 .col[data-c=keep] .ico{background:var(--keep)} .col[data-c=leave] .ico{background:var(--leave)} .col[data-c=introduce] .ico{background:var(--intro)}
-.col .ch h3{font-size:23px;font-weight:800;color:var(--ink);margin:0;line-height:1.05}
+.col .ch h3{font-size:26px;font-weight:800;color:var(--ink);margin:0;line-height:1.05}
 .cguide{padding:2px 20px 16px;border-bottom:1px dashed var(--rule)}
-.cg-lead{font-size:16.5px;font-weight:700;color:var(--ink);margin-bottom:11px}
+.cg-lead{font-size:18px;font-weight:700;color:var(--ink);margin-bottom:12px}
 .cg-q{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px}
-.cg-q li{font-size:16.5px;color:var(--g2);line-height:1.42}
-.cg-eg{margin-top:13px;border-top:1px dashed var(--rule);padding-top:11px;font-size:14px;font-style:italic;color:var(--g2);line-height:1.45}
-.cg-eg-k{display:block;font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--g4);margin-bottom:4px}
+.cg-q li{font-size:18px;color:var(--g2);line-height:1.45}
+.cg-eg{margin-top:14px;border-top:1px dashed var(--rule);padding-top:12px;font-size:15.5px;font-style:italic;color:var(--g2);line-height:1.5}
+.cg-eg-k{display:block;font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--g4);margin-bottom:5px}
 .col .body{flex:1;padding:14px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
 .col .empty{color:var(--g4);font-size:10px;text-align:center;margin:auto;font-style:italic;opacity:.6}
 .card{background:#fff;border:1px solid var(--rule);border-left:3px solid var(--cc);border-radius:9px;padding:10px 12px;font-size:13.5px;color:var(--ink);box-shadow:0 1px 3px rgba(20,18,20,.05);position:relative;animation:cardin .42s cubic-bezier(.2,.8,.2,1) both}
@@ -311,7 +311,15 @@ ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;lef
 .card:hover .del{opacity:1}
 .card .del:hover{color:var(--red)}
 .ex-foot{margin-top:20px;text-align:center;font-size:15px;color:var(--g2);font-style:italic}
-.ex-note{margin:22px auto 0;max-width:780px;text-align:center;font-size:13.5px;color:var(--g2);background:var(--g6);border:1px solid var(--rule);border-radius:10px;padding:13px 22px;line-height:1.5}
+.ex-stars{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+#tab-exercise .wrap{position:relative;z-index:1}
+.ex-star{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--red);opacity:.10;animation:exTwinkle 4.6s ease-in-out infinite}
+.ex-star.b{width:4px;height:4px;box-shadow:0 0 6px 1px rgba(227,10,11,.25)}
+@keyframes exTwinkle{0%,100%{opacity:.06;transform:scale(.7)}50%{opacity:.30;transform:scale(1.15)}}
+@keyframes icoVibe{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-4px) rotate(-4deg)}}
+.col[data-c=leave] .ico{animation-delay:.9s}
+.col[data-c=introduce] .ico{animation-delay:1.8s}
+@media (prefers-reduced-motion:reduce){.ex-star,.col .ch .ico{animation:none}.ex-star{opacity:.12}}
 
 /* ============ SEARCH (TAB 05) ============ */
 .hub-hero{max-width:760px;margin:8vh auto 30px;text-align:center;transition:margin .4s ease}
@@ -2812,10 +2820,10 @@ function renderAuditSop(s){
 }
 
 /* ===================== BUILD: EXERCISE ===================== */
-function buildExercise(){
-  var cols = EX_COLS.map(function(c){
+var EXSTARS='<div class="ex-stars" aria-hidden="true">'+[[8,6],[14,88],[24,30],[9,55],[76,12],[84,72],[68,42],[88,92],[18,70],[80,26],[12,38],[86,54]].map(function(p,i){return '<span class="ex-star'+(i%4===0?' b':'')+'" style="top:'+p[0]+'%;left:'+p[1]+'%;animation-delay:'+(i*0.45)+'s"></span>';}).join("")+'</div>';
+function buildExercise(){  var cols = EX_COLS.map(function(c){
     var qs = c.q.map(function(q){ return '<li>'+esc(q)+'</li>'; }).join("");
-    return '<div class="col" data-c="'+c.c+'"><div class="ch"><div class="ico">'+c.icon+'</div><h3>'+esc(c.title)+'</h3></div><div class="cguide"><div class="cg-lead">'+esc(c.lead)+'</div><ol class="cg-q">'+qs+'</ol>'+(c.eg?'<div class="cg-eg"><span class="cg-eg-k">From our first meeting</span>'+esc(c.eg)+'</div>':'')+'</div><div class="body" id="body-'+c.c+'"></div></div>';
+    return '<div class="col" data-c="'+c.c+'"><div class="ch"><div class="ico">'+c.icon+'</div><h3>'+esc(c.title)+'</h3></div><div class="cguide"><div class="cg-lead">'+esc(c.lead)+'</div><ol class="cg-q">'+qs+'</ol>'+(c.eg?'<div class="cg-eg"><span class="cg-eg-k">From ICA meetings</span>'+esc(c.eg)+'</div>':'')+'</div><div class="body" id="body-'+c.c+'"></div></div>';
   }).join("");
   var html = '<div class="wrap">'+
     '<div class="kicker rv">Tab 04</div>'+
@@ -2823,9 +2831,9 @@ function buildExercise(){
     '<p class="lead rv">Look at the SOPs through three areas: the layout and structure, the SharePoint library, and how we write and update them.</p>'+
     '<div class="ex-top rv"><div class="timer big" id="timer"><div class="tnum" id="tnum">20:00</div><div class="tctl"><button data-t="start">start</button><button data-t="-">-5</button><button data-t="+">+5</button><button data-t="reset">reset</button></div></div></div>'+
     '<div class="cols rv">'+cols+'</div>'+
-    '<div class="ex-note rv">These prompts are only a guide. Note anything worth keeping, leaving, or introducing, even if it does not match a prompt. The more specific it is, the more useful it will be.</div>'+
+    
     '</div>';
-  $("#tab-exercise").innerHTML = html;
+  $("#tab-exercise").innerHTML = EXSTARS+html;
   wireExercise();
   renderCards();
 }
