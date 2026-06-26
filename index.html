@@ -531,6 +531,58 @@ mark.hl{background:var(--red-soft);color:var(--ink);border-radius:3px;padding:0 
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;transition-duration:.08s!important}
 }
+/* ============ DONOR COMPLIANCE (TAB 08) ============ */
+.dc-stats{display:flex;gap:14px;flex-wrap:wrap;margin:4px 0 24px}
+.dc-stat{flex:1 1 160px;background:#fff;border:1px solid var(--rule);border-radius:14px;padding:17px 20px;box-shadow:var(--shadow)}
+.dc-stat .v{font-family:var(--mono);font-size:29px;font-weight:700;color:var(--ink);letter-spacing:-.02em;line-height:1}
+.dc-stat .l{margin-top:7px;font-size:13px;color:var(--g2)}
+.dc-principle{display:flex;gap:14px;align-items:flex-start;background:var(--red-soft);border:1px solid #f3cfce;border-left:4px solid var(--red);border-radius:12px;padding:15px 20px;margin:0 0 30px}
+.dc-principle .pico{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);background:#fff;border:1px solid #f3cfce;border-radius:6px;padding:4px 9px;white-space:nowrap;margin-top:1px}
+.dc-principle p{margin:0;color:var(--ink);font-size:15.5px;line-height:1.5}
+.dc-principle b{color:var(--red-deep)}
+.dc-h3{font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.01em;margin:32px 0 4px}
+.dc-note{color:var(--g3);font-size:14px;margin:0 0 15px}
+.dc-flow{display:flex;gap:10px;flex-wrap:wrap}
+.dc-node{flex:1 1 150px;min-width:138px;text-align:left;background:#fff;border:1px solid var(--rule);border-top:3px solid var(--nc,var(--g4));border-radius:12px;padding:13px 15px 14px;transition:transform .2s ease,box-shadow .2s ease;box-shadow:var(--shadow)}
+.dc-node:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.dc-node .rn{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--nc,var(--g3));font-weight:700}
+.dc-node .nm{display:block;font-weight:700;color:var(--ink);font-size:15px;margin:3px 0 6px}
+.dc-node .ct{font-family:var(--mono);font-size:12px;color:var(--g3)}
+.dc-node.on{border-color:var(--nc);box-shadow:0 0 0 2px var(--nc) inset,var(--shadow);transform:translateY(-2px)}
+.dc-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .42s ease,margin .42s ease;margin-top:0}
+.dc-panel.open{grid-template-rows:1fr;margin-top:15px}
+.dc-panel-in{overflow:hidden;min-height:0}
+.dc-pcard{background:#fff;border:1px solid var(--rule);border-left:4px solid var(--nc,var(--red));border-radius:12px;padding:19px 22px;box-shadow:var(--shadow)}
+.dc-pcard .pt{font-weight:800;color:var(--ink);font-size:18px;margin:0 0 4px}
+.dc-pcard .pb{color:var(--g2);font-size:14.5px;margin:0 0 14px}
+.dc-areas{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+.dc-areas span{font-size:12.5px;color:var(--g2);background:var(--canvas);border:1px solid var(--rule);border-radius:20px;padding:4px 11px}
+.dc-hl{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--g6)}
+.dc-hl:first-of-type{border-top:0}
+.dc-tag{flex:0 0 auto;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#fff;border-radius:5px;padding:3px 8px;margin-top:1px;white-space:nowrap}
+.dc-hl .ht{color:var(--body);font-size:14.5px;line-height:1.5}
+.dc-donors{display:flex;flex-direction:column;gap:10px}
+.dc-acc{background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);border-left:4px solid var(--dc,var(--g4))}
+.dc-ahead{display:flex;align-items:center;gap:13px;width:100%;padding:15px 18px;text-align:left}
+.dc-dot{width:11px;height:11px;border-radius:50%;background:var(--dc,var(--g4));flex:0 0 auto}
+.dc-aname{font-weight:700;color:var(--ink);font-size:15.5px}
+.dc-atag{color:var(--g3);font-size:13px;margin-left:2px}
+.dc-acount{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--g3);background:var(--canvas);border:1px solid var(--rule);border-radius:20px;padding:3px 11px;white-space:nowrap}
+.dc-chev{color:var(--g4);transition:transform .3s ease;flex:0 0 auto;font-size:13px}
+.dc-acc.open .dc-chev{transform:rotate(180deg)}
+.dc-abody{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s ease}
+.dc-acc.open .dc-abody{grid-template-rows:1fr}
+.dc-abody-in{overflow:hidden;min-height:0}
+.dc-sigs{padding:2px 18px 16px 42px}
+.dc-sig{position:relative;padding:8px 0 8px 18px;color:var(--body);font-size:14.5px;line-height:1.5;border-top:1px solid var(--g6)}
+.dc-sig:first-child{border-top:0}
+.dc-sig::before{content:"";position:absolute;left:0;top:15px;width:7px;height:7px;border-radius:50%;background:var(--dc,var(--g4))}
+.dc-method{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.dc-mcard{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+.dc-mcard .mt{font-weight:700;color:var(--ink);font-size:15px;margin-bottom:5px;display:flex;align-items:center;gap:8px}
+.dc-mcard .mt::before{content:"";width:9px;height:9px;border-radius:2px;background:var(--red);flex:0 0 auto}
+.dc-mcard .md{color:var(--g2);font-size:13.5px;line-height:1.5}
+@media (max-width:760px){.dc-node{flex:1 1 44%}.tab .dc-sigs{padding-left:30px}}
 </style>
 </head>
 <body>
@@ -574,6 +626,7 @@ mark.hl{background:var(--red-soft);color:var(--ink);border-radius:3px;padding:0 
     <section class="tab" id="tab-hub"></section>
     <section class="tab" id="tab-ladder"></section>
     <section class="tab" id="tab-room"></section>
+    <section class="tab" id="tab-donor"></section>
   </main>
 </div>
 
@@ -582,7 +635,7 @@ mark.hl{background:var(--red-soft);color:var(--ink);border-radius:3px;padding:0 
   <div class="help-card">
     <h3>Driving the room</h3>
     <p>You control every reveal. Nothing jumps ahead of you.</p>
-    <div class="help-row"><span class="keys"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b></span> jump to a tab</div>
+    <div class="help-row"><span class="keys"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b></span> jump to a tab</div>
     <div class="help-row"><span class="keys"><b>←</b><b>→</b></span> step through the active tab</div>
     <div class="help-row"><span class="keys"><b>Esc</b></span> leaves a search box, then back to the cover</div>
     <div class="help-row"><span class="keys"><b>?</b></span> show or hide this panel</div>
@@ -605,7 +658,8 @@ var TABS = [
   {id:"exercise",  n:"04", label:"Exercise"},
   {id:"hub",       n:"05", label:"Search"},
   {id:"ladder",    n:"06", label:"Up and down"},
-  {id:"room",      n:"07", label:"From the room"}
+  {id:"room",      n:"07", label:"From the room"},
+  {id:"donor",     n:"08", label:"Donor compliance"}
 ];
 
 var MILESTONES = [
@@ -3389,6 +3443,149 @@ function frToggle(k){
   });
 }
 
+/* ===================== DONOR COMPLIANCE (TAB 08) ===================== */
+var DC_STATS = [["395","requirements"],["6","lifecycle phases · I to VI"],["6","donor groups"],["30","source documents"]];
+var DC_PHASES = [
+  {key:"inception", rn:"I", name:"Inception", color:"var(--p1)", count:15,
+   blurb:"Before the grant. Screening the opportunity and gating risk before DRC commits.",
+   areas:["Go/No-Go gate","Approval thresholds","Derogation / decision cover","Counter-terrorism risk","PADOR pre-registration","Co-funding"],
+   hl:[{d:"Baseline",c:"var(--g3)",t:"Every proposal passes a mandatory Go/No-Go; the Country Manager approves up to EUR 5m, the International Director above."},
+       {d:"INTPA",c:"var(--p2)",t:"PADOR pre-registration of every applicant before an EU call."},
+       {d:"Baseline",c:"var(--g3)",t:"Counter-terrorism and sanctions risk assessed and recorded at appraisal."}]},
+  {key:"initiation", rn:"II", name:"Initiation", color:"var(--p2)", count:48,
+   blurb:"Setting up the funded project. Budget, agreement and donor set-up.",
+   areas:["Budget template & cost categories","Donor cost classification","Indirect cost rate","Budget ratios (HQ / field)","Equipment","Technical assistance","Contingency"],
+   hl:[{d:"MFA-SPA",c:"var(--p5)",t:"Delegate cost budgeted at 131 productive hours per month; admin fee capped at 7%; a 20/80 HQ-to-field split."},
+       {d:"Baseline",c:"var(--g3)",t:"Up to a 5% contingency for currency and inflation, where the donor accepts it."},
+       {d:"ECHO",c:"var(--p3)",t:"Budget built on the ECHO NGO template; indirect costs as a 7% flat rate."}]},
+  {key:"implementation", rn:"III", name:"Implementation", color:"var(--p3)", count:100,
+   blurb:"Running the project. Costs, procurement, time, reporting and payments.",
+   areas:["Eligible & ineligible costs","Staff & time registration","Procurement","Visibility & communication","Reporting cadence & format","Pre-financing & payments","Amendments","Exchange rate"],
+   hl:[{d:"ECHO",c:"var(--p3)",t:"Indirect costs at a 7% flat rate; expenditure converted at the InforEuro / Official Journal rate."},
+       {d:"INTPA",c:"var(--p2)",t:"Up to 25% can move between budget headings without an amendment; payments run on 30, 60 and 90-day deadlines."},
+       {d:"Baseline",c:"var(--g3)",t:"All staff register time weekly in Kompas."}]},
+  {key:"completion", rn:"IV", name:"Completion", color:"var(--p4)", count:62,
+   blurb:"Closing the project. Final report, assets and reconciliation.",
+   areas:["Final report deadlines","Asset transfer & handover thresholds","Asset inventory","Exchange rate at close","Final balance / clarifications","Record keeping"],
+   hl:[{d:"ECHO",c:"var(--p3)",t:"Final report 90 days (three months) after the action ends."},
+       {d:"INTPA",c:"var(--p2)",t:"Final financial report no later than six months after the end of implementation."},
+       {d:"ECHO",c:"var(--p3)",t:"Lower-value equipment is exempt from the handover rule: items of EUR 1000 to 2500 each, capped at EUR 15000 in total."}]},
+  {key:"audit", rn:"V", name:"Audit", color:"var(--p5)", count:109,
+   blurb:"External audit and expenditure verification.",
+   areas:["Audit type & standards","Audit deadlines","Auditor independence","Audit fee","EVR / CFS format","Eligible costs at audit","Supporting documents","VAT"],
+   hl:[{d:"MFA-SPA",c:"var(--p5)",t:"Audited accounts to the MFA by 30 June; local audits by 28 April; a three-layer consolidated audit covering finance and performance."},
+       {d:"ECHO",c:"var(--p3)",t:"Certificate on the Financial Statements (agreed-upon procedures, ISRS 4400) above set thresholds; risk-based field audits."},
+       {d:"INTPA",c:"var(--p2)",t:"Expenditure Verification mandatory for INTPA/NEAR grants, in the Annex VII format."},
+       {d:"Danida",c:"var(--p6)",t:"Audit to ISA / IFAC and ISSAI / INTOSAI standards; auditor rotation every 3 to 5 years."}]},
+  {key:"cross", rn:"VI", name:"Cross-cutting", color:"var(--p6)", count:61,
+   blurb:"Applies throughout. Anti-corruption, fraud, PSEA, risk and confidentiality.",
+   areas:["Donor rules prevail","Anti-corruption & fraud","Sanctions screening","Time registration cadence","Filing & archiving","Indirect cost / admin fee","Currency conversion","Record retention"],
+   hl:[{d:"Baseline",c:"var(--g3)",t:"Donor rules prevail over DRC procedure wherever the donor requirement is stricter."},
+       {d:"Danida",c:"var(--p6)",t:"Accounting records kept for 10 years; suspected fraud reported to the MFA within two weeks."},
+       {d:"Baseline",c:"var(--g3)",t:"Consultant procurement and sanctions screening follow set thresholds."}]}
+];
+var DC_DONORS = [
+  {key:"baseline", name:"DRC baseline", tag:"applies to every grant", color:"var(--g3)", count:93,
+   sigs:["Mandatory Go/No-Go gate before any commitment; the Country Manager approves up to EUR 5m (DRC internal authority), the International Director above.",
+         "Donor rules prevail wherever the donor requirement is stricter than DRC procedure.",
+         "All staff register time weekly in Kompas.",
+         "Local auditors contracted by the Host National Society through a competitive tender.",
+         "Up to a 5% budget contingency for currency and inflation, where the donor accepts it.",
+         "Counter-terrorism and sanctions risk assessed at appraisal."]},
+  {key:"echo", name:"EU DG ECHO", tag:"humanitarian (HUMA MGA)", color:"var(--p3)", count:117,
+   sigs:["Indirect costs at a 7% flat rate (Humanitarian Aid Model Grant Agreement).",
+         "Final report 90 days (three months) after the action ends.",
+         "Certificate on the Financial Statements, an agreed-upon-procedures engagement under ISRS 4400, above set thresholds.",
+         "Risk-based field audits; not every action is audited.",
+         "Costs converted at the InforEuro or Official Journal euro rate.",
+         "Records and audit rights kept 5 years (3 years for grants up to EUR 60,000)."]},
+  {key:"intpa", name:"EU DG INTPA / NEAR", tag:"development (PRAG)", color:"var(--p2)", count:54,
+   sigs:["PADOR pre-registration of every applicant before an EU call.",
+         "Expenditure Verification mandatory (Annex VII format); above EUR 5,000,000 it appears in the annual interim report, not only at the end.",
+         "Indirect costs at a 7% flat rate, with no supporting documents required.",
+         "Up to 25% can move between budget headings without a formal amendment.",
+         "Pre-financing released on a 70% expenditure trigger and capped at 90%; payments on 30, 60 and 90-day deadlines.",
+         "Final financial report six months after the end of implementation.",
+         "Procurement follows the PRAG rules on nationality and origin."]},
+  {key:"spa", name:"MFA / Danida SPA", tag:"Strategic Partnership", color:"var(--p5)", count:73,
+   sigs:["Audited accounts to the MFA by 30 June; local audits received by 28 April.",
+         "Three-layer consolidated audit covering both finance and performance.",
+         "Administration fee capped at 7%; a 20/80 HQ-to-field split; 60% A3 shared costs.",
+         "Delegate cost budgeted at 131 productive hours per month.",
+         "Independent certified auditor; a change of auditor is notified, rotation recommended every 3 to 5 years.",
+         "Each grant year's spending tracked separately in the accounts."]},
+  {key:"danida", name:"Danida Special / Flex", tag:"single & flexible grants", color:"var(--p6)", count:56,
+   sigs:["HQ-signed audits, set by grant type.",
+         "Audit standards: Financial (ISA / IFAC) plus Compliance and Performance (ISSAI / INTOSAI).",
+         "Accounting records retained for 10 years.",
+         "Up to 10% reallocation between outputs without prior approval.",
+         "MFA orientation required for flexible-fund allocations above 500,000 DKK.",
+         "Partners screened against the UN and EU sanctions lists."]},
+  {key:"found", name:"Foundations", tag:"Novo, Ole Kirk, LEGO and others", color:"var(--p1)", count:2,
+   sigs:["Named in DRC's core donor universe (Novo, Ole Kirk, LEGO, World Diabetes Foundation and others).",
+         "Ole Kirk Foundation requires approval before allocating emergency funds.",
+         "Otherwise follow the DRC baseline plus each grant's specific terms (confirm with DRC)."]}
+];
+var DC_METHOD = [
+  {t:"Sourced", d:"Every requirement carries a verbatim quote and its source document."},
+  {t:"Verified", d:"Each rule was re-checked against its source; nothing unsupported was kept."},
+  {t:"Cross-checked online", d:"Donor rules were checked against the donors' own published rules: DG ECHO, EU PRAG and Danida."},
+  {t:"Officially aligned", d:"Confirmed where the donor official rule matched; the few differences are flagged, not hidden."}
+];
+var dcOpenPhase = null;
+function buildDonor(){
+  var stats = DC_STATS.map(function(s){ return '<div class="dc-stat"><div class="v">'+esc(s[0])+'</div><div class="l">'+esc(s[1])+'</div></div>'; }).join("");
+  var nodes = DC_PHASES.map(function(p){ return '<button class="dc-node" data-dc="'+p.key+'" style="--nc:'+p.color+'"><span class="rn">'+p.rn+'</span><span class="nm">'+esc(p.name)+'</span><span class="ct">'+p.count+' rules</span></button>'; }).join("");
+  var donors = DC_DONORS.map(function(d){
+    var sigs = d.sigs.map(function(x){ return '<div class="dc-sig">'+esc(x)+'</div>'; }).join("");
+    return '<div class="dc-acc" id="dc-'+d.key+'" style="--dc:'+d.color+'">'+
+      '<button class="dc-ahead" data-dcd="'+d.key+'" aria-expanded="false">'+
+      '<span class="dc-dot" aria-hidden="true"></span>'+
+      '<span><span class="dc-aname">'+esc(d.name)+'</span> <span class="dc-atag">'+esc(d.tag)+'</span></span>'+
+      '<span class="dc-acount">'+d.count+' rules</span><span class="dc-chev" aria-hidden="true">&#9662;</span>'+
+      '</button><div class="dc-abody"><div class="dc-abody-in"><div class="dc-sigs">'+sigs+'</div></div></div></div>';
+  }).join("");
+  var method = DC_METHOD.map(function(m){ return '<div class="dc-mcard"><div class="mt">'+esc(m.t)+'</div><div class="md">'+esc(m.d)+'</div></div>'; }).join("");
+  var html='<div class="wrap">'+
+    '<div class="kicker rv">Tab 08</div>'+
+    '<h2 class="head rv">Donor compliance, all in one</h2>'+
+    '<p class="lead rv">Every donor financial-compliance rule DRC must meet, mapped across the project cycle and by donor. This tab is the picture; the full register lives in the All-in-One workbook.</p>'+
+    '<div class="dc-stats rv">'+stats+'</div>'+
+    '<div class="dc-principle rv"><span class="pico">Principle</span><p><b>Donor rules prevail.</b> Where a donor requirement is stricter than the DRC standard procedure, the donor rule applies.</p></div>'+
+    '<h3 class="dc-h3 rv">The project cycle</h3>'+
+    '<p class="dc-note rv">Six phases, from first contact to audit. Click a phase to open what it covers and the rules that bite there.</p>'+
+    '<div class="dc-flow rv">'+nodes+'</div>'+
+    '<div class="dc-panel" id="dc-panel"><div class="dc-panel-in" id="dc-panel-in"></div></div>'+
+    '<h3 class="dc-h3 rv">By donor</h3>'+
+    '<p class="dc-note rv">Each donor adds or tightens rules on top of the DRC baseline. Click a donor for its signature requirements.</p>'+
+    '<div class="dc-donors rv">'+donors+'</div>'+
+    '<h3 class="dc-h3 rv">How it was built</h3>'+
+    '<div class="dc-method rv">'+method+'</div>'+
+    '<div class="lad-foot rv">The full register, 395 requirements each with a verbatim quote and source, is the All-in-One workbook. This tab is the picture it paints.</div>'+
+    '</div>';
+  $("#tab-donor").innerHTML=html;
+  $all("#tab-donor .dc-node").forEach(function(b){ b.addEventListener("click",function(){ dcPhase(b.getAttribute("data-dc")); }); });
+  $all("#tab-donor .dc-ahead").forEach(function(b){ b.addEventListener("click",function(){ dcDonor(b.getAttribute("data-dcd")); }); });
+}
+function dcPhase(key){
+  var p=null; DC_PHASES.forEach(function(x){ if(x.key===key) p=x; });
+  if(!p) return;
+  var panel=$("#dc-panel"), inner=$("#dc-panel-in");
+  if(dcOpenPhase===key){ dcOpenPhase=null; panel.classList.remove("open"); $all("#tab-donor .dc-node").forEach(function(n){ n.classList.remove("on"); }); return; }
+  dcOpenPhase=key;
+  $all("#tab-donor .dc-node").forEach(function(n){ n.classList.toggle("on", n.getAttribute("data-dc")===key); });
+  var areas=p.areas.map(function(a){ return '<span>'+esc(a)+'</span>'; }).join("");
+  var hls=p.hl.map(function(h){ return '<div class="dc-hl"><span class="dc-tag" style="background:'+h.c+'">'+esc(h.d)+'</span><span class="ht">'+esc(h.t)+'</span></div>'; }).join("");
+  inner.innerHTML='<div class="dc-pcard" style="--nc:'+p.color+'"><div class="pt">'+esc(p.name)+'</div><div class="pb">'+esc(p.blurb)+'</div><div class="dc-areas">'+areas+'</div>'+hls+'</div>';
+  panel.classList.add("open");
+}
+function dcDonor(key){
+  $all("#tab-donor .dc-acc").forEach(function(a){
+    if(a.id==="dc-"+key){ a.classList.toggle("open"); } else { a.classList.remove("open"); }
+    var hb=a.querySelector(".dc-ahead"); if(hb) hb.setAttribute("aria-expanded", a.classList.contains("open")?"true":"false");
+  });
+}
+
 /* ===================== NAVIGATION ===================== */
 function go(tabId){
   view = tabId;
@@ -3423,7 +3620,7 @@ document.addEventListener("keydown",function(e){
   if(view==="cover"){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); enterApp(); } return; }
   if($("#help").classList.contains("show")){ if(e.key==="Escape"||e.key==="?"){ toggleHelp(false); } return; }
   if(typing){ if(e.key==="Escape"){ ae.blur(); } return; }
-  if(e.key>="1"&&e.key<="7"){ var tt=TABS[+e.key-1]; if(tt){ go(tt.id); } return; }
+  if(e.key>="1"&&e.key<="8"){ var tt=TABS[+e.key-1]; if(tt){ go(tt.id); } return; }
   if(e.key==="?"){ toggleHelp(true); return; }
   if(e.key==="Escape"){ $("#cover").classList.remove("gone"); $("#app").classList.remove("on"); view="cover"; return; }
   if(e.key==="ArrowRight"||e.key==="ArrowLeft"){
@@ -3475,6 +3672,7 @@ buildExercise();
 buildHub();
 buildLadder();
 buildRoom();
+buildDonor();
 </script>
 </body>
 </html>
