@@ -3317,7 +3317,7 @@ function buildHub(){
     '</div>';
   $("#tab-hub").innerHTML=EXSTARS+html;
   var inp=$("#hub-q"), tmr=null;
-  inp.addEventListener("input", function(){ clearTimeout(tmr); tmr=setTimeout(function(){ hubRender(inp.value); }, 120); if(inp.value.trim().length<2){ var a=$("#hub-answer"); if(a) a.innerHTML=""; } });
+  inp.addEventListener("input", function(){ clearTimeout(tmr); tmr=setTimeout(function(){ hubRender(inp.value); }, 120); if(inp.value.trim().length<2){ AI_TOK++; var a=$("#hub-answer"); if(a) a.innerHTML=""; } });
   inp.addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); askAI(inp.value); } });
   $("#tab-hub").addEventListener("click", function(e){ var el=e.target; while(el&&el.getAttribute){ var k=el.getAttribute("data-open"); if(k){ hubOpen(k); return; } el=el.parentNode; } });
 }
