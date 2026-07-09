@@ -3284,6 +3284,25 @@ function hubRender(q){
     }, 430);
   }
 }
+var AI_URL="https://sop-assistant.ankommer.workers.dev";
+var AI_TOK=0;
+function askAI(qRaw){
+  var q=String(qRaw||"").trim(); var box=$("#hub-answer"); if(!box) return;
+  if(q.length<3){ box.innerHTML=""; return; }
+  var tok=++AI_TOK;
+  box.innerHTML='<div class="hub-ov ov-skel"><div class="ov-k"><span class="ov-spark">&#10022;</span>Answer<span class="ov-note">reading the SOPs…</span></div><div class="sl" style="width:92%"></div><div class="sl" style="width:99%"></div><div class="sl" style="width:70%"></div></div>';
+  fetch(AI_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question:q.slice(0,500)})})
+    .then(function(r){ return r.json(); })
+    .then(function(d){ if(tok!==AI_TOK) return; renderAIAnswer(d); })
+    .catch(function(){ if(tok!==AI_TOK) return; box.innerHTML='<div class="hub-ov"><div class="ov-k"><span class="ov-spark">&#10022;</span>Answer</div><p class="ov-p">The assistant could not be reached just now. The offline search results below still work.</p></div>'; });
+}
+function renderAIAnswer(d){
+  var box=$("#hub-answer"); if(!box) return;
+  var ans=esc(String((d&&d.answer)||"")).replace(/\n+/g,'</p><p class="ov-p">');
+  var srcs=(d&&d.sources)||[], src="";
+  if(srcs.length){ src='<div class="ov-srcs"><span class="ov-srclab">Sources</span>'+srcs.map(function(s){ var t=String(s.workflow_title||""); if(t.length>44) t=t.slice(0,43)+"…"; return '<span class="ov-src" data-open="'+esc(String(s.workflow_key||""))+'">'+esc(t)+'</span>'; }).join("")+'</div>'; }
+  box.innerHTML='<div class="hub-ov ov-fade"><div class="ov-k"><span class="ov-spark">&#10022;</span>Answer<span class="ov-note">grounded in the SOPs</span></div><p class="ov-p">'+ans+'</p>'+src+'</div>';
+}
 function buildHub(){
   hubIndex();
   var html='<div class="wrap">'+
@@ -3291,13 +3310,15 @@ function buildHub(){
       '<div class="kicker rv">Tab 05</div>'+
       '<h2 class="hub-logo rv">Search<b>.</b></h2>'+
       '<div class="hub-searchwrap rv"><svg class="hub-mag" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21" stroke-linecap="round"></line></svg><input id="hub-q" type="text" autocomplete="off" spellcheck="false" placeholder="Search the SOPs, or ask: who approves the Go/No-Go?"></div>'+
-      '<div class="hub-tip rv">Searches every workflow, step, role and tool in the current SOPs. Offline, every answer traceable.</div>'+
+      '<div class="hub-tip rv">Type to search every workflow, step, role and tool. Press Enter to ask a question and get a grounded answer with its sources.</div>'+
     '</div>'+
+    '<div id="hub-answer"></div>'+
     '<div id="hub-out"></div>'+
     '</div>';
   $("#tab-hub").innerHTML=EXSTARS+html;
   var inp=$("#hub-q"), tmr=null;
-  inp.addEventListener("input", function(){ clearTimeout(tmr); tmr=setTimeout(function(){ hubRender(inp.value); }, 120); });
+  inp.addEventListener("input", function(){ clearTimeout(tmr); tmr=setTimeout(function(){ hubRender(inp.value); }, 120); if(inp.value.trim().length<2){ var a=$("#hub-answer"); if(a) a.innerHTML=""; } });
+  inp.addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); askAI(inp.value); } });
   $("#tab-hub").addEventListener("click", function(e){ var el=e.target; while(el&&el.getAttribute){ var k=el.getAttribute("data-open"); if(k){ hubOpen(k); return; } el=el.parentNode; } });
 }
 
