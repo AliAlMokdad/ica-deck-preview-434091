@@ -728,6 +728,92 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 .rs-list::-webkit-scrollbar-thumb,.rs-detail::-webkit-scrollbar-thumb{background:rgba(195,0,47,.26);border-radius:3px}
 .rs-list::-webkit-scrollbar-thumb:hover,.rs-detail::-webkit-scrollbar-thumb:hover{background:rgba(195,0,47,.5)}
 .rs-list,.rs-detail{scrollbar-width:thin;scrollbar-color:rgba(195,0,47,.3) transparent}
+/* ---- AI EU Act (tab 11) ---- */
+.ax-wrap{max-width:1180px}
+.ax-matrix{border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper);box-shadow:var(--shadow)}
+.ax-mx-row{display:grid;grid-template-columns:minmax(190px,1.5fr) repeat(5,1fr);align-items:stretch;width:100%;text-align:left;border:0;background:none;font-family:var(--sans)}
+.ax-mx-head{background:var(--ink)}
+.ax-mx-cell{padding:12px 12px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--rule)}
+.ax-mx-head .ax-mx-cell{border-bottom:0;color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;justify-content:center}
+.ax-mx-corner{justify-content:flex-start!important;color:rgba(255,255,255,.6)!important}
+.ax-mx-th .ax-dot{width:7px;height:7px;border-radius:50%;background:var(--tc);flex:0 0 auto}
+.ax-mx-prow{cursor:pointer;transition:background .15s ease}
+.ax-mx-prow:last-child .ax-mx-cell{border-bottom:0}
+.ax-mx-prow:hover{background:var(--canvas)}
+.ax-mx-prow.on{background:var(--red-soft)}
+.ax-mx-ph{flex-direction:column;align-items:flex-start;gap:2px;border-left:3px solid var(--pc)}
+.ax-mx-rn{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--pc);letter-spacing:.06em}
+.ax-mx-nm{font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.15}
+.ax-mx-c{justify-content:center}
+.ax-cc{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink)}
+.ax-cc::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--tc)}
+.ax-pcard{flex:1;text-align:left;font-family:var(--sans)}
+.ax-pcard.on{outline:2px solid var(--pc);outline-offset:-1px}
+.ax-panel{margin-top:24px;background:var(--paper);border:1px solid var(--rule);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;display:none}
+.ax-panel.show{display:block;animation:rise .4s ease both}
+.ax-p-head{padding:16px 24px;border-bottom:1px solid var(--rule);border-left:5px solid var(--pc);display:flex;align-items:center;gap:12px}
+.ax-p-rn{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--pc)}
+.ax-p-head h3{font-size:22px;font-weight:800;color:var(--ink);margin:0}
+.ax-chips{display:flex;flex-wrap:wrap;gap:8px;padding:16px 24px 4px}
+.ax-chip{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--g2);background:var(--canvas);border:1px solid var(--rule);border-radius:8px;padding:5px 11px}
+.ax-chip-id{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--g3)}
+.ax-cta-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 24px 20px}
+.ax-analyse{font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;color:#fff;background:var(--ink);border:0;border-radius:9px;padding:12px 22px;cursor:pointer;transition:transform .15s ease,background .15s ease}
+.ax-analyse:hover{transform:translateY(-1px);background:#000}
+.ax-analyse.busy{opacity:.55;cursor:progress}
+.ax-cta-hint{font-size:12.5px;color:var(--g3)}
+.ax-result{padding:0 24px}
+.ax-result:empty{padding:0}
+.ax-scan{position:relative;height:40px;margin:6px 0 16px;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--g3);overflow:hidden}
+.ax-scan i{position:absolute;left:0;top:0;bottom:0;width:34%;background:linear-gradient(90deg,transparent,var(--red-soft),transparent);animation:ax-sweep 1.05s ease-in-out infinite}
+@keyframes ax-sweep{0%{transform:translateX(-120%)}100%{transform:translateX(360%)}}
+.ax-summary{font-size:15px;line-height:1.55;color:var(--body);padding:20px 0 2px;max-width:74ch}
+.ax-lens{display:flex;align-items:center;gap:6px;margin:16px 0 8px;flex-wrap:wrap}
+.ax-lens-k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--g3);margin-right:4px}
+.ax-lensbtn{font-family:var(--mono);font-size:11px;letter-spacing:.03em;border:1px solid var(--rule);background:#fff;color:var(--g2);padding:5px 12px;border-radius:999px;cursor:pointer;transition:.15s}
+.ax-lensbtn:hover{border-color:var(--g4);color:var(--ink)}
+.ax-lensbtn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ax-clear{display:flex;gap:12px;align-items:baseline;margin:14px 0;padding:12px 15px;border-radius:10px;background:rgba(78,110,86,.08);border:1px solid rgba(78,110,86,.22)}
+.ax-clear-k{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#3c5a44;white-space:nowrap}
+.ax-clear-t{font-size:13.5px;color:#3c5a44;line-height:1.45}
+.ax-watch{background:rgba(169,121,63,.09);border-color:rgba(169,121,63,.28)}
+.ax-watch .ax-clear-k,.ax-watch .ax-clear-t{color:#775220}
+.ax-rows{display:flex;flex-direction:column;gap:16px;margin-top:8px}
+.ax-tp{border:1px solid var(--rule);border-radius:12px;padding:18px 20px;background:#fff;animation:ax-in .5s ease both}
+.ax-tp-tiers{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px}
+.ax-tier{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--g2);border:1px solid var(--tc);border-radius:999px;padding:3px 10px 3px 8px;background:#fff}
+.ax-tier-dot{width:6px;height:6px;border-radius:50%;background:var(--tc);flex:0 0 auto}
+.ax-tp-ai{font-size:16px;font-weight:650;color:var(--ink);line-height:1.3}
+.ax-tp-q{font-size:12.5px;color:var(--g3);margin-top:6px;font-style:italic;line-height:1.4}
+.ax-duties{display:flex;flex-direction:column;gap:11px;margin-top:15px}
+.ax-duty{border-left:3px solid var(--tc);padding:1px 0 1px 14px}
+.ax-duty-h{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.ax-duty-tier{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink)}
+.ax-duty-dl{font-family:var(--mono);font-size:10px;color:var(--g3)}
+.ax-duty-o{font-size:13.5px;color:var(--body);line-height:1.45;margin-top:4px}
+.ax-duty-w{font-size:12px;color:var(--g3);margin-top:5px;line-height:1.4}
+.ax-duty-w b{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--g4);margin-right:5px}
+.ax-facets{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;padding-top:15px;border-top:1px solid var(--rule)}
+.ax-facet-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g3);margin-bottom:8px}
+.ax-facet-b{font-size:13px;color:var(--body);line-height:1.45}
+.ax-facet-l{margin-top:6px}
+.ax-facet-l b{font-family:var(--mono);font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--g4);margin-right:6px}
+.ax-exp{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+.ax-exp-low{color:#3c5a44;background:rgba(78,110,86,.13)}
+.ax-exp-moderate{color:#775220;background:rgba(169,121,63,.16)}
+.ax-exp-elevated{color:#7a1f1a;background:rgba(142,59,54,.14)}
+.ax-note{font-size:12px;color:var(--g3);margin-top:7px;line-height:1.4}
+.ax-note-i{color:var(--g3)}
+.ax-ctrls{margin:8px 0 0;padding-left:16px}
+.ax-ctrls li{font-size:12.5px;color:var(--body);margin:4px 0;line-height:1.4}
+.ax-caveat{font-size:12px;color:var(--g3);line-height:1.5;margin:20px 0 22px;padding:11px 14px;border-left:2px solid var(--g5);background:var(--canvas);border-radius:0 8px 8px 0;max-width:82ch}
+.ax-empty{font-size:13.5px;color:var(--g3);padding:16px 0 22px}
+.ax-result[data-lens="mgmt"] .ax-facet-it{display:none}
+.ax-result[data-lens="it"] .ax-facet-mgmt{display:none}
+.ax-result[data-lens="mgmt"] .ax-facets,.ax-result[data-lens="it"] .ax-facets{grid-template-columns:1fr}
+@keyframes ax-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:820px){.ax-matrix{overflow-x:auto}.ax-mx-row{min-width:660px}.ax-facets{grid-template-columns:1fr}.ax-wrap .cycle{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.ax-scan i{animation:none}.ax-tp{animation:none}.ax-panel.show{animation:none}}
 @media(max-width:820px){.rs-lvls{display:flex;flex-wrap:wrap;gap:6px;padding:10px}.rs-lvls-h{width:100%;padding-bottom:4px}.rs-lvl{width:auto;flex:1 1 40%;border-left:0;border-bottom:2px solid transparent;border-radius:8px;padding:10px}.rs-lvl.on{border-left:0;border-bottom-color:var(--red);background:var(--red-soft);box-shadow:none}.rs-detail{max-height:none;overflow:visible}}
 </style>
 </head>
@@ -814,6 +900,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
   <div class="rs-cf-grid rs-hide" id="rs-view-confirm"></div>
 </div>
     </section>
+    <section class="tab" id="tab-aiact"></section>
   </main>
 </div>
 
@@ -848,7 +935,8 @@ var TABS = [
   {id:"room",      n:"07", label:"From the room"},
   {id:"donor",     n:"08", label:"Donor compliance"},
   {id:"roles",     n:"09", label:"Role Standards"},
-  {id:"elearn",    n:"10", label:"E-Learning Prototype", launch:true}
+  {id:"elearn",    n:"10", label:"E-Learning Prototype", launch:true},
+  {id:"aiact",     n:"11", label:"AI EU Act"}
 ];
 var ELEARN_URL = "https://alialmokdad.github.io/finance-platform-preview-891561/?present=1";
 
@@ -2967,6 +3055,143 @@ function vClass(label){ var l=(label||"").toUpperCase();
   if(l.indexOf("SUBMIT")>=0)return"v-sub";
   return"v-ini"; }
 
+/* ============ AI EU ACT (tab 11: curated + verified overlay) ============ */
+var AI_TIERS=[
+  {key:"prohibited",  label:"Prohibited",   code:"ART 5",     color:"#8E3B36"},
+  {key:"highRisk",    label:"High-risk",    code:"ANNEX III", color:"#A9793F"},
+  {key:"transparency",label:"Transparency", code:"ART 50",    color:"#4F6D8C"},
+  {key:"literacy",    label:"AI literacy",  code:"ART 4",     color:"#4E6E56"},
+  {key:"minimal",     label:"Minimal",      code:"RISK-BASED",color:"#6E7378"}
+];
+var AI_DEADLINES={
+  prohibited:"Applies since 2 Feb 2025",
+  literacy:"Applies since 2 Feb 2025",
+  transparency:"Applies from 2 Aug 2026",
+  highRisk:"From 2 Dec 2027 (stand-alone); 2 Aug 2028 (embedded in regulated products)",
+  minimal:"No specific obligation"
+};
+var AIACT_MAP={
+ "I":{summary:"Setting up grants and budgets. AI mostly helps draft and translate. The duty is Article 4 literacy: understand the limits and verify every figure and legal clause before anything is submitted.",prohibited:"none",
+  touchpoints:[
+   {ai:"Drafting and translating proposals, budgets and donor agreements with generative AI",
+    qualifier:"Not high-risk. Drafting and translation do not score or rank people.",
+    tiers:[{tier:"literacy",obligation:"Staff who use AI to draft or translate understand its limits and verify every figure, date and legal clause against the source.",appliesWhen:"Any professional use of a generative AI tool."}],
+    mgmt:{exposure:"low",exposureNote:"The real risk is an unverified figure or clause reaching a donor.",owner:"Head of Finance / Grants",decision:"Set a verify-before-submit rule and a no-confidential-data-in-public-tools rule."},
+    it:{systems:["M365 Copilot, ChatGPT or Claude","Translation tools"],role:"deployer",roleNote:"unless the organisation builds or brands its own AI service",controls:[{note:"Keep confidential donor and budget data out of public AI tools; confirm the tool's data-retention setting."},{note:"A person reviews and signs off AI-drafted text before it is submitted."}]}}
+  ]},
+ "II":{summary:"Loading budgets and opening balances into the finance system. AI shows up as document capture and data entry. The duty is literacy and a human check on what the machine reads.",prohibited:"none",
+  touchpoints:[
+   {ai:"Document capture (OCR) and automated data entry into the finance system",
+    qualifier:"Not high-risk when it only speeds up entry and a human confirms the result.",
+    tiers:[{tier:"literacy",obligation:"People who rely on OCR or automated entry understand its error modes and check the captured data.",appliesWhen:"Any use of automated capture or entry."},{tier:"minimal",obligation:"Classify the actual use and keep basic governance evidence.",appliesWhen:"Used only to speed up internal entry, with human review."}],
+    mgmt:{exposure:"low",owner:"Finance Systems / Controller",decision:"Require a human check on captured figures before posting."},
+    it:{systems:["Finance ERP (e.g. Kompas or Dynamics)","OCR / document capture"],role:"deployer",controls:[{note:"Log the source document, the captured value and the person who confirmed it."},{note:"No posting on captured data without a human check."},{note:"Separate finance, staff and partner data; confirm retention."}]}}
+  ]},
+ "III":{summary:"Running the money: follow-up, exchange rates, payments and payroll. This phase has the most AI touchpoints. Mostly literacy, plus transparency if a chatbot is used, and a high-risk check only where AI would score people.",prohibited:"none",
+  touchpoints:[
+   {ai:"Fraud and anomaly detection on transactions",
+    qualifier:"Fact-specific. Internal anomaly detection is not automatically high-risk.",
+    tiers:[{tier:"minimal",obligation:"Classify the actual use and keep basic governance evidence.",appliesWhen:"Alerts only flag unusual transactions for a human to review."},{tier:"highRisk",obligation:"Assess high-risk status before deployment.",appliesWhen:"Only if it profiles natural persons or drives decisions affecting people (staff, beneficiaries, access to services, employment), or is used in another Annex III context. Vendor or partner screening is a governance matter unless it affects natural persons."},{tier:"literacy",obligation:"Staff using or overseeing the system have appropriate AI literacy.",appliesWhen:"Any professional use."}],
+    mgmt:{exposure:"moderate",exposureNote:"Elevated if an alert can lead to a decision affecting a person.",owner:"Head of Finance Operations",decision:"Decide whether alerts are advisory only, who reviews them, and what evidence is needed before any action."},
+    it:{systems:["Finance ERP and BI layer","OCR feeding invoice data","Copilot for review summaries"],role:"deployer",roleNote:"unless the organisation builds or substantially modifies the model",controls:[{note:"Log the alert, the data version, the reviewer and the decision."},{note:"No payment block, fraud finding or vendor sanction without human review."},{note:"Separate finance, staff, partner and any personal data; confirm lawful basis and retention."},{note:"Record model purpose, vendor terms, data use and hosting region."}]}},
+   {ai:"A staff or beneficiary chatbot, if one is used in finance or support",
+    qualifier:"Transparency is the main duty; high-risk only if the bot decides in an Annex III area.",
+    tiers:[{tier:"transparency",obligation:"Tell people they are dealing with an AI system, and offer a route to a human.",appliesWhen:"Whenever a chatbot interacts with staff or beneficiaries."},{tier:"literacy",obligation:"Operators understand the bot's scope and limits.",appliesWhen:"Any operation of a chatbot."}],
+    mgmt:{exposure:"moderate",owner:"Communications / IT",decision:"Decide the disclosure wording and the human-handover route."},
+    it:{systems:["Chatbot platform"],role:"deployer",controls:[{note:"A clear notice that the user is talking to an AI; label AI-generated content."},{note:"A human-handover path, and monitoring of the answers given."}]}}
+  ]},
+ "IV":{summary:"Closing out: final financial reports and reconciliation. AI can draft and reconcile, but a wrong figure in a donor report is serious, so literacy and verification carry the weight.",prohibited:"none",
+  touchpoints:[
+   {ai:"Drafting and reconciling final financial reports with AI",
+    qualifier:"Not high-risk. The duty is accuracy and verification, not classification of people.",
+    tiers:[{tier:"literacy",obligation:"Verify every AI-produced figure and statement against the source records; a person signs off.",appliesWhen:"Any AI assistance in preparing a final report."}],
+    mgmt:{exposure:"moderate",exposureNote:"A hallucinated figure in a donor report is a real reputational and funding risk.",owner:"Controller / Head of Finance",decision:"Require source-checked figures and a human sign-off before a report leaves."},
+    it:{systems:["Finance ERP","Copilot or generative tools"],role:"deployer",controls:[{note:"Human verification and sign-off on every AI-assisted figure."},{note:"Keep the trail from source data to the reported number."}]}}
+  ]},
+ "V":{summary:"Audit: analytics, sampling and review. AI helps find what to look at. The duty is literacy and human oversight of conclusions, with a high-risk check only if AI scores people or entities.",prohibited:"none",
+  touchpoints:[
+   {ai:"Audit analytics and transaction sampling",
+    qualifier:"Sampling transactions is not scoring people. High-risk only if it scores natural persons; confirm.",
+    tiers:[{tier:"literacy",obligation:"Auditors understand what the tool can and cannot infer, and keep human judgement over conclusions.",appliesWhen:"Any AI-assisted audit work."},{tier:"minimal",obligation:"Classify the use; keep governance evidence.",appliesWhen:"Sampling transactions to focus human review."},{tier:"highRisk",obligation:"Assess high-risk status before deployment.",appliesWhen:"Only if the tool risk-scores natural persons (staff or beneficiaries) in a way that affects them, or falls into an Annex III context."}],
+    mgmt:{exposure:"moderate",owner:"Head of Internal Control and Compliance / Audit",decision:"Keep human oversight over audit conclusions; assess any people-scoring."},
+    it:{systems:["Audit analytics / BI"],role:"deployer",controls:[{note:"Log the samples, the criteria and the reviewer decisions."},{note:"A human owns the audit finding, not the model."},{note:"Confirm the lawful basis for any personal data analysed."}]}}
+  ]},
+ "VI":{summary:"Cross-cutting SOPs: anti-corruption, counter-terrorism and sanctions screening, procurement and risk monitoring. Literacy applies, and this is the one place to stay firmly on the safe side of the red line: screening must remain list and rules based, never social scoring.",prohibited:"watch",
+  touchpoints:[
+   {ai:"Sanctions and counter-terrorism screening (name and list matching)",
+    qualifier:"Standard list-based screening is not prohibited. It becomes a problem only if it turns into social scoring as defined in Article 5, or prohibited biometric categorisation to infer sensitive traits.",
+    tiers:[{tier:"literacy",obligation:"Operators understand match limits (false positives, transliteration) and review every hit.",appliesWhen:"Any AI-assisted screening."},{tier:"minimal",obligation:"Keep it list and rules based; document the method.",appliesWhen:"Matching names against sanctions and watch lists."}],
+    mgmt:{exposure:"elevated",exposureNote:"Screening decisions affect people and partners, so keep them defensible and human-reviewed.",owner:"Compliance / Head of Internal Control and Compliance",decision:"Keep screening list-based, require human review of matches, and never adopt behaviour-based social scoring."},
+    it:{systems:["Screening / watch-list tool"],role:"deployer",controls:[{note:"Log the match, the list version and the reviewer decision."},{note:"No adverse action on a match without human review."},{note:"Lawful basis and retention for screening data."},{note:"Limit screening data to compliance and investigation roles."}]}}
+  ]}
+};
+var aiActLens="both", aiActPhase=null, axRun=0;
+function aiTier(k){ for(var i=0;i<AI_TIERS.length;i++){ if(AI_TIERS[i].key===k) return AI_TIERS[i]; } return AI_TIERS[4]; }
+function aiActOverview(){ var g={}; Object.keys(AIACT_MAP).forEach(function(rn){ g[rn]={}; AI_TIERS.forEach(function(t){ g[rn][t.key]=0; }); (AIACT_MAP[rn].touchpoints||[]).forEach(function(tp){ var seen={}; (tp.tiers||[]).forEach(function(r){ if(!seen[r.tier]){ g[rn][r.tier]++; seen[r.tier]=1; } }); }); }); return g; }
+function axPhaseCard(rn,extra){ var p=phaseOf(rn)||{name:rn,color:"var(--red)"}; return '<button type="button" class="pcard ax-pcard'+(extra||"")+'" data-goaxph="'+esc(rn)+'" style="--pc:'+p.color+'"><div class="ph-h"><div class="ph-rn">PHASE '+esc(rn)+'</div><div class="ph-nm">'+esc(p.name)+'</div><div class="ph-ct">'+(WORKFLOWS[rn]||[]).length+' workflows</div></div></button>'; }
+function buildAiAct(){
+  var g=aiActOverview();
+  var head='<div class="ax-mx-row ax-mx-head"><div class="ax-mx-cell ax-mx-corner">Exposure</div>'+AI_TIERS.map(function(t){ return '<div class="ax-mx-cell ax-mx-th" style="--tc:'+t.color+'"><span class="ax-dot"></span>'+esc(t.label)+'</div>'; }).join("")+'</div>';
+  var mrows=Object.keys(AIACT_MAP).map(function(rn){ var p=phaseOf(rn)||{name:rn,color:"var(--red)"};
+    var cells=AI_TIERS.map(function(t){ var n=g[rn][t.key]; return '<div class="ax-mx-cell ax-mx-c'+(n?' has':'')+'" style="--tc:'+t.color+'" aria-label="Phase '+esc(rn)+', '+n+' '+esc(t.label)+'">'+(n?'<span class="ax-cc">'+n+'</span>':'')+'</div>'; }).join("");
+    return '<button type="button" class="ax-mx-row ax-mx-prow" data-goaxph="'+esc(rn)+'" style="--pc:'+p.color+'"><div class="ax-mx-cell ax-mx-ph"><span class="ax-mx-rn">'+esc(rn)+'</span><span class="ax-mx-nm">'+esc(p.name)+'</span></div>'+cells+'</button>'; }).join("");
+  var mx='<div class="ax-matrix">'+head+mrows+'</div>';
+  var cyc=CYCLE.map(function(rn){ return axPhaseCard(rn,""); }).join('<div class="cyc-arrow" aria-hidden="true">&rarr;</div>');
+  var added=axPhaseCard("V"," added-card")+axPhaseCard("VI"," added-card");
+  var html='<div class="wrap ax-wrap">'+
+    '<div class="kicker rv">Tab 11</div>'+
+    '<h2 class="head rv">The project cycle, read under the EU AI Act</h2>'+
+    '<p class="lead rv">The same finance workflows, seen through the EU AI Act. Open a phase to map where AI enters the work and what the Act asks of you. Curated and verified from the Act, not legal advice.</p>'+
+    '<div class="cyc-label rv">Exposure across the cycle</div>'+
+    '<div class="rv">'+mx+'</div>'+
+    '<div class="cyc-label rv">The project cycle</div>'+
+    '<div class="cycle rv">'+cyc+'</div>'+
+    '<div class="cyc-label rv">Alongside the project cycle</div>'+
+    '<div class="added rv">'+added+'</div>'+
+    '<div class="ax-panel" id="ax-panel"></div>'+
+    '</div>';
+  $("#tab-aiact").innerHTML=html;
+  $all("#tab-aiact [data-goaxph]").forEach(function(b){ b.addEventListener("click",function(){ renderAiActPhase(b.getAttribute("data-goaxph")); }); });
+}
+function renderAiActPhase(rn){
+  aiActPhase=rn; axRun++;
+  $all("#tab-aiact .ax-pcard, #tab-aiact .ax-mx-prow").forEach(function(c){ c.classList.toggle("on", c.getAttribute("data-goaxph")===rn); });
+  var p=phaseOf(rn)||{name:rn,color:"var(--red)"}, panel=$("#ax-panel"); if(!panel) return;
+  var chips=(WORKFLOWS[rn]||[]).map(function(w){ return '<span class="ax-chip"><span class="ax-chip-id">'+esc(w[0])+'</span>'+esc(cleanTitle(w[1]))+'</span>'; }).join("");
+  panel.style.setProperty("--pc",p.color);
+  panel.innerHTML='<div class="ax-p-head" style="--pc:'+p.color+'"><span class="ax-p-rn">PHASE '+esc(rn)+'</span><h3>'+esc(p.name)+'</h3></div>'+
+    '<div class="ax-chips">'+chips+'</div>'+
+    '<div class="ax-cta-row"><button type="button" class="ax-analyse" id="ax-analyse">Analyse under the EU AI Act</button><span class="ax-cta-hint">maps where AI enters this phase and what the Act asks</span></div>'+
+    '<div class="ax-result" id="ax-result" aria-live="polite"></div>';
+  panel.classList.add("show"); panel.scrollIntoView({block:"nearest"});
+  var btn=$("#ax-analyse"); if(btn) btn.addEventListener("click",function(){ runAiActAnalysis(rn); });
+}
+function runAiActAnalysis(rn){
+  var box=$("#ax-result"); if(!box) return; var btn=$("#ax-analyse");
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var myRun=++axRun;
+  if(btn){ btn.classList.add("busy"); btn.textContent="Mapping…"; }
+  box.innerHTML='<div class="ax-scan"><i></i><span>Mapping this phase against the EU AI Act</span></div>';
+  setTimeout(function(){ if(myRun!==axRun||aiActPhase!==rn||!box.parentNode) return; box.innerHTML=aiActAnalysisHtml(rn); if(btn){ btn.classList.remove("busy"); btn.textContent="Re-analyse"; } wireAiActLens(); }, reduce?0:560);
+}
+function aiActAnalysisHtml(rn){
+  var m=AIACT_MAP[rn]; if(!m||!m.touchpoints||!m.touchpoints.length) return '<div class="ax-empty">No specific AI touchpoint is mapped for this phase. Article 4 AI literacy still applies wherever AI is used.</div>';
+  var lens='<div class="ax-lens" role="group" aria-label="Reader view"><span class="ax-lens-k">View for</span>'+[["both","Both"],["mgmt","Management"],["it","IT / systems"]].map(function(o){ return '<button type="button" class="ax-lensbtn'+(aiActLens===o[0]?" on":"")+'" data-lens="'+o[0]+'">'+o[1]+'</button>'; }).join("")+'</div>';
+  var prob=m.prohibited==="watch"
+    ?'<div class="ax-clear ax-watch"><span class="ax-clear-k">Prohibited &middot; Art 5</span><span class="ax-clear-t">None in use. One line to hold: screening stays list and rules based, never social scoring (Article 5) or prohibited biometric categorisation to infer sensitive traits.</span></div>'
+    :'<div class="ax-clear"><span class="ax-clear-k">Prohibited &middot; Art 5</span><span class="ax-clear-t">None identified in standard finance workflows.</span></div>';
+  var rows=m.touchpoints.map(function(tp){ return aiActTouchpointHtml(tp); }).join("");
+  return '<div class="ax-summary">'+esc(m.summary)+'</div>'+lens+prob+'<div class="ax-rows">'+rows+'</div><div class="ax-caveat">Operational orientation, not legal advice. Confirm each classification against the actual system, its use, the data and the people affected, and any public-authority mandate.</div>';
+}
+function aiActTouchpointHtml(tp){
+  var chips=(tp.tiers||[]).map(function(r){ var t=aiTier(r.tier); return '<span class="ax-tier" style="--tc:'+t.color+'"><span class="ax-tier-dot"></span>'+esc(t.label)+'</span>'; }).join("");
+  var duties=(tp.tiers||[]).map(function(r){ var t=aiTier(r.tier); return '<div class="ax-duty" style="--tc:'+t.color+'"><div class="ax-duty-h"><span class="ax-duty-tier">'+esc(t.label)+' &middot; '+esc(t.code)+'</span><span class="ax-duty-dl">'+esc(AI_DEADLINES[r.tier]||"")+'</span></div><div class="ax-duty-o">'+esc(r.obligation)+'</div>'+(r.appliesWhen?'<div class="ax-duty-w"><b>Applies when</b> '+esc(r.appliesWhen)+'</div>':'')+'</div>'; }).join("");
+  var mg=tp.mgmt?('<div class="ax-facet ax-facet-mgmt"><div class="ax-facet-k">For management</div><div class="ax-facet-b"><span class="ax-exp ax-exp-'+esc(tp.mgmt.exposure)+'">'+esc(tp.mgmt.exposure)+' exposure</span><div class="ax-facet-l"><b>Owner</b> '+esc(tp.mgmt.owner)+'</div><div class="ax-facet-l"><b>Decision</b> '+esc(tp.mgmt.decision)+'</div>'+(tp.mgmt.exposureNote?'<div class="ax-note">'+esc(tp.mgmt.exposureNote)+'</div>':'')+'</div></div>'):"";
+  var itc=tp.it?('<div class="ax-facet ax-facet-it"><div class="ax-facet-k">For IT and systems</div><div class="ax-facet-b"><div class="ax-facet-l"><b>Systems</b> '+tp.it.systems.map(function(s){return esc(s);}).join(", ")+'</div><div class="ax-facet-l"><b>Role</b> '+esc(tp.it.role)+(tp.it.roleNote?' <span class="ax-note-i">('+esc(tp.it.roleNote)+')</span>':'')+'</div><ul class="ax-ctrls">'+tp.it.controls.map(function(c){return '<li>'+esc(c.note)+'</li>';}).join("")+'</ul></div></div>'):"";
+  return '<div class="ax-tp"><div class="ax-tp-top"><div class="ax-tp-tiers">'+chips+'</div></div><div class="ax-tp-ai">'+esc(tp.ai)+'</div>'+(tp.qualifier?'<div class="ax-tp-q">'+esc(tp.qualifier)+'</div>':'')+'<div class="ax-duties">'+duties+'</div><div class="ax-facets">'+mg+itc+'</div></div>';
+}
+function wireAiActLens(){ var r=$("#ax-result"); if(!r) return; r.setAttribute("data-lens",aiActLens); $all("#ax-result .ax-lensbtn").forEach(function(b){ b.addEventListener("click",function(){ aiActLens=b.getAttribute("data-lens"); r.setAttribute("data-lens",aiActLens); $all("#ax-result .ax-lensbtn").forEach(function(x){ x.classList.toggle("on",x===b); }); }); }); }
+
 function buildWorkflows(){
   function card(p, extra, tag){
     var rn = "PHASE "+p.rn;
@@ -3888,6 +4113,7 @@ buildWorkflows();
 buildTemplate();
 buildExercise();
 buildHub();
+buildAiAct();
 buildLadder();
 buildRoom();
 buildDonor();
