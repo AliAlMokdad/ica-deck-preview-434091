@@ -3179,13 +3179,13 @@ var AIACT_MAP={
   ]},
  "VI":{summary:"Cross-cutting SOPs: anti-corruption, risk, crisis finance, budgets and year-end. Literacy applies, and this is the one place to stay firmly on the safe side of the red line: screening and risk work must not become social scoring of people.",
   items:[
-   {wf:"6.1",title:"Anti-corruption and Fraud Deterrence",pattern:"screening",ai:"Flagging suspected fraud or irregularities for the mandatory human report-and-refer process.",note:"The response is human-driven (report, refer, recover); keep any detection advisory and rules based, never behaviour-based social scoring, which is prohibited under Article 5."},
-   {wf:"6.2",title:"Risk Based Approach (RBA)",pattern:"analysis",ai:"Scoring or rating financial-control risk to proportion oversight.",note:"RBA rates projects, countries and institutional risk, not natural persons, so it is not an Annex III context, and a person owns the risk assessment."},
-   {wf:"6.3",title:"Disaster and Crisis (D&C) Finance",pattern:"draft",ai:"Rapid drafting or analysis under time pressure in an acute response.",note:"Speed raises the verification risk; keep the human check even when moving fast."},
-   {wf:"6.4",title:"Anchor Budget",pattern:"analysis",ai:"Forecasting the annual planning baseline."},
-   {wf:"6.5",title:"Year-end Annual Closing",pattern:"report",ai:"Reconciliation and closing entries and figures in Kompas."},
-   {wf:"6.6",title:"COMB (Country Office Master Budget)",pattern:"analysis",ai:"Consolidating the country master budget and allocating shared costs."},
-   {wf:"6.7",title:"Specifics on Global Projects",pattern:"light",ai:"No direct AI touchpoint; an open architecture question."}
+   {wf:"5.1",title:"Anti-corruption and Fraud Deterrence",pattern:"screening",ai:"Flagging suspected fraud or irregularities for the mandatory human report-and-refer process.",note:"The response is human-driven (report, refer, recover); keep any detection advisory and rules based, never behaviour-based social scoring, which is prohibited under Article 5."},
+   {wf:"5.2",title:"Risk Based Approach (RBA)",pattern:"analysis",ai:"Scoring or rating financial-control risk to proportion oversight.",note:"RBA rates projects, countries and institutional risk, not natural persons, so it is not an Annex III context, and a person owns the risk assessment."},
+   {wf:"5.3",title:"Disaster and Crisis (D&C) Finance",pattern:"draft",ai:"Rapid drafting or analysis under time pressure in an acute response.",note:"Speed raises the verification risk; keep the human check even when moving fast."},
+   {wf:"5.4",title:"Anchor Budget",pattern:"analysis",ai:"Forecasting the annual planning baseline."},
+   {wf:"5.5",title:"Year-end Annual Closing",pattern:"report",ai:"Reconciliation and closing entries and figures in Kompas."},
+   {wf:"5.6",title:"COMB (Country Office Master Budget)",pattern:"analysis",ai:"Consolidating the country master budget and allocating shared costs."},
+   {wf:"5.7",title:"Specifics on Global Projects",pattern:"light",ai:"No direct AI touchpoint; an open architecture question."}
   ]}
 };
 function axExpand(it){ var p=AI_PATTERNS[it.pattern]||AI_PATTERNS.light; return {wf:it.wf, ai:(it.title?it.title+": ":"")+it.ai, tiers:p.tiers, mgmt:p.mgmt, it:p.it, qualifier:it.note||"" }; }
