@@ -780,7 +780,9 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 .ax-watch .ax-clear-k,.ax-watch .ax-clear-t{color:#775220}
 .ax-rows{display:flex;flex-direction:column;gap:16px;margin-top:8px}
 .ax-tp{border:1px solid var(--rule);border-radius:12px;padding:18px 20px;background:#fff;animation:ax-in .5s ease both}
-.ax-tp-tiers{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px}
+.ax-tp-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.ax-tp-wf{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.04em;color:var(--g2);background:var(--g6);border-radius:6px;padding:3px 9px;flex:0 0 auto}
+.ax-tp-tiers{display:flex;flex-wrap:wrap;gap:7px}
 .ax-tier{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--g2);border:1px solid var(--tc);border-radius:999px;padding:3px 10px 3px 8px;background:#fff}
 .ax-tier-dot{width:6px;height:6px;border-radius:50%;background:var(--tc);flex:0 0 auto}
 .ax-tp-ai{font-size:16px;font-weight:650;color:var(--ink);line-height:1.3}
@@ -3070,64 +3072,118 @@ var AI_DEADLINES={
   highRisk:"From 2 Dec 2027 (stand-alone); 2 Aug 2028 (embedded in regulated products)",
   minimal:"No specific obligation"
 };
+var AI_PATTERNS={
+ draft:{kind:"Generative drafting",
+   tiers:[{tier:"literacy",obligation:"Understand the tool's limits and verify every figure, date, name and claim against the source before the text is used.",appliesWhen:"Any use of a generative AI tool to draft."}],
+   mgmt:{exposure:"low",exposureNote:"The real risk is an unverified figure or claim reaching a donor or a signatory.",owner:"The workflow owner (per the role matrix)",decision:"Set a verify-before-it-leaves rule and a no-confidential-data-in-public-tools rule."},
+   it:{systems:["M365 Copilot, ChatGPT or Claude"],role:"deployer",roleNote:"unless DRC builds or brands its own AI service",controls:[{note:"Keep confidential and personal data out of public AI tools; confirm the tool's data-retention setting."},{note:"A named person reviews and signs off before the text is used."}]}},
+ report:{kind:"Report drafting (donor-facing)",
+   tiers:[{tier:"literacy",obligation:"Verify every AI-produced figure and statement against the source records; a person signs off before it reaches the donor.",appliesWhen:"Any AI assistance in preparing a donor or financial report."}],
+   mgmt:{exposure:"moderate",exposureNote:"A hallucinated figure in a donor report is a real reputational and funding risk.",owner:"Controller / Head of Finance / Project Manager",decision:"Require source-checked figures and a human sign-off before submission."},
+   it:{systems:["Finance system (Kompas)","Copilot or generative tools"],role:"deployer",controls:[{note:"Human verification and sign-off on every AI-assisted figure."},{note:"Keep the trail from the source data to the reported number."}]}},
+ translate:{kind:"Translation",
+   tiers:[{tier:"literacy",obligation:"A competent person reviews AI translation for accuracy, especially legal, financial and safeguarding terms.",appliesWhen:"Any AI-assisted translation."}],
+   mgmt:{exposure:"low",owner:"Communications / Project Manager",decision:"Require a competent review of anything beyond routine internal text."},
+   it:{systems:["Translation tools","Copilot / generative tools"],role:"deployer",controls:[{note:"Keep confidential or personal content out of public tools."},{note:"Human review before a translation is relied on or published."}]}},
+ dataEntry:{kind:"Document capture and data entry",
+   tiers:[{tier:"literacy",obligation:"Understand the error modes of capture and automation, and check the captured data.",appliesWhen:"Any use of OCR or automated entry."},{tier:"minimal",obligation:"Classify the actual use and keep basic governance evidence.",appliesWhen:"Used only to speed up internal entry, with human review."}],
+   mgmt:{exposure:"low",owner:"Finance Systems / Controller",decision:"Require a human check on captured figures before posting."},
+   it:{systems:["Finance system (Kompas or Dynamics)","OCR / document capture"],role:"deployer",controls:[{note:"Log the source document, the captured value and the person who confirmed it."},{note:"No posting on captured data without a human check."},{note:"Separate finance, staff and partner data; confirm retention."}]}},
+ analysis:{kind:"Analysis, forecasting and scoring (of projects and finances)",
+   tiers:[{tier:"literacy",obligation:"Understand what the tool can and cannot infer, and keep human judgement over the conclusion.",appliesWhen:"Any AI-assisted analysis."},{tier:"minimal",obligation:"Classify the actual use and keep basic governance evidence.",appliesWhen:"Analysis that informs, but does not make, a decision."}],
+   mgmt:{exposure:"moderate",exposureNote:"Elevated only if a score or forecast can lead to a decision affecting a person.",owner:"The workflow owner (per the role matrix)",decision:"Keep the analysis advisory and a person owns the decision; confirm nothing scores people."},
+   it:{systems:["Finance system and BI layer"],role:"deployer",controls:[{note:"Log the inputs, the model output and the reviewer's decision."},{note:"Confirm the lawful basis for any personal data analysed (DRC Personal Data Policy, GDPR)."},{note:"A person owns the conclusion, not the model."}]}},
+ screening:{kind:"Screening and due diligence",redline:true,
+   tiers:[{tier:"literacy",obligation:"Understand match and model limits (false positives, transliteration) and review every hit.",appliesWhen:"Any AI-assisted screening."},{tier:"minimal",obligation:"Keep screening list and rules based; document the method.",appliesWhen:"Matching against lists or defined rules."},{tier:"highRisk",obligation:"Assess high-risk status before deployment.",appliesWhen:"Only if it profiles natural persons or drives adverse decisions about people; screening companies or partners is a governance matter unless it affects natural persons."}],
+   mgmt:{exposure:"elevated",exposureNote:"Screening decisions affect people and partners, so keep them defensible and human-reviewed.",owner:"Compliance / Head of Internal Control and Compliance / Project Manager",decision:"Keep screening list based, require human review of every hit, and never adopt behaviour-based social scoring."},
+   it:{systems:["Screening / watch-list or due-diligence tool"],role:"deployer",controls:[{note:"Log the match, the list or rule version and the reviewer's decision."},{note:"No adverse action on a match without human review."},{note:"Lawful basis and retention for screening data; limit access to compliance roles."}]}},
+ procurement:{kind:"Procurement and supplier selection",
+   tiers:[{tier:"literacy",obligation:"Understand the tool's limits and review its comparison or shortlist before a selection is made.",appliesWhen:"Any AI-assisted supplier or bid comparison."},{tier:"minimal",obligation:"Keep the method documented and rules based.",appliesWhen:"Comparing suppliers or bids on defined criteria."}],
+   mgmt:{exposure:"low",exposureNote:"Suppliers and audit firms are companies, so this is a governance matter, not an Annex III context.",owner:"Project Manager / Procurement",decision:"Keep supplier comparison rules based and a person confirms the selection."},
+   it:{systems:["Procurement or comparison tool"],role:"deployer",controls:[{note:"Log the criteria, the comparison and the decision."},{note:"A person confirms the selection; no automatic award."},{note:"High-risk only in the rare case it profiles individual natural-person suppliers; then assess Annex III."}]}},
+ comms:{kind:"Public communication content",
+   tiers:[{tier:"transparency",obligation:"Label AI-generated text or media published on matters of public interest, and disclose when people interact with an AI system.",appliesWhen:"When AI-generated content is published publicly or an AI system faces the public."},{tier:"literacy",obligation:"Fact-check and rights-check AI-generated public content before it goes out.",appliesWhen:"Any AI-generated public content."}],
+   mgmt:{exposure:"moderate",owner:"Communications",decision:"Decide the labelling and the fact-check and approval step before publication."},
+   it:{systems:["Generative content tools"],role:"deployer",controls:[{note:"Apply the AI-generated-content label where required."},{note:"Human approval before anything is published."}]}},
+ audit:{kind:"Audit analytics",
+   tiers:[{tier:"literacy",obligation:"Auditors understand what the tool can and cannot infer, and keep human judgement over the finding.",appliesWhen:"Any AI-assisted audit work."},{tier:"minimal",obligation:"Classify the use; keep governance evidence.",appliesWhen:"Sampling or analytics that focus human review."}],
+   mgmt:{exposure:"moderate",owner:"Head of Internal Control and Compliance / Audit",decision:"Keep human oversight over audit conclusions; confirm nothing scores people."},
+   it:{systems:["Audit analytics / BI"],role:"deployer",controls:[{note:"Log the samples, the criteria and the reviewer decisions."},{note:"A human owns the audit finding, not the model."},{note:"Confirm the lawful basis for any personal data analysed."}]}},
+ decision:{kind:"Decision support (a person decides)",
+   tiers:[{tier:"literacy",obligation:"If AI supports the appraisal, a person makes the decision and checks the AI's inputs; the AI does not decide.",appliesWhen:"Any AI support to the appraisal or decision."},{tier:"minimal",obligation:"Classify the use and keep basic governance evidence.",appliesWhen:"AI that informs, but does not make, the decision."}],
+   mgmt:{exposure:"low",exposureNote:"The workflow appraises an opportunity, not people, and a person makes the call.",owner:"Country Manager",decision:"Keep the go/no-go decision with the named person; AI input is advisory."},
+   it:{systems:["Generative or analysis tools"],role:"deployer",controls:[{note:"Record what the AI contributed and who decided."},{note:"A person checks the AI's inputs before deciding."}]}},
+ chatbot:{kind:"Chatbot",
+   tiers:[{tier:"transparency",obligation:"Tell people they are dealing with an AI system, and offer a route to a human.",appliesWhen:"Whenever a chatbot interacts with staff or beneficiaries."},{tier:"literacy",obligation:"Operators understand the bot's scope and limits.",appliesWhen:"Any operation of a chatbot."}],
+   mgmt:{exposure:"moderate",owner:"Communications / IT",decision:"Decide the disclosure wording and the human-handover route."},
+   it:{systems:["Chatbot platform"],role:"deployer",controls:[{note:"A clear notice that the user is talking to an AI; label AI-generated content."},{note:"A human-handover path, and monitoring of the answers given."}]}},
+ light:{kind:"Little or no direct AI touchpoint",
+   tiers:[{tier:"minimal",obligation:"No specific AI touchpoint here. If AI is introduced to summarise, draft or file, Article 4 literacy applies.",appliesWhen:"Only if AI is introduced into this step."}],
+   mgmt:{exposure:"low",owner:"The workflow owner (per the role matrix)",decision:"None specific, unless AI is introduced."},
+   it:{systems:["None specific"],role:"deployer",controls:[{note:"If AI is introduced, keep confidential and personal data governed and a human in control."}]}}
+};
 var AIACT_MAP={
- "I":{summary:"Setting up grants and budgets. AI mostly helps draft and translate. The duty is Article 4 literacy: understand the limits and verify every figure and legal clause before anything is submitted.",prohibited:"none",
-  touchpoints:[
-   {ai:"Drafting and translating proposals, budgets and donor agreements with generative AI",
-    qualifier:"Not high-risk. Drafting and translation do not score or rank people.",
-    tiers:[{tier:"literacy",obligation:"Staff who use AI to draft or translate understand its limits and verify every figure, date and legal clause against the source.",appliesWhen:"Any professional use of a generative AI tool."}],
-    mgmt:{exposure:"low",exposureNote:"The real risk is an unverified figure or clause reaching a donor.",owner:"Head of Finance / Grants",decision:"Set a verify-before-submit rule and a no-confidential-data-in-public-tools rule."},
-    it:{systems:["M365 Copilot, ChatGPT or Claude","Translation tools"],role:"deployer",roleNote:"unless the organisation builds or brands its own AI service",controls:[{note:"Keep confidential donor and budget data out of public AI tools; confirm the tool's data-retention setting."},{note:"A person reviews and signs off AI-drafted text before it is submitted."}]}}
+ "I":{summary:"Setting up grants and budgets. AI helps appraise, draft and translate. The duty is Article 4 literacy: a person decides and verifies before anything is submitted or signed.",
+  items:[
+   {wf:"1.1",title:"Appraisal of Opportunity (Go/No-Go)",pattern:"decision",ai:"Scoring or summarising a funding opportunity, or drafting the appraisal and risk note.",note:"The Country Manager makes the go/no-go call and it appraises the opportunity, not people, so it is not high-risk."},
+   {wf:"1.2",title:"DRC Financing and Kompas Setup (pre-grant)",pattern:"dataEntry",ai:"AI-assisted pre-grant cost coding or set-up entries in Kompas."},
+   {wf:"1.3",title:"Needs Assessment",pattern:"analysis",ai:"Analysing context, stakeholder and needs data, or summarising assessments.",note:"If the assessment processes personal data about affected people, DRC's Personal Data Policy and the GDPR apply."},
+   {wf:"1.4",title:"Proposal Development",pattern:"draft",ai:"Drafting the concept note, proposal narrative and logframe."},
+   {wf:"1.5",title:"Grant Agreement (pre-signatory)",pattern:"draft",ai:"Drafting or reviewing grant-agreement clauses.",note:"Verify legal terms against the donor template; AI misreads legal clauses confidently."}
   ]},
- "II":{summary:"Loading budgets and opening balances into the finance system. AI shows up as document capture and data entry. The duty is literacy and a human check on what the machine reads.",prohibited:"none",
-  touchpoints:[
-   {ai:"Document capture (OCR) and automated data entry into the finance system",
-    qualifier:"Not high-risk when it only speeds up entry and a human confirms the result.",
-    tiers:[{tier:"literacy",obligation:"People who rely on OCR or automated entry understand its error modes and check the captured data.",appliesWhen:"Any use of automated capture or entry."},{tier:"minimal",obligation:"Classify the actual use and keep basic governance evidence.",appliesWhen:"Used only to speed up internal entry, with human review."}],
-    mgmt:{exposure:"low",owner:"Finance Systems / Controller",decision:"Require a human check on captured figures before posting."},
-    it:{systems:["Finance ERP (e.g. Kompas or Dynamics)","OCR / document capture"],role:"deployer",controls:[{note:"Log the source document, the captured value and the person who confirmed it."},{note:"No posting on captured data without a human check."},{note:"Separate finance, staff and partner data; confirm retention."}]}}
+ "II":{summary:"Loading grants and projects into Kompas. AI shows up as document capture and data entry. The duty is literacy and a human check on what the system records.",
+  items:[
+   {wf:"2.1-2.4",title:"Project, Grant and Operational setup in Kompas",pattern:"dataEntry",ai:"Document capture (OCR) and automated or AI-assisted creation of the Grant, Grant Project and Operational Project records in Kompas.",note:"Routine internal set-up; a human confirms the captured figures before they are relied on."}
   ]},
- "III":{summary:"Running the money: follow-up, exchange rates, payments and payroll. This phase has the most AI touchpoints. Mostly literacy, plus transparency if a chatbot is used, and a high-risk check only where AI would score people.",prohibited:"none",
-  touchpoints:[
-   {ai:"Fraud and anomaly detection on transactions",
-    qualifier:"Fact-specific. Internal anomaly detection is not automatically high-risk.",
-    tiers:[{tier:"minimal",obligation:"Classify the actual use and keep basic governance evidence.",appliesWhen:"Alerts only flag unusual transactions for a human to review."},{tier:"highRisk",obligation:"Assess high-risk status before deployment.",appliesWhen:"Only if it profiles natural persons or drives decisions affecting people (staff, beneficiaries, access to services, employment), or is used in another Annex III context. Vendor or partner screening is a governance matter unless it affects natural persons."},{tier:"literacy",obligation:"Staff using or overseeing the system have appropriate AI literacy.",appliesWhen:"Any professional use."}],
-    mgmt:{exposure:"moderate",exposureNote:"Elevated if an alert can lead to a decision affecting a person.",owner:"Head of Finance Operations",decision:"Decide whether alerts are advisory only, who reviews them, and what evidence is needed before any action."},
-    it:{systems:["Finance ERP and BI layer","OCR feeding invoice data","Copilot for review summaries"],role:"deployer",roleNote:"unless the organisation builds or substantially modifies the model",controls:[{note:"Log the alert, the data version, the reviewer and the decision."},{note:"No payment block, fraud finding or vendor sanction without human review."},{note:"Separate finance, staff, partner and any personal data; confirm lawful basis and retention."},{note:"Record model purpose, vendor terms, data use and hosting region."}]}},
-   {ai:"A staff or beneficiary chatbot, if one is used in finance or support",
-    qualifier:"Transparency is the main duty; high-risk only if the bot decides in an Annex III area.",
-    tiers:[{tier:"transparency",obligation:"Tell people they are dealing with an AI system, and offer a route to a human.",appliesWhen:"Whenever a chatbot interacts with staff or beneficiaries."},{tier:"literacy",obligation:"Operators understand the bot's scope and limits.",appliesWhen:"Any operation of a chatbot."}],
-    mgmt:{exposure:"moderate",owner:"Communications / IT",decision:"Decide the disclosure wording and the human-handover route."},
-    it:{systems:["Chatbot platform"],role:"deployer",controls:[{note:"A clear notice that the user is talking to an AI; label AI-generated content."},{note:"A human-handover path, and monitoring of the answers given."}]}}
+ "III":{summary:"Running the money: agreements, monitoring, procurement, reporting and follow-up. This phase has the most AI touchpoints. Mostly literacy, transparency for public content, and a high-risk check only where AI would affect people.",
+  items:[
+   {wf:"3.1",title:"Project Agreement (with HNS / partners)",pattern:"draft",ai:"Drafting the partner or Host National Society project agreement."},
+   {wf:"3.2",title:"Project Kick-off Meeting",pattern:"light",ai:"AI meeting notes or transcription, if used.",note:"Confidentiality of meeting content; a person owns the record."},
+   {wf:"3.3",title:"Contracting the Local Auditor",pattern:"procurement",ai:"Comparing or shortlisting audit firms.",note:"Audit firms are companies, not natural persons, so this is a governance matter, not Annex III."},
+   {wf:"3.4",title:"Establishing the Baseline",pattern:"analysis",ai:"Analysing baseline indicator data."},
+   {wf:"3.5",title:"EU Donor Communication & Visibility",pattern:"comms",ai:"Generating or translating public communication and visibility content."},
+   {wf:"3.6",title:"Create Procurement Plan",pattern:"procurement",ai:"Drafting the procurement plan or comparing suppliers.",note:"Supplier due diligence on companies is governance; high-risk only if it profiles individual natural-person suppliers."},
+   {wf:"3.7",title:"Project Monitoring",pattern:"analysis",ai:"Analysing progress, results, context and risk against the M&E plan.",note:"It monitors the project, not individuals; if it profiles beneficiaries, the Personal Data Policy and GDPR apply."},
+   {wf:"3.8",title:"Project & Portfolio Follow-Up (PPFU)",pattern:"analysis",ai:"Forecasting or flagging financial and grants challenges across the portfolio.",note:"Scores projects and the portfolio, not people, so it is not an Annex III context."},
+   {wf:"3.9",title:"Internal Reporting: Project Progress Report",pattern:"draft",ai:"Drafting the annual internal progress report."},
+   {wf:"3.10",title:"External Donor Reporting",pattern:"report",ai:"Drafting the narrative and assembling the financial figures for the donor."},
+   {wf:"3.11",title:"Amendments",pattern:"draft",ai:"Drafting amendment text and the reallocation rationale."},
+   {wf:"3.12",title:"Reviews and Evaluations",pattern:"analysis",ai:"Analysing review or evaluation data, or drafting the terms of reference."}
   ]},
- "IV":{summary:"Closing out: final financial reports and reconciliation. AI can draft and reconcile, but a wrong figure in a donor report is serious, so literacy and verification carry the weight.",prohibited:"none",
-  touchpoints:[
-   {ai:"Drafting and reconciling final financial reports with AI",
-    qualifier:"Not high-risk. The duty is accuracy and verification, not classification of people.",
-    tiers:[{tier:"literacy",obligation:"Verify every AI-produced figure and statement against the source records; a person signs off.",appliesWhen:"Any AI assistance in preparing a final report."}],
-    mgmt:{exposure:"moderate",exposureNote:"A hallucinated figure in a donor report is a real reputational and funding risk.",owner:"Controller / Head of Finance",decision:"Require source-checked figures and a human sign-off before a report leaves."},
-    it:{systems:["Finance ERP","Copilot or generative tools"],role:"deployer",controls:[{note:"Human verification and sign-off on every AI-assisted figure."},{note:"Keep the trail from source data to the reported number."}]}}
+ "IV":{summary:"Closing out: final reports, audit, assets and closure. AI can draft and reconcile, but a wrong figure in a final donor report is serious, so literacy and verification carry the weight.",
+  items:[
+   {wf:"4.1",title:"Final Narrative Report",pattern:"report",ai:"Drafting the final donor narrative."},
+   {wf:"4.2",title:"Financial Report (Final)",pattern:"report",ai:"Drafting and reconciling the final donor financial report."},
+   {wf:"4.3",title:"Audit Report",pattern:"audit",ai:"Audit analytics supporting the independent audit."},
+   {wf:"4.4",title:"Assets Handover",pattern:"light",ai:"Inventory or document handling for the handover."},
+   {wf:"4.5",title:"Closure of Accounts and Project in Kompas",pattern:"dataEntry",ai:"Final transfers, closure entries and archiving in Kompas."},
+   {wf:"4.6",title:"Documentation and Record Keeping (Atlas)",pattern:"light",ai:"Auto-classifying or filing documents in Atlas, if used.",note:"Confidential and personal documents; confirm retention and access."}
   ]},
- "V":{summary:"Audit: analytics, sampling and review. AI helps find what to look at. The duty is literacy and human oversight of conclusions, with a high-risk check only if AI scores people or entities.",prohibited:"none",
-  touchpoints:[
-   {ai:"Audit analytics and transaction sampling",
-    qualifier:"Sampling transactions is not scoring people. High-risk only if it scores natural persons; confirm.",
-    tiers:[{tier:"literacy",obligation:"Auditors understand what the tool can and cannot infer, and keep human judgement over conclusions.",appliesWhen:"Any AI-assisted audit work."},{tier:"minimal",obligation:"Classify the use; keep governance evidence.",appliesWhen:"Sampling transactions to focus human review."},{tier:"highRisk",obligation:"Assess high-risk status before deployment.",appliesWhen:"Only if the tool risk-scores natural persons (staff or beneficiaries) in a way that affects them, or falls into an Annex III context."}],
-    mgmt:{exposure:"moderate",owner:"Head of Internal Control and Compliance / Audit",decision:"Keep human oversight over audit conclusions; assess any people-scoring."},
-    it:{systems:["Audit analytics / BI"],role:"deployer",controls:[{note:"Log the samples, the criteria and the reviewer decisions."},{note:"A human owns the audit finding, not the model."},{note:"Confirm the lawful basis for any personal data analysed."}]}}
+ "V":{summary:"Audit: framework, roles and the audit process. AI helps find what to look at. The duty is literacy and human oversight of conclusions, with a high-risk check only if AI scored people.",
+  items:[
+   {wf:"5.1-5.3",title:"Audit framework, scope and roles matrices",pattern:"light",ai:"No direct AI touchpoint; these set the framework, scope and roles."},
+   {wf:"5.4",title:"Audit Process Management",pattern:"audit",ai:"Audit analytics and sampling, or procuring audit services."},
+   {wf:"5.5",title:"Audit of DANIDA-funded Projects",pattern:"audit",ai:"Audit analytics on DANIDA-funded projects."},
+   {wf:"5.6",title:"Audit of EU INTPA, ECHO and Other Donors",pattern:"audit",ai:"Audit analytics on EU INTPA (EVR) and ECHO (CFS) projects."},
+   {wf:"5.7",title:"Audit Fees, Internal and Remote Audits",pattern:"audit",ai:"Internal, pre- or remote-audit analytics."}
   ]},
- "VI":{summary:"Cross-cutting SOPs: anti-corruption, counter-terrorism and sanctions screening, procurement and risk monitoring. Literacy applies, and this is the one place to stay firmly on the safe side of the red line: screening must remain list and rules based, never social scoring.",prohibited:"watch",
-  touchpoints:[
-   {ai:"Sanctions and counter-terrorism screening (name and list matching)",
-    qualifier:"Standard list-based screening is not prohibited. It becomes a problem only if it turns into social scoring as defined in Article 5, or prohibited biometric categorisation to infer sensitive traits.",
-    tiers:[{tier:"literacy",obligation:"Operators understand match limits (false positives, transliteration) and review every hit.",appliesWhen:"Any AI-assisted screening."},{tier:"minimal",obligation:"Keep it list and rules based; document the method.",appliesWhen:"Matching names against sanctions and watch lists."}],
-    mgmt:{exposure:"elevated",exposureNote:"Screening decisions affect people and partners, so keep them defensible and human-reviewed.",owner:"Compliance / Head of Internal Control and Compliance",decision:"Keep screening list-based, require human review of matches, and never adopt behaviour-based social scoring."},
-    it:{systems:["Screening / watch-list tool"],role:"deployer",controls:[{note:"Log the match, the list version and the reviewer decision."},{note:"No adverse action on a match without human review."},{note:"Lawful basis and retention for screening data."},{note:"Limit screening data to compliance and investigation roles."}]}}
+ "VI":{summary:"Cross-cutting SOPs: anti-corruption, risk, crisis finance, budgets and year-end. Literacy applies, and this is the one place to stay firmly on the safe side of the red line: screening and risk work must not become social scoring of people.",
+  items:[
+   {wf:"6.1",title:"Anti-corruption and Fraud Deterrence",pattern:"screening",ai:"Flagging suspected fraud or irregularities for the mandatory human report-and-refer process.",note:"The response is human-driven (report, refer, recover); keep any detection advisory and rules based, never behaviour-based social scoring, which is prohibited under Article 5."},
+   {wf:"6.2",title:"Risk Based Approach (RBA)",pattern:"analysis",ai:"Scoring or rating financial-control risk to proportion oversight.",note:"RBA rates projects, countries and institutional risk, not natural persons, so it is not an Annex III context, and a person owns the risk assessment."},
+   {wf:"6.3",title:"Disaster and Crisis (D&C) Finance",pattern:"draft",ai:"Rapid drafting or analysis under time pressure in an acute response.",note:"Speed raises the verification risk; keep the human check even when moving fast."},
+   {wf:"6.4",title:"Anchor Budget",pattern:"analysis",ai:"Forecasting the annual planning baseline."},
+   {wf:"6.5",title:"Year-end Annual Closing",pattern:"report",ai:"Reconciliation and closing entries and figures in Kompas."},
+   {wf:"6.6",title:"COMB (Country Office Master Budget)",pattern:"analysis",ai:"Consolidating the country master budget and allocating shared costs."},
+   {wf:"6.7",title:"Specifics on Global Projects",pattern:"light",ai:"No direct AI touchpoint; an open architecture question."}
   ]}
 };
+function axExpand(it){ var p=AI_PATTERNS[it.pattern]||AI_PATTERNS.light; return {wf:it.wf, ai:(it.title?it.title+": ":"")+it.ai, tiers:p.tiers, mgmt:p.mgmt, it:p.it, qualifier:it.note||"" }; }
+function axPhaseHasRedline(rn){ var m=AIACT_MAP[rn]; if(!m) return false; return (m.items||[]).some(function(it){ return (AI_PATTERNS[it.pattern]||{}).redline; }); }
+
 var aiActLens="both", aiActPhase=null, axRun=0;
 function aiTier(k){ for(var i=0;i<AI_TIERS.length;i++){ if(AI_TIERS[i].key===k) return AI_TIERS[i]; } return AI_TIERS[4]; }
-function aiActOverview(){ var g={}; Object.keys(AIACT_MAP).forEach(function(rn){ g[rn]={}; AI_TIERS.forEach(function(t){ g[rn][t.key]=0; }); (AIACT_MAP[rn].touchpoints||[]).forEach(function(tp){ var seen={}; (tp.tiers||[]).forEach(function(r){ if(!seen[r.tier]){ g[rn][r.tier]++; seen[r.tier]=1; } }); }); }); return g; }
+function aiActOverview(){ var g={}; Object.keys(AIACT_MAP).forEach(function(rn){ g[rn]={}; AI_TIERS.forEach(function(t){ g[rn][t.key]=0; }); (AIACT_MAP[rn].items||[]).forEach(function(it){ var tp=axExpand(it); var seen={}; (tp.tiers||[]).forEach(function(r){ if(!seen[r.tier]){ g[rn][r.tier]++; seen[r.tier]=1; } }); }); }); return g; }
 function axPhaseCard(rn,extra){ var p=phaseOf(rn)||{name:rn,color:"var(--red)"}; return '<button type="button" class="pcard ax-pcard'+(extra||"")+'" data-goaxph="'+esc(rn)+'" style="--pc:'+p.color+'"><div class="ph-h"><div class="ph-rn">PHASE '+esc(rn)+'</div><div class="ph-nm">'+esc(p.name)+'</div><div class="ph-ct">'+(WORKFLOWS[rn]||[]).length+' workflows</div></div></button>'; }
 function buildAiAct(){
   var g=aiActOverview();
@@ -3175,12 +3231,12 @@ function runAiActAnalysis(rn){
   setTimeout(function(){ if(myRun!==axRun||aiActPhase!==rn||!box.parentNode) return; box.innerHTML=aiActAnalysisHtml(rn); if(btn){ btn.classList.remove("busy"); btn.textContent="Re-analyse"; } wireAiActLens(); }, reduce?0:560);
 }
 function aiActAnalysisHtml(rn){
-  var m=AIACT_MAP[rn]; if(!m||!m.touchpoints||!m.touchpoints.length) return '<div class="ax-empty">No specific AI touchpoint is mapped for this phase. Article 4 AI literacy still applies wherever AI is used.</div>';
+  var m=AIACT_MAP[rn]; if(!m||!m.items||!m.items.length) return '<div class="ax-empty">No specific AI touchpoint is mapped for this phase. Article 4 AI literacy still applies wherever AI is used.</div>';
   var lens='<div class="ax-lens" role="group" aria-label="Reader view"><span class="ax-lens-k">View for</span>'+[["both","Both"],["mgmt","Management"],["it","IT / systems"]].map(function(o){ return '<button type="button" class="ax-lensbtn'+(aiActLens===o[0]?" on":"")+'" data-lens="'+o[0]+'">'+o[1]+'</button>'; }).join("")+'</div>';
-  var prob=m.prohibited==="watch"
-    ?'<div class="ax-clear ax-watch"><span class="ax-clear-k">Prohibited &middot; Art 5</span><span class="ax-clear-t">None in use. One line to hold: screening stays list and rules based, never social scoring (Article 5) or prohibited biometric categorisation to infer sensitive traits.</span></div>'
-    :'<div class="ax-clear"><span class="ax-clear-k">Prohibited &middot; Art 5</span><span class="ax-clear-t">None identified in standard finance workflows.</span></div>';
-  var rows=m.touchpoints.map(function(tp){ return aiActTouchpointHtml(tp); }).join("");
+  var prob=axPhaseHasRedline(rn)
+    ?'<div class="ax-clear ax-watch"><span class="ax-clear-k">Prohibited &middot; Art 5</span><span class="ax-clear-t">None in use. One line to hold: screening and risk work stay list and rules based, never social scoring (Article 5) or prohibited biometric categorisation to infer sensitive traits.</span></div>'
+    :'<div class="ax-clear"><span class="ax-clear-k">Prohibited &middot; Art 5</span><span class="ax-clear-t">None identified in these workflows.</span></div>';
+  var rows=m.items.map(function(it){ return aiActTouchpointHtml(axExpand(it)); }).join("");
   return '<div class="ax-summary">'+esc(m.summary)+'</div>'+lens+prob+'<div class="ax-rows">'+rows+'</div><div class="ax-caveat">Operational orientation, not legal advice. Confirm each classification against the actual system, its use, the data and the people affected, and any public-authority mandate.</div>';
 }
 function aiActTouchpointHtml(tp){
@@ -3188,7 +3244,7 @@ function aiActTouchpointHtml(tp){
   var duties=(tp.tiers||[]).map(function(r){ var t=aiTier(r.tier); return '<div class="ax-duty" style="--tc:'+t.color+'"><div class="ax-duty-h"><span class="ax-duty-tier">'+esc(t.label)+' &middot; '+esc(t.code)+'</span><span class="ax-duty-dl">'+esc(AI_DEADLINES[r.tier]||"")+'</span></div><div class="ax-duty-o">'+esc(r.obligation)+'</div>'+(r.appliesWhen?'<div class="ax-duty-w"><b>Applies when</b> '+esc(r.appliesWhen)+'</div>':'')+'</div>'; }).join("");
   var mg=tp.mgmt?('<div class="ax-facet ax-facet-mgmt"><div class="ax-facet-k">For management</div><div class="ax-facet-b"><span class="ax-exp ax-exp-'+esc(tp.mgmt.exposure)+'">'+esc(tp.mgmt.exposure)+' exposure</span><div class="ax-facet-l"><b>Owner</b> '+esc(tp.mgmt.owner)+'</div><div class="ax-facet-l"><b>Decision</b> '+esc(tp.mgmt.decision)+'</div>'+(tp.mgmt.exposureNote?'<div class="ax-note">'+esc(tp.mgmt.exposureNote)+'</div>':'')+'</div></div>'):"";
   var itc=tp.it?('<div class="ax-facet ax-facet-it"><div class="ax-facet-k">For IT and systems</div><div class="ax-facet-b"><div class="ax-facet-l"><b>Systems</b> '+tp.it.systems.map(function(s){return esc(s);}).join(", ")+'</div><div class="ax-facet-l"><b>Role</b> '+esc(tp.it.role)+(tp.it.roleNote?' <span class="ax-note-i">('+esc(tp.it.roleNote)+')</span>':'')+'</div><ul class="ax-ctrls">'+tp.it.controls.map(function(c){return '<li>'+esc(c.note)+'</li>';}).join("")+'</ul></div></div>'):"";
-  return '<div class="ax-tp"><div class="ax-tp-top"><div class="ax-tp-tiers">'+chips+'</div></div><div class="ax-tp-ai">'+esc(tp.ai)+'</div>'+(tp.qualifier?'<div class="ax-tp-q">'+esc(tp.qualifier)+'</div>':'')+'<div class="ax-duties">'+duties+'</div><div class="ax-facets">'+mg+itc+'</div></div>';
+  return '<div class="ax-tp"><div class="ax-tp-top">'+(tp.wf?'<span class="ax-tp-wf">'+esc(tp.wf)+'</span>':'')+'<div class="ax-tp-tiers">'+chips+'</div></div><div class="ax-tp-ai">'+esc(tp.ai)+'</div>'+(tp.qualifier?'<div class="ax-tp-q">'+esc(tp.qualifier)+'</div>':'')+'<div class="ax-duties">'+duties+'</div><div class="ax-facets">'+mg+itc+'</div></div>';
 }
 function wireAiActLens(){ var r=$("#ax-result"); if(!r) return; r.setAttribute("data-lens",aiActLens); $all("#ax-result .ax-lensbtn").forEach(function(b){ b.addEventListener("click",function(){ aiActLens=b.getAttribute("data-lens"); r.setAttribute("data-lens",aiActLens); $all("#ax-result .ax-lensbtn").forEach(function(x){ x.classList.toggle("on",x===b); }); }); }); }
 
