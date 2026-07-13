@@ -729,7 +729,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 .rs-list::-webkit-scrollbar-thumb:hover,.rs-detail::-webkit-scrollbar-thumb:hover{background:rgba(195,0,47,.5)}
 .rs-list,.rs-detail{scrollbar-width:thin;scrollbar-color:rgba(195,0,47,.3) transparent}
 /* ---- AI EU Act (tab 11) ---- */
-.ax-wrap{max-width:1180px}
+.ax-wrap{max-width:1180px;position:relative;padding-left:64px}
 .ax-matrix{border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper);box-shadow:var(--shadow)}
 .ax-mx-row{display:grid;grid-template-columns:minmax(190px,1.5fr) repeat(5,1fr);align-items:stretch;width:100%;text-align:left;border:0;background:none;font-family:var(--sans)}
 .ax-mx-head{background:var(--ink)}
@@ -740,7 +740,8 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 .ax-mx-prow{cursor:pointer;transition:background .15s ease}
 .ax-mx-prow:last-child .ax-mx-cell{border-bottom:0}
 .ax-mx-prow:hover{background:var(--canvas)}
-.ax-mx-prow.on{background:var(--red-soft)}
+.ax-mx-prow.on{background:var(--canvas)}
+.ax-mx-prow.on .ax-mx-cell{background:var(--canvas)}
 .ax-mx-ph{flex-direction:column;align-items:flex-start;gap:2px;border-left:3px solid var(--pc)}
 .ax-mx-rn{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--pc);letter-spacing:.06em}
 .ax-mx-nm{font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.15}
@@ -753,7 +754,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 .ax-panel.show{display:block;animation:rise .4s ease both}
 .ax-p-head{padding:20px 32px;border-bottom:1px solid var(--rule);border-left:5px solid var(--pc);display:flex;align-items:center;gap:12px}
 .ax-p-rn{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--pc)}
-.ax-p-head h3{font-size:22px;font-weight:800;color:var(--ink);margin:0}
+.ax-p-head h3{font-size:24px;font-weight:800;color:var(--ink);margin:0}
 .ax-chips{display:flex;flex-wrap:wrap;gap:9px;padding:22px 32px 6px}
 .ax-chip{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--g2);background:var(--canvas);border:1px solid var(--rule);border-radius:8px;padding:5px 11px}
 .ax-chip-id{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--g3)}
@@ -764,13 +765,13 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 .ax-cta-hint{font-size:12.5px;color:var(--g3)}
 .ax-result{padding:0 32px}
 .ax-result:empty{padding:0}
-.ax-scan{position:relative;height:40px;margin:6px 0 16px;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--g3);overflow:hidden}
-.ax-scan i{position:absolute;left:0;top:0;bottom:0;width:34%;background:linear-gradient(90deg,transparent,var(--red-soft),transparent);animation:ax-sweep 1.05s ease-in-out infinite}
+.ax-scan{position:relative;height:auto;margin:8px 0 20px;padding:14px 0;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--g4);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.ax-scan i{display:none}
 @keyframes ax-sweep{0%{transform:translateX(-120%)}100%{transform:translateX(360%)}}
 .ax-summary{font-size:15.5px;line-height:1.6;color:var(--body);padding:26px 0 4px;max-width:74ch}
 .ax-lens{display:flex;align-items:center;gap:6px;margin:22px 0 10px;flex-wrap:wrap}
 .ax-lens-k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--g3);margin-right:4px}
-.ax-lensbtn{font-family:var(--mono);font-size:11px;letter-spacing:.03em;border:1px solid var(--rule);background:#fff;color:var(--g2);padding:5px 12px;border-radius:999px;cursor:pointer;transition:.15s}
+.ax-lensbtn{font-family:var(--mono);font-size:11px;letter-spacing:.03em;border:1px solid var(--rule);background:#fff;color:var(--g2);padding:6px 13px;border-radius:7px;cursor:pointer;transition:.15s}
 .ax-lensbtn:hover{border-color:var(--g4);color:var(--ink)}
 .ax-lensbtn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .ax-clear{display:flex;gap:12px;align-items:baseline;margin:20px 0;padding:15px 18px;border-radius:10px;background:rgba(78,110,86,.08);border:1px solid rgba(78,110,86,.22)}
@@ -779,11 +780,11 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 .ax-watch{background:rgba(169,121,63,.09);border-color:rgba(169,121,63,.28)}
 .ax-watch .ax-clear-k,.ax-watch .ax-clear-t{color:#775220}
 .ax-rows{display:flex;flex-direction:column;gap:26px;margin-top:14px}
-.ax-tp{border:1px solid var(--rule);border-radius:14px;padding:24px 28px;background:#fff;animation:ax-in .5s ease both}
+.ax-tp{position:relative;overflow:hidden;border:1px solid var(--rule);border-radius:10px;padding:24px 28px;background:#fff;animation:ax-in .5s ease both}
 .ax-tp-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
 .ax-tp-wf{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.04em;color:var(--g2);background:var(--g6);border-radius:6px;padding:3px 9px;flex:0 0 auto}
 .ax-tp-tiers{display:flex;flex-wrap:wrap;gap:7px}
-.ax-tier{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--g2);border:1px solid var(--tc);border-radius:999px;padding:3px 10px 3px 8px;background:#fff}
+.ax-tier{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--g2);border:1px solid var(--tc);border-radius:3px;padding:4px 9px 4px 7px;background:#fff}
 .ax-tier-dot{width:6px;height:6px;border-radius:50%;background:var(--tc);flex:0 0 auto}
 .ax-tp-ai{font-size:16px;font-weight:650;color:var(--ink);line-height:1.3}
 .ax-tp-q{font-size:12.5px;color:var(--g3);margin-top:6px;font-style:italic;line-height:1.4}
@@ -795,8 +796,8 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 .ax-duty-o{font-size:13.5px;color:var(--body);line-height:1.45;margin-top:4px}
 .ax-duty-w{font-size:12px;color:var(--g3);margin-top:5px;line-height:1.4}
 .ax-duty-w b{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--g4);margin-right:5px}
-.ax-facets{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:22px;padding-top:22px;border-top:1px solid var(--rule)}
-.ax-facet-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g3);margin-bottom:8px}
+.ax-facets{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:26px;padding-top:0;border-top:1px solid var(--rule)}
+.ax-facet-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);margin-bottom:9px}
 .ax-facet-b{font-size:13px;color:var(--body);line-height:1.45}
 .ax-facet-l{margin-top:6px}
 .ax-facet-l b{font-family:var(--mono);font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--g4);margin-right:6px}
@@ -814,7 +815,14 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 .ax-result[data-lens="it"] .ax-facet-mgmt{display:none}
 .ax-result[data-lens="mgmt"] .ax-facets,.ax-result[data-lens="it"] .ax-facets{grid-template-columns:1fr}
 @keyframes ax-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@media(max-width:820px){.ax-matrix{overflow-x:auto}.ax-mx-row{min-width:660px}.ax-facets{grid-template-columns:1fr}.ax-wrap .cycle{flex-wrap:wrap}}
+.ax-wrap::before{content:"EU AI ACT / WORKFLOW REGISTER";position:absolute;left:1px;top:6px;font-family:var(--mono);font-size:9px;line-height:1;letter-spacing:.22em;color:var(--g4);text-transform:uppercase;writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;pointer-events:none}
+.ax-wrap::after{content:"";position:absolute;left:44px;top:6px;bottom:20px;width:1px;background:var(--rule);pointer-events:none}
+.ax-tp::before{content:attr(data-wf);position:absolute;right:24px;top:14px;font-family:var(--mono);font-size:44px;line-height:1;font-weight:700;color:rgba(27,26,28,.05);letter-spacing:-.02em;pointer-events:none}
+.ax-facet{padding-top:22px}
+.ax-facet-mgmt{padding-right:34px}
+.ax-facet-it{border-left:1px solid var(--rule);padding-left:34px}
+.ax-mx-prow.on .ax-mx-ph{box-shadow:inset 5px 0 0 var(--pc)}
+@media(max-width:820px){.ax-matrix{overflow-x:auto}.ax-mx-row{min-width:660px}.ax-facets{grid-template-columns:1fr}.ax-facet-it{border-left:0;padding-left:0;padding-top:14px}.ax-facet-mgmt{padding-right:0}.ax-wrap{padding-left:0}.ax-wrap::before,.ax-wrap::after{display:none}.ax-wrap .cycle{flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){.ax-scan i{animation:none}.ax-tp{animation:none}.ax-panel.show{animation:none}}
 @media(max-width:820px){.rs-lvls{display:flex;flex-wrap:wrap;gap:6px;padding:10px}.rs-lvls-h{width:100%;padding-bottom:4px}.rs-lvl{width:auto;flex:1 1 40%;border-left:0;border-bottom:2px solid transparent;border-radius:8px;padding:10px}.rs-lvl.on{border-left:0;border-bottom-color:var(--red);background:var(--red-soft);box-shadow:none}.rs-detail{max-height:none;overflow:visible}}
 </style>
@@ -3244,7 +3252,7 @@ function aiActTouchpointHtml(tp){
   var duties=(tp.tiers||[]).map(function(r){ var t=aiTier(r.tier); return '<div class="ax-duty" style="--tc:'+t.color+'"><div class="ax-duty-h"><span class="ax-duty-tier">'+esc(t.label)+' &middot; '+esc(t.code)+'</span><span class="ax-duty-dl">'+esc(AI_DEADLINES[r.tier]||"")+'</span></div><div class="ax-duty-o">'+esc(r.obligation)+'</div>'+(r.appliesWhen?'<div class="ax-duty-w"><b>Applies when</b> '+esc(r.appliesWhen)+'</div>':'')+'</div>'; }).join("");
   var mg=tp.mgmt?('<div class="ax-facet ax-facet-mgmt"><div class="ax-facet-k">For management</div><div class="ax-facet-b"><span class="ax-exp ax-exp-'+esc(tp.mgmt.exposure)+'">'+esc(tp.mgmt.exposure)+' exposure</span><div class="ax-facet-l"><b>Owner</b> '+esc(tp.mgmt.owner)+'</div><div class="ax-facet-l"><b>Decision</b> '+esc(tp.mgmt.decision)+'</div>'+(tp.mgmt.exposureNote?'<div class="ax-note">'+esc(tp.mgmt.exposureNote)+'</div>':'')+'</div></div>'):"";
   var itc=tp.it?('<div class="ax-facet ax-facet-it"><div class="ax-facet-k">For IT and systems</div><div class="ax-facet-b"><div class="ax-facet-l"><b>Systems</b> '+tp.it.systems.map(function(s){return esc(s);}).join(", ")+'</div><div class="ax-facet-l"><b>Role</b> '+esc(tp.it.role)+(tp.it.roleNote?' <span class="ax-note-i">('+esc(tp.it.roleNote)+')</span>':'')+'</div><ul class="ax-ctrls">'+tp.it.controls.map(function(c){return '<li>'+esc(c.note)+'</li>';}).join("")+'</ul></div></div>'):"";
-  return '<div class="ax-tp"><div class="ax-tp-top">'+(tp.wf?'<span class="ax-tp-wf">'+esc(tp.wf)+'</span>':'')+'<div class="ax-tp-tiers">'+chips+'</div></div><div class="ax-tp-ai">'+esc(tp.ai)+'</div>'+(tp.qualifier?'<div class="ax-tp-q">'+esc(tp.qualifier)+'</div>':'')+'<div class="ax-duties">'+duties+'</div><div class="ax-facets">'+mg+itc+'</div></div>';
+  return '<div class="ax-tp" data-wf="'+esc(tp.wf||"")+'"><div class="ax-tp-top">'+(tp.wf?'<span class="ax-tp-wf">'+esc(tp.wf)+'</span>':'')+'<div class="ax-tp-tiers">'+chips+'</div></div><div class="ax-tp-ai">'+esc(tp.ai)+'</div>'+(tp.qualifier?'<div class="ax-tp-q">'+esc(tp.qualifier)+'</div>':'')+'<div class="ax-duties">'+duties+'</div><div class="ax-facets">'+mg+itc+'</div></div>';
 }
 function wireAiActLens(){ var r=$("#ax-result"); if(!r) return; r.setAttribute("data-lens",aiActLens); $all("#ax-result .ax-lensbtn").forEach(function(b){ b.addEventListener("click",function(){ aiActLens=b.getAttribute("data-lens"); r.setAttribute("data-lens",aiActLens); $all("#ax-result .ax-lensbtn").forEach(function(x){ x.classList.toggle("on",x===b); }); }); }); }
 
