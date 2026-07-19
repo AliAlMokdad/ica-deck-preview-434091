@@ -827,6 +827,55 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 @media(max-width:820px){.ax-matrix{overflow-x:auto}.ax-mx-row{min-width:660px}.ax-facets{grid-template-columns:1fr}.ax-facet-it{border-left:0;padding-left:0;padding-top:14px}.ax-facet-mgmt{padding-right:0}.ax-wrap{padding-left:0}.ax-wrap::before,.ax-wrap::after{display:none}.ax-wrap .cycle{flex-wrap:wrap}.ax-tp{padding-left:70px}.ax-tp::before{width:58px;font-size:14px;padding-right:9px}.ax-tp.long-id::before{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.ax-scan i::after{animation:none;transform:scaleX(1)}.ax-tp{animation:none}.ax-panel.show{animation:none}}
 @media(max-width:820px){.rs-lvls{display:flex;flex-wrap:wrap;gap:6px;padding:10px}.rs-lvls-h{width:100%;padding-bottom:4px}.rs-lvl{width:auto;flex:1 1 40%;border-left:0;border-bottom:2px solid transparent;border-radius:8px;padding:10px}.rs-lvl.on{border-left:0;border-bottom-color:var(--red);background:var(--red-soft);box-shadow:none}.rs-detail{max-height:none;overflow:visible}}
+/* ===================== DRAFT 0 ===================== */
+#tab-draft0 .d0-life{position:relative;padding-left:36px}
+#tab-draft0 .d0-life::before{content:"";position:absolute;left:11px;top:16px;bottom:16px;width:2px;background:linear-gradient(to bottom,var(--p1),var(--p2),var(--p3),var(--p4),var(--p5),var(--p6));opacity:.55;border-radius:2px}
+#tab-draft0 .d0-phase{position:relative;margin:0 0 30px}
+#tab-draft0 .d0-node{position:absolute;left:-36px;top:0;width:24px;height:24px;border-radius:50%;background:var(--pc);color:#fff;font-family:var(--mono);font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--canvas)}
+#tab-draft0 .d0-phead{display:flex;align-items:center;gap:11px;margin:0 0 13px;flex-wrap:wrap;min-height:52px}
+#tab-draft0 .d0-pn{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--pc);letter-spacing:.09em;text-transform:uppercase}
+#tab-draft0 .d0-pname{font-size:19px;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
+#tab-draft0 .d0-pcount{font-family:var(--mono);font-size:11px;color:var(--g2);margin-left:auto}
+#tab-draft0 .d0-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:12px}
+#tab-draft0 .d0-card{position:relative;text-align:left;background:var(--paper);border:1px solid var(--rule);border-left:4px solid var(--pc);border-radius:14px;padding:14px 36px 15px 16px;min-height:90px;display:flex;flex-direction:column;gap:8px;transition:transform .15s cubic-bezier(.2,.7,.2,1),box-shadow .15s ease,border-color .15s ease}
+#tab-draft0 .d0-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--pc)}
+#tab-draft0 .d0-card:active{transform:translateY(-1px)}
+#tab-draft0 .d0-card:focus-visible{outline:3px solid var(--pc);outline-offset:2px}
+#tab-draft0 .d0-cn{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink);letter-spacing:.05em}
+#tab-draft0 .d0-ct{font-size:14.5px;font-weight:600;line-height:1.3;color:var(--ink)}
+#tab-draft0 .d0-card::after{content:"\2197";position:absolute;right:14px;top:12px;font-size:16px;color:var(--pc);opacity:0;transform:translate(-3px,3px);transition:opacity .15s ease,transform .15s ease}
+#tab-draft0 .d0-card:hover::after,#tab-draft0 .d0-card:focus-visible::after{opacity:1;transform:none}
+#d0-modal{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:24px}
+#d0-modal.show{display:flex}
+#d0-modal .d0-bd{position:absolute;inset:0;background:rgba(13,14,18,.55)}
+#d0-modal .d0-card2{position:relative;width:min(600px,100%);background:var(--paper);border-radius:16px;border-top:6px solid var(--pc);padding:34px 34px 26px;box-shadow:var(--shadow-lg);animation:d0pop .22s cubic-bezier(.2,.7,.2,1) both}
+@keyframes d0pop{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+#d0-modal .d0-x{position:absolute;top:12px;right:14px;width:40px;height:40px;border-radius:8px;color:var(--g2);font-size:19px;line-height:1;display:flex;align-items:center;justify-content:center}
+#d0-modal .d0-x:hover{background:var(--g6);color:var(--ink)}
+#d0-modal .d0-mn{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink);letter-spacing:.07em;text-transform:uppercase;margin:0 0 9px}
+#d0-modal .d0-mt{font-size:26px;font-weight:800;letter-spacing:-.02em;color:var(--ink);line-height:1.15;margin:0 0 22px}
+#d0-modal .d0-act{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+#d0-modal .d0-open{background:var(--pc);color:#fff;font-weight:700;font-size:14.5px;padding:12px 22px;border-radius:10px;min-height:44px}
+#d0-modal .d0-open:hover{filter:brightness(.93)}
+#d0-modal .d0-cancel{background:transparent;color:var(--g2);font-weight:600;font-size:14.5px;padding:12px 16px;border-radius:10px;border:1px solid var(--rule);min-height:44px}
+#d0-modal .d0-cancel:hover{background:var(--g6)}
+#d0-modal .d0-hint{font-family:var(--mono);font-size:11px;color:var(--g3);line-height:1.5;margin:16px 0 0}
+#d0-modal .d0-open:focus-visible,#d0-modal .d0-cancel:focus-visible,#d0-modal .d0-x:focus-visible{outline:3px solid var(--pc);outline-offset:2px}
+@media(max-width:760px){#tab-draft0 .d0-cards{grid-template-columns:1fr}#d0-modal .d0-mt{font-size:22px}}
+@media(prefers-reduced-motion:reduce){#tab-draft0 .d0-card,#tab-draft0 .d0-card::after,#d0-modal .d0-card2{transition:none;animation:none}#tab-draft0 .d0-card:hover{transform:none}}
+/* Draft 0 elevation: editorial numerals + choreographed entrance */
+#tab-draft0 .d0-pname{font-size:22px}
+#tab-draft0 .d0-pcount{margin-left:0}
+#tab-draft0 .d0-ghost{margin-left:auto;align-self:center;font-family:var(--sans);font-weight:800;font-size:clamp(2.6rem,5.2vw,4.6rem);line-height:.78;letter-spacing:-.05em;color:color-mix(in srgb,var(--pc) 20%,transparent);-webkit-text-stroke:1.4px color-mix(in srgb,var(--pc) 34%,transparent);pointer-events:none;user-select:none}
+#tab-draft0 .d0-phead,#tab-draft0 .d0-cards{position:relative;z-index:1}
+#tab-draft0 .d0-life::before{transform-origin:top center}
+#tab-draft0 .d0-node{transition:transform .18s cubic-bezier(.22,1,.36,1)}
+#tab-draft0 .d0-phase:hover .d0-node{transform:scale(1.14)}
+#tab-draft0 .d0-life.play::before{animation:d0thread .95s cubic-bezier(.22,1,.36,1) both}
+#tab-draft0 .d0-life.play .d0-phase{animation:d0band .55s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(var(--bd,0ms) + 120ms)}
+@keyframes d0thread{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes d0band{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){#tab-draft0 .d0-life.play::before,#tab-draft0 .d0-life.play .d0-phase{animation:none!important}#tab-draft0 .d0-node{transition:none}}
 </style>
 </head>
 <body>
@@ -871,6 +920,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
     <section class="tab" id="tab-ladder"></section>
     <section class="tab" id="tab-room"></section>
     <section class="tab" id="tab-donor"></section>
+    <section class="tab" id="tab-draft0"></section>
     <section class="tab" id="tab-roles">
 <div class="rs">
   <div class="rs-eyebrow">SOP role analysis &middot; all 31 SOPs</div>
@@ -921,7 +971,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
   <div class="help-card">
     <h3>Driving the room</h3>
     <p>You control every reveal. Nothing jumps ahead of you.</p>
-    <div class="help-row"><span class="keys"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>0</b></span> jump to a tab (9 opens Role Standards, 0 opens the live e-learning prototype)</div>
+    <div class="help-row"><span class="keys"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>0</b></span> jump to a tab (9 opens Role Standards, 0 opens Draft 0; E-Learning opens from its tab button)</div>
     <div class="help-row"><span class="keys"><b>←</b><b>→</b></span> step through the active tab</div>
     <div class="help-row"><span class="keys"><b>Esc</b></span> leaves a search box, then back to the cover</div>
     <div class="help-row"><span class="keys"><b>?</b></span> show or hide this panel</div>
@@ -932,6 +982,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 <div id="flow-fs"><div class="ffs-bar"><span class="ffs-title" id="ffs-title"></span><button class="ffs-close" id="ffs-close">&#10005; close</button></div><div class="ffs-body" id="ffs-body"></div></div>
 
 <div id="timer-fs"><button class="tfs-close" id="tfs-close">&#10005; close</button><div class="tfs-num" id="tnum-fs">20:00</div><div class="tfs-ctl"><button data-t="start">start</button><button data-t="-">-5</button><button data-t="+">+5</button><button data-t="reset">reset</button></div><div class="tfs-hint">Esc or click outside the clock to exit</div></div>
+<div id="d0-modal" role="dialog" aria-modal="true" aria-labelledby="d0-mt" aria-describedby="d0-mn"><div class="d0-bd" data-d0close></div><div class="d0-card2" role="document"><button class="d0-x" data-d0close aria-label="Close" type="button">&#10005;</button><p class="d0-mn" id="d0-mn"></p><h3 class="d0-mt" id="d0-mt"></h3><div class="d0-act"><button class="d0-open" id="d0-open" type="button">Open the SOP</button><button class="d0-cancel" data-d0close type="button">Close</button></div><p class="d0-hint">Opens the SOP document on SharePoint in a new tab. Danish Red Cross access is required to view it.</p></div></div>
 
 <script>
 "use strict";
@@ -947,8 +998,9 @@ var TABS = [
   {id:"room",      n:"07", label:"From the room"},
   {id:"donor",     n:"08", label:"Donor compliance"},
   {id:"roles",     n:"09", label:"Role Standards"},
-  {id:"elearn",    n:"10", label:"E-Learning Prototype", launch:true},
-  {id:"aiact",     n:"11", label:"AI EU Act"}
+  {id:"draft0",    n:"10", label:"Draft 0"},
+  {id:"elearn",    n:"11", label:"E-Learning Prototype", launch:true},
+  {id:"aiact",     n:"12", label:"AI EU Act"}
 ];
 var ELEARN_URL = "https://alialmokdad.github.io/finance-platform-preview-891561/?present=1";
 
@@ -4102,6 +4154,7 @@ function go(tabId){
   $all(".tab").forEach(function(t){ t.classList.toggle("show", t.id==="tab-"+tabId); });
   var active = $("#tab-"+tabId);
   if(active){ active.scrollTop=0; revealIn(active); }
+  if(tabId==="draft0"){ d0play(); }
   if(tabId==="exercise"){ var i=$("#ex-input"); if(i) setTimeout(function(){ i.focus(); },130); }
   if(tabId==="hub"){ var hq=$("#hub-q"); if(hq) setTimeout(function(){ hq.focus(); },150); }
 }
@@ -4127,6 +4180,7 @@ document.addEventListener("keydown",function(e){
   if(EL_ON){ if(e.key==="Escape"&&elCancelFn){ elCancelFn(); } return; }
   if($("#timer-fs").classList.contains("show")){ if(e.key==="Escape"){ closeTimerFS(); } return; }
   if($("#flow-fs").classList.contains("show")){ if(e.key==="Escape"){ closeFlowFS(); } return; }
+  if($("#d0-modal").classList.contains("show")){ if(e.key==="Escape"){ closeSop(); } else if(e.key==="Tab"){ d0trap(e); } return; }
   if(view==="cover"){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); enterApp(); } return; }
   if($("#help").classList.contains("show")){ if(e.key==="Escape"||e.key==="?"){ toggleHelp(false); } return; }
   if(typing){ if(e.key==="Escape"){ ae.blur(); } return; }
@@ -4185,6 +4239,90 @@ buildAiAct();
 buildLadder();
 buildRoom();
 buildDonor();
+
+/* ===================== BUILD: DRAFT 0 ===================== */
+var DRAFT0_PHASES=[
+  {rn:"I",name:"Inception",ph:1,c:"var(--p1)"},
+  {rn:"II",name:"Initiation",ph:2,c:"var(--p2)"},
+  {rn:"III",name:"Implementation",ph:3,c:"var(--p3)"},
+  {rn:"IV",name:"Completion",ph:4,c:"var(--p4)"},
+  {rn:"V",name:"DRC Audit",ph:5,c:"var(--p5)"},
+  {rn:"VI",name:"Other Relevant SOPs",ph:6,c:"var(--p6)"}
+];
+var DRAFT0_SOPS=[
+  {"n":"1.1","t":"Finance Inputs to the Go/No-Go Decision","ph":1,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%201.1%20-%20Finance%20Inputs%20to%20the%20Go-No-Go%20Decision.docx?web=1"},
+  {"n":"1.2","t":"Costs Incurred Before Application Approval","ph":1,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%201.2%20-%20Costs%20Incurred%20Before%20Application%20Approval.docx?web=1"},
+  {"n":"2.1","t":"Project Budget Preparation and Approval Workflow","ph":2,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%202.1%20-%20Project%20Budget%20Preparation%20and%20Approval%20Workflow.docx?web=1"},
+  {"n":"2.2","t":"Grant and Project Agreement Drafting (Pre-Signatory)","ph":2,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%202.2%20-%20Grant%20and%20Project%20Agreement%20Drafting%20%28Pre-Signatory%29.docx?web=1"},
+  {"n":"2.3","t":"Grant Creation and Setup in Kompas and Grant Allocation to Projects","ph":2,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%202.3%20-%20Grant%20Creation%20and%20Setup%20in%20Kompas%20and%20Grant%20Allocation%20to%20Projects.docx?web=1"},
+  {"n":"2.4","t":"Project Creation and Setup in Kompas","ph":2,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%202.4%20-%20Project%20Creation%20and%20Setup%20in%20Kompas.docx?web=1"},
+  {"n":"2.5","t":"Donor Invoicing and Payment Reconciliation","ph":2,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%202.5%20-%20Donor%20Invoicing%20and%20Payment%20Reconciliation.docx?web=1"},
+  {"n":"3.1","t":"Project Accounting and Cost Allocations","ph":3,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%203.1%20-%20Project%20Accounting%20and%20Cost%20Allocations.docx?web=1"},
+  {"n":"3.2","t":"Sub-Partner Financial Management","ph":3,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%203.2%20-%20Sub-Partner%20Financial%20Management.docx?web=1"},
+  {"n":"3.3","t":"Project Financial Monitoring","ph":3,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%203.3%20-%20Project%20Financial%20Monitoring.docx?web=1"},
+  {"n":"3.4","t":"Procurement and Payment on Behalf of Projects","ph":3,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%203.4%20-%20Procurement%20and%20Payment%20on%20Behalf%20of%20Projects.docx?web=1"},
+  {"n":"3.5","t":"Project Exchange Rate Management","ph":3,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%203.5%20-%20Project%20Exchange%20Rate%20Management.docx?web=1"},
+  {"n":"3.6","t":"Project Asset Management","ph":3,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%203.6%20-%20Project%20Asset%20Management.docx?web=1"},
+  {"n":"3.7","t":"Project Filing and Archiving","ph":3,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%203.7%20-%20Project%20Filing%20and%20Archiving.docx?web=1"},
+  {"n":"3.8","t":"Project Own-Funds Management and Controlling","ph":3,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%203.8%20-%20Project%20Own-Funds%20Management%20and%20Controlling.docx?web=1"},
+  {"n":"3.9","t":"Ineligible Costs Project","ph":3,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%203.9%20-%20Ineligible%20Costs%20Project.docx?web=1"},
+  {"n":"3.11","t":"Donor Financial Reporting","ph":3,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%203.11%20-%20Donor%20Financial%20Reporting.docx?web=1"},
+  {"n":"3.12","t":"Project Cash Management","ph":3,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%203.12%20-%20Project%20Cash%20Management.docx?web=1"},
+  {"n":"3.13","t":"Advances, Per Diems and Liquidations","ph":3,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%203.13%20-%20Advances%2C%20Per%20Diems%20and%20Liquidations.docx?web=1"},
+  {"n":"3.14","t":"Payroll and Time-Registration Finance Controls","ph":3,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%203.14%20-%20Payroll%20and%20Time-Registration%20Finance%20Controls.docx?web=1"},
+  {"n":"3.15","t":"Budget Revision, Reallocation and Grant Amendment","ph":3,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%203.15%20-%20Budget%20Revision%2C%20Reallocation%20and%20Grant%20Amendment.docx?web=1"},
+  {"n":"4.2","t":"Projects Administrative and Financial Closing Procedures","ph":4,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%204.2%20-%20Projects%20Administrative%20and%20Financial%20Closing%20Procedures.docx?web=1"},
+  {"n":"4.4","t":"Donor Final Invoicing Procedures","ph":4,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%204.4%20-%20Donor%20Final%20Invoicing%20Procedures.docx?web=1"},
+  {"n":"4.5","t":"Final Bookings and Donor Grant Closing in Kompas","ph":4,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%204.5%20-%20Final%20Bookings%20and%20Donor%20Grant%20Closing%20in%20Kompas.docx?web=1"},
+  {"n":"5","t":"Audit Standard Operating Procedure","ph":5,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%205%20-%20Audit%20Standard%20Operating%20Procedure.docx?web=1"},
+  {"n":"6.2","t":"Risk-Based Approach to Financial Control and Compliance","ph":6,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%206.2%20-%20Risk-Based%20Approach%20to%20Financial%20Control%20and%20Compliance.docx?web=1"},
+  {"n":"6.3","t":"Disaster and Crisis Specific Financial Procedures","ph":6,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%206.3%20-%20Disaster%20and%20Crisis%20Specific%20Financial%20Procedures.docx?web=1"},
+  {"n":"6.4","t":"Anchor Budget","ph":6,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%206.4%20-%20Anchor%20Budget.docx?web=1"},
+  {"n":"6.5","t":"Year-end Annual Closing","ph":6,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%206.5%20-%20Year-end%20Annual%20Closing.docx?web=1"},
+  {"n":"6.6","t":"Delegation of Authority and Financial Authorization Matrix","ph":6,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%206.6%20-%20Delegation%20of%20Authority%20and%20Financial%20Authorization%20Matrix.docx?web=1"},
+  {"n":"6.7","t":"Financial Irregularity Response, Recovery and Write-off","ph":6,"url":"https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/INTERNAL%20CONTROL%20%26%20COMPLIANCE/SOP%20International%20finance/International%20Finance%20SOPs%20in%20development/Draft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29/Review%20-%20SharePoint%20version/SOP%206.7%20-%20Financial%20Irregularity%20Response%2C%20Recovery%20and%20Write-off.docx?web=1"}
+];
+function buildDraft0(){
+  var life=DRAFT0_PHASES.map(function(p,pi){
+    var list=DRAFT0_SOPS.filter(function(s){return s.ph===p.ph;});
+    var cards=list.map(function(s,ci){
+      return '<button class="d0-card" style="--pc:'+p.c+';--i:'+Math.min(ci,11)+'" data-sop="'+esc(s.n)+'" aria-label="SOP '+esc(s.n)+', '+esc(s.t)+', phase '+esc(p.rn)+' '+esc(p.name)+'"><span class="d0-cn">SOP '+esc(s.n)+'</span><span class="d0-ct">'+esc(s.t)+'</span></button>';
+    }).join("");
+    return '<div class="d0-phase" style="--pc:'+p.c+';--bd:'+(pi*130)+'ms"><span class="d0-node" aria-hidden="true">'+p.rn+'</span>'+
+      '<div class="d0-phead"><span class="d0-pname">'+esc(p.name)+'</span><span class="d0-pcount">'+list.length+' SOP'+(list.length===1?'':'s')+'</span><span class="d0-ghost" aria-hidden="true">'+p.rn+'</span></div>'+
+      '<div class="d0-cards">'+cards+'</div></div>';
+  }).join("");
+  var html='<div class="wrap">'+
+    '<div class="kicker rv">Tab 10</div>'+
+    '<h2 class="head rv">The Draft 0 SOPs</h2>'+
+    '<p class="lead rv">The full first draft of the International Finance SOP suite. Thirty-one procedures across the six phases of the project finance life cycle. Select any procedure to open it.</p>'+
+    '<div class="d0-life">'+life+'</div>'+
+  '</div>';
+  $("#tab-draft0").innerHTML=html;
+  $all("#tab-draft0 .d0-card").forEach(function(b){ b.addEventListener("click",function(){ openSop(b.getAttribute("data-sop")); }); });
+}
+var d0played=false;
+function d0play(){ if(d0played) return; var L=$("#tab-draft0 .d0-life"); if(!L) return; d0played=true; L.classList.add("play"); }
+var d0sel=null,d0lastFocus=null;
+function openSop(n){
+  var s=null,i; for(i=0;i<DRAFT0_SOPS.length;i++){ if(DRAFT0_SOPS[i].n===n){ s=DRAFT0_SOPS[i]; break; } }
+  if(!s) return;
+  var p=DRAFT0_PHASES[s.ph-1];
+  d0sel=s; d0lastFocus=document.activeElement;
+  var card2=$("#d0-modal .d0-card2"); if(card2) card2.style.setProperty("--pc",p.c);
+  $("#d0-mn").textContent="SOP "+s.n+"  ·  Phase "+p.rn+" "+p.name;
+  $("#d0-mt").textContent=s.t;
+  $("#d0-modal").classList.add("show");
+  setTimeout(function(){ var o=$("#d0-open"); if(o) o.focus(); },30);
+}
+function closeSop(){ $("#d0-modal").classList.remove("show"); if(d0lastFocus&&d0lastFocus.focus){ d0lastFocus.focus(); } d0sel=null; }
+function d0trap(e){ var f=$all("#d0-modal button"); if(!f.length) return; var first=f[0],last=f[f.length-1]; if(e.shiftKey&&document.activeElement===first){ e.preventDefault(); last.focus(); } else if(!e.shiftKey&&document.activeElement===last){ e.preventDefault(); first.focus(); } }
+(function(){
+  var m=$("#d0-modal"); if(!m) return;
+  m.addEventListener("click",function(e){ if(e.target.hasAttribute("data-d0close")) closeSop(); });
+  var o=$("#d0-open"); if(o) o.addEventListener("click",function(){ if(d0sel&&d0sel.url){ window.open(d0sel.url,"_blank","noopener,noreferrer"); closeSop(); } });
+})();
+buildDraft0();
 </script>
 
 <script>
