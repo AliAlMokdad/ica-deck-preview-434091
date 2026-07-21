@@ -876,6 +876,8 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 @keyframes d0thread{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 @keyframes d0band{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){#tab-draft0 .d0-life.play::before,#tab-draft0 .d0-life.play .d0-phase{animation:none!important}#tab-draft0 .d0-node{transition:none}}
+  #tab-cmpres{padding:0;overflow:hidden}
+  #cmpres-frame{width:100%;height:100%;border:0;display:block;background:#0b0a09}
 </style>
 </head>
 <body>
@@ -921,6 +923,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
     <section class="tab" id="tab-room"></section>
     <section class="tab" id="tab-donor"></section>
     <section class="tab" id="tab-draft0"></section>
+    <section class="tab" id="tab-cmpres"><iframe id="cmpres-frame" title="Country Managers Presentation"></iframe></section>
     <section class="tab" id="tab-roles">
 <div class="rs">
   <div class="rs-eyebrow">SOP role analysis &middot; all 31 SOPs</div>
@@ -999,8 +1002,9 @@ var TABS = [
   {id:"donor",     n:"08", label:"Donor compliance"},
   {id:"roles",     n:"09", label:"Role Standards"},
   {id:"draft0",    n:"10", label:"Draft 0"},
-  {id:"elearn",    n:"11", label:"E-Learning Prototype", launch:true},
-  {id:"aiact",     n:"12", label:"AI EU Act"}
+  {id:"cmpres",    n:"11", label:"Country Managers Presentation"},
+  {id:"elearn",    n:"12", label:"E-Learning Prototype", launch:true},
+  {id:"aiact",     n:"13", label:"AI EU Act"}
 ];
 var ELEARN_URL = "https://alialmokdad.github.io/finance-platform-preview-891561/?present=1";
 
@@ -4147,6 +4151,12 @@ function launchElearn(){
 }
 
 /* ===================== NAVIGATION ===================== */
+function mountCMPres(){
+  var fr=document.getElementById("cmpres-frame"); if(!fr || fr._mounted) return;
+  var doc=document.getElementById("cmpres-doc"); if(!doc) return;
+  fr._mounted=true;
+  fr.srcdoc=doc.textContent.split("__CMPRES_ENDSCRIPT__").join("</scr"+"ipt>");
+}
 function go(tabId){
   if(tabId==="elearn"){ launchElearn(); return; }   /* the live prototype opens through the launch sequence, not a panel */
   view = tabId;
@@ -4155,6 +4165,7 @@ function go(tabId){
   var active = $("#tab-"+tabId);
   if(active){ active.scrollTop=0; revealIn(active); }
   if(tabId==="draft0"){ d0play(); }
+  if(tabId==="cmpres"){ mountCMPres(); }
   if(tabId==="exercise"){ var i=$("#ex-input"); if(i) setTimeout(function(){ i.focus(); },130); }
   if(tabId==="hub"){ var hq=$("#hub-q"); if(hq) setTimeout(function(){ hq.focus(); },150); }
 }
@@ -4515,6 +4526,1597 @@ $("rs-detail").addEventListener("click",function(e){var pg=e.target.closest(".rs
 kpis();legend();renderLevels();list();
 
 })();
+</script>
+<script type="text/html" id="cmpres-doc">
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Ali Al Mokdad">
+<title>International Finance · Standard Operating Procedures</title>
+<script>try{if(localStorage.getItem("cmj_theme")==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}__CMPRES_ENDSCRIPT__
+<style>
+  /* ============ SYSTEM (dark cinema) ============ */
+  :root{
+    /* ---- dark (cinema), clarity-lifted ---- */
+    --void:#0B0A09; --void-2:#14110E;
+    --bone:#F4EFE6; --bone-2:#D9D1C4; --bone-3:#C4BBAE;
+    --hair:rgba(242,236,225,.24);
+    --red:#E30A0B; --red-hi:#FF5A4E; --glass:rgba(18,16,14,.85);
+    --surface:#17130F; --surface-2:#211C17; --surface-3:#2A241D;
+    --band-a:rgba(244,239,230,.05); --band-b:rgba(244,239,230,.12);
+    --wf-arrow:rgba(224,216,203,.62); --wf-line:rgba(242,236,225,.24);
+    --wf-role:#E6DECF; --wf-ink:#12100E; --wf-numbg:#12100E; --wf-num:#F4EFE6;
+    --vignette:rgba(0,0,0,.55); --comet-core:#FFD9CF; --fs-scrim:rgba(8,7,6,.92);
+    --bg-grad:radial-gradient(ellipse 100% 75% at 50% 22%, rgba(48,38,30,.42), transparent 62%);
+    --p1:#7EA6C4; --p2:#9CC098; --p3:#D8A96A;
+    --p4:#7FB9AE; --p5:#AC97C4; --p6:#C08D82;
+    --serif:"Source Serif 4","Source Serif Pro",Georgia,serif;
+    --sans:"Source Sans 3","Source Sans Pro","Segoe UI",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",Consolas,monospace;
+    --ease-out:cubic-bezier(.22,1,.36,1);
+    --ease-move:cubic-bezier(.65,.05,.36,1);
+  }
+  :root[data-theme="light"]{
+    /* ---- light (paper), matches the Draft 0 SOP documents ---- */
+    --void:#F5F1E9; --void-2:#EBE3D6;
+    --bone:#241E17; --bone-2:#544A40; --bone-3:#736858;
+    --hair:rgba(30,24,18,.20); --glass:rgba(255,255,255,.90);
+    --surface:#FFFFFF; --surface-2:#F3ECE0; --surface-3:#EAE1D2;
+    --band-a:rgba(30,24,18,.03); --band-b:rgba(30,24,18,.075);
+    --wf-arrow:rgba(30,24,18,.5); --wf-line:rgba(30,24,18,.22);
+    --wf-role:#544A40; --wf-ink:#FFFFFF; --wf-numbg:#241E17; --wf-num:#FFFFFF;
+    --vignette:transparent; --comet-core:#B0431F; --fs-scrim:rgba(70,60,50,.42);
+    --bg-grad:none;
+    --p1:#3F6E92; --p2:#4C7C46; --p3:#9A6A26; --p4:#37806F; --p5:#6E5288; --p6:#A65240;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    font-family:var(--sans);color:var(--bone);
+    background:var(--bg-grad), var(--void);overflow:hidden;
+    font-size:clamp(15px,14px + .3vw,18px);line-height:1.55;
+  }
+  ::selection{background:rgba(227,10,11,.35)}
+  button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+  button:focus,[tabindex]:focus,input:focus{outline:2px solid var(--red-hi);outline-offset:3px;border-radius:2px}
+  button:focus:not(:focus-visible),[tabindex]:focus:not(:focus-visible){outline:none}
+
+  /* ============ CANVAS ATMOSPHERE ============ */
+  #vignette{
+    position:fixed;inset:0;pointer-events:none;z-index:3;
+    background:radial-gradient(ellipse 120% 90% at 50% 46%, transparent 55%, var(--vignette) 100%);
+  }
+  #grain{position:fixed;inset:0;pointer-events:none;z-index:4;opacity:.05}
+  #world{position:fixed;inset:0;z-index:1}
+  #world .thread{stroke:var(--red);stroke-width:2;fill:none}
+  #world .thread-dim{stroke:rgba(227,10,11,.18);stroke-width:1.5;fill:none}
+  #comet-core{fill:var(--comet-core)}
+  #comet-glow{fill:var(--red)}
+
+  /* ============ CHROME ============ */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:10;
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:1.4rem 3rem;
+  }
+  .corner-logo{
+    display:inline-flex;background:#fff;border-radius:8px;padding:.5rem .7rem;border:1px solid var(--hair);
+    box-shadow:0 6px 20px -10px rgba(0,0,0,.6);
+  }
+  .corner-logo img{display:block;width:clamp(120px,12vw,150px);height:auto}
+  nav{display:flex;gap:1.6rem}
+  .actlink{
+    font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--bone-3);
+    padding:.3em 0;position:relative;transition:color .4s var(--ease-out);
+  }
+  .actlink::after{
+    content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;
+    background:var(--red);transition:right .5s var(--ease-move);
+  }
+  .actlink[aria-current="true"]{color:var(--bone)}
+  .actlink[aria-current="true"]::after{right:0}
+  .actlink:hover{color:var(--bone-2)}
+
+  footer{
+    position:fixed;bottom:0;left:0;right:0;z-index:10;
+    display:flex;justify-content:flex-end;align-items:center;
+    padding:1.1rem 3rem;pointer-events:none;
+  }
+  .foot-note{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--bone-3)}
+  .navkeys{display:flex;gap:.5rem;pointer-events:auto}
+  .navkeys button{
+    width:40px;height:40px;border:1px solid var(--hair);border-radius:50%;
+    display:grid;place-items:center;color:var(--bone-2);
+    transition:all .3s var(--ease-out);background:rgba(11,10,9,.5);
+  }
+  .navkeys button:hover:not(:disabled){border-color:var(--red);color:var(--red-hi);transform:translateY(-2px)}
+  .navkeys button:disabled{opacity:.25;cursor:default}
+  #hint{
+    position:fixed;bottom:4.2rem;left:50%;transform:translateX(-50%);z-index:10;
+    font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--bone-3);transition:opacity 1s var(--ease-out);pointer-events:none;
+  }
+  #hint.gone{opacity:0}
+
+  /* ============ ACT SHELLS ============ */
+  .act{
+    position:fixed;inset:0;z-index:5;
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .8s var(--ease-out),visibility 0s linear .8s;
+  }
+  .act.on{
+    opacity:1;visibility:visible;pointer-events:auto;
+    transition:opacity .8s var(--ease-out) .15s,visibility 0s;
+  }
+  .kick{
+    font-family:var(--mono);font-size:1.2rem;font-weight:600;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--red-hi);
+  }
+  .kick em{font-style:normal;color:var(--bone-2);letter-spacing:.12em}
+
+  /* ============ ACT 0 · COVER ============ */
+  /* on the cover, nothing but the logo, the subtitle and Begin */
+  body.cover header,
+  body.cover footer,
+  body.cover #hint{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .5s var(--ease-out),visibility 0s linear .5s}
+  #dots{position:fixed;inset:0;z-index:1;pointer-events:none;display:none}
+  #dots.show{display:block}
+  #act0{display:flex;align-items:center;justify-content:center;text-align:center}
+  #act0 .inner{max-width:44rem;padding:0 2rem;transform:translateY(-3vh)}
+  .logo-plate{
+    display:inline-flex;align-items:center;justify-content:center;
+    background:#FFFFFF;border-radius:12px;
+    padding:2.4rem 2.8rem;
+    box-shadow:0 24px 64px -34px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.05);
+    opacity:0;transform:translateY(16px) scale(.98);
+    transition:opacity 1s var(--ease-out),transform 1s var(--ease-out);
+  }
+  #act0.lit .logo-plate{opacity:1;transform:none}
+  .drc-logo{display:block;width:clamp(220px,26vw,340px);height:auto}
+  .cover-sub{
+    margin-top:2.2rem;font-family:var(--serif);font-weight:600;
+    font-size:clamp(1.5rem,1.1rem + 1.6vw,2.4rem);letter-spacing:.005em;color:var(--bone);line-height:1.2;
+    opacity:0;transition:opacity .9s var(--ease-out) .35s;
+  }
+  #act0.lit .cover-sub{opacity:1}
+  .cover-for{
+    margin-top:1.5rem;font-family:var(--mono);font-size:1.05rem;font-weight:600;
+    letter-spacing:.26em;text-transform:uppercase;color:var(--red-hi);
+    opacity:0;transition:opacity .9s var(--ease-out) .5s;
+  }
+  #act0.lit .cover-for{opacity:1}
+  #act0 .begin{
+    margin-top:2.8rem;display:inline-flex;align-items:center;gap:.7em;
+    font-family:var(--mono);font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--bone);border:1px solid var(--bone-2);border-radius:99px;
+    padding:.95em 1.9em;
+    opacity:0;transition:opacity .9s var(--ease-out) .6s,border-color .3s,color .3s,transform .3s,background .3s;
+  }
+  #act0.lit .begin{opacity:1}
+  #act0 .begin:hover{border-color:var(--red);background:var(--red);color:#fff;transform:translateY(-2px)}
+
+  /* ============ ACT 1 · THE UPDATE ============ */
+  #act1 .head{position:absolute;top:16vh;left:8vw;max-width:44rem}
+  #act1 h2,#act2 h2,#act3 h2{
+    font-family:var(--serif);font-weight:600;
+    font-size:clamp(2.4rem,1.6rem + 3vw,3.9rem);
+    line-height:1.05;margin-top:.7rem;letter-spacing:-.01em;color:var(--bone);
+  }
+  .station-label{
+    position:fixed;z-index:6;transform:translateX(-50%);
+    font-family:var(--mono);font-size:1.15rem;font-weight:600;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--bone-2);
+    transition:color .5s var(--ease-out),opacity .5s var(--ease-out);
+    opacity:.72;pointer-events:auto;cursor:pointer;padding:.4em .6em;
+  }
+  .station-label.lit{color:var(--bone);opacity:.92}
+  .station-label.now{color:var(--red-hi);opacity:1;font-weight:700}
+  #lower3{
+    position:fixed;left:8vw;bottom:8vh;z-index:7;max-width:56rem;
+    background:rgba(11,10,9,.92);border:1px solid rgba(244,239,230,.18);border-radius:12px;
+    padding:1.6rem 2rem;box-shadow:0 -10px 50px -20px rgba(0,0,0,.8);
+    opacity:0;transform:translateY(18px);
+    transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);
+  }
+  #lower3.show{opacity:1;transform:none}
+  #lower3 .l3-when{font-family:var(--mono);font-size:1.15rem;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--red-hi)}
+  #lower3 h3{
+    font-family:var(--serif);font-weight:600;
+    font-size:clamp(2rem,1.4rem + 2vw,2.9rem);line-height:1.06;
+    margin:.5rem 0 .7rem;color:var(--bone);
+  }
+  #lower3 #l3-text{color:var(--bone-2);max-width:60ch;font-size:clamp(1.3rem,1.1rem + .6vw,1.7rem);line-height:1.4}
+  #lower3 .l3-out{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+  #lower3 .l3-out li{
+    display:flex;align-items:baseline;gap:.8rem;
+    color:var(--bone);font-size:clamp(1.3rem,1.1rem + .6vw,1.7rem);line-height:1.3;
+  }
+  #lower3 .l3-out li::before{content:"";flex:none;width:10px;height:10px;border-radius:50%;
+    background:var(--red);box-shadow:0 0 12px var(--red);transform:translateY(-.15em)}
+  #act1 .counter{
+    position:fixed;right:8vw;bottom:16vh;z-index:6;text-align:right;
+    font-family:var(--serif);font-weight:600;color:rgba(242,236,225,.08);
+    font-size:clamp(5rem,4rem + 8vw,12rem);line-height:.9;user-select:none;pointer-events:none;
+  }
+
+  /* ============ ACT 2 · THE CYCLE ============ */
+  #act2 .head{position:absolute;top:16vh;left:5vw;max-width:15rem;z-index:8}
+  #act2 .head h2{font-size:clamp(1.6rem,1.3rem + 1.2vw,2.3rem)}
+  #act2 .head p{margin-top:.7rem;color:var(--bone-2);max-width:26ch;font-size:.98rem}
+  .pnode{
+    position:fixed;z-index:6;transform:translate(-50%,-50%);
+    display:flex;flex-direction:column;align-items:center;gap:.15rem;
+    text-align:center;padding:.6rem .9rem;border-radius:8px;
+    transition:opacity .5s var(--ease-out),transform .45s var(--ease-out);opacity:.72;
+  }
+  .pnode .rom{
+    font-family:var(--serif);font-weight:600;
+    font-size:clamp(1.5rem,1.2rem + 1.2vw,2.3rem);line-height:1;
+    color:var(--pc);transition:text-shadow .5s var(--ease-out);
+  }
+  .pnode .pname{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--bone)}
+  .pnode .pcount{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--bone-2)}
+  .pnode:hover{opacity:.92}
+  .pnode.on{opacity:1}
+  .pnode.on .rom{text-shadow:0 0 22px var(--pc)}
+  /* the audit satellite sits out on the assurance orbit */
+  .pnode.satellite{opacity:.55}
+  .pnode.satellite::before{
+    content:"assurance orbit";position:absolute;top:-1.3rem;left:50%;transform:translateX(-50%);
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--bone-2);white-space:nowrap;
+  }
+  .pnode.satellite.on{opacity:1}
+  .pnode.satellite.on .rom{text-shadow:0 0 22px var(--p5)}
+
+  /* phase markers: power up sharp as the comet arrives */
+  .pnode{opacity:.72}
+  .pnode .rom{font-size:clamp(2.3rem,1.7rem + 1.8vw,3.6rem)}
+  .pnode .pname{font-size:1.12rem;letter-spacing:.1em;color:var(--bone)}
+  .pnode .pcount{font-size:.78rem;color:var(--bone-2)}
+  .pnode.on{opacity:1;transform:translate(-50%,-50%) scale(1.18)}
+  .pnode.on .rom{text-shadow:0 0 26px var(--pc),0 0 12px var(--pc);color:var(--pc);filter:saturate(1.6) brightness(1.15)}
+  .pnode.on .pname{color:#fff;font-weight:700}
+  /* cross-cutting hub at the centre */
+  #hub{
+    position:fixed;z-index:6;transform:translate(-50%,-50%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;border-radius:50%;border:1px solid var(--hair);
+    opacity:.75;padding:1rem;
+    transition:box-shadow .6s var(--ease-out),border-color .6s var(--ease-out),opacity .5s,transform .5s var(--ease-out);
+  }
+  #hub:hover{opacity:1}
+  #hub .rom{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,1.3rem + 1.4vw,2.5rem);color:var(--p6)}
+  #hub .pname{font-family:var(--mono);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone);margin-top:.25rem}
+  #hub .pcount{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone-2);margin-top:.15rem}
+  #hub.on{
+    opacity:1;transform:translate(-50%,-50%) scale(1.08);
+    border-color:color-mix(in srgb, var(--p6) 60%, transparent);
+    box-shadow:0 0 50px -6px color-mix(in srgb, var(--p6) 35%, transparent), inset 0 0 34px -8px color-mix(in srgb, var(--p6) 30%, transparent);
+  }
+  #cyc-panel{
+    position:fixed;right:0;top:0;bottom:0;z-index:7;width:min(520px,42vw);
+    background:var(--glass);backdrop-filter:blur(7px);
+    border-left:1px solid var(--hair);
+    padding:7rem 3.4rem 5rem;overflow-y:auto;
+    transform:translateX(102%);transition:transform .6s var(--ease-move);
+  }
+  #cyc-panel.show{transform:none}
+  #cyc-panel .kick{color:var(--pc,var(--red-hi));font-size:1rem}
+  #cyc-panel h3{font-family:var(--serif);font-weight:600;font-size:2.1rem;margin:.6rem 0 .7rem;color:var(--bone)}
+  #cyc-panel .ess{font-family:var(--serif);font-style:italic;color:var(--bone-2);
+    font-size:1.18rem;line-height:1.5;margin-bottom:2rem;padding-left:1.1rem;border-left:2px solid var(--pc,var(--hair))}
+  .cyc-chip{
+    display:flex;align-items:baseline;gap:1rem;width:100%;text-align:left;
+    padding:1rem 1.2rem;border:1px solid var(--hair);border-left:3px solid var(--pc,var(--hair));
+    border-radius:8px;margin-bottom:.7rem;background:rgba(242,236,225,.025);
+    opacity:0;transform:translateX(16px);
+    transition:opacity .5s var(--ease-out),transform .5s var(--ease-out),
+      background .3s,border-color .3s;
+    transition-delay:calc(var(--j,0) * 55ms);
+  }
+  #cyc-panel.show .cyc-chip{opacity:1;transform:none}
+  .cyc-chip:hover{background:rgba(242,236,225,.07);border-color:var(--pc)}
+  .cyc-chip .num{font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--pc);white-space:nowrap}
+  .cyc-chip .ttl{font-size:1.08rem;font-weight:600;line-height:1.4;color:var(--bone)}
+
+  /* ============ ACT 3 · THE PROCEDURES ============ */
+  #act3 .head{position:absolute;top:7vh;left:5vw;max-width:22rem;z-index:8}
+  #act3 .head h2{font-size:clamp(1.7rem,1.3rem + 1.4vw,2.5rem)}
+  #a3-sub{font-size:.98rem}
+  #a3-controls{
+    position:absolute;top:9vh;right:8vw;z-index:8;
+    display:flex;flex-direction:column;align-items:flex-end;gap:.7rem;max-width:40vw;
+  }
+  #a3-search{
+    font:inherit;font-size:1rem;color:var(--bone);
+    background:rgba(242,236,225,.045);border:1px solid var(--hair);border-radius:99px;
+    padding:.6em 1.3em;width:min(330px,38vw);
+  }
+  #a3-search::placeholder{color:var(--bone-3)}
+  #a3-pills{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:flex-end}
+  .pill{
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--bone-2);border:1px solid var(--hair);border-radius:99px;padding:.4em .9em;
+    transition:all .25s var(--ease-out);
+  }
+  .pill:hover{border-color:var(--bone-3)}
+  .pill.on{background:var(--bone);color:var(--void);border-color:var(--bone)}
+  #a3-count{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--bone-2)}
+  #a3-sub{margin-top:.7rem;color:var(--bone-2);max-width:40ch;font-size:1.02rem}
+
+  /* view-by toggle */
+  #a3-view{display:flex;align-items:center;gap:.5rem;margin-bottom:.2rem}
+  .viewlbl{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-3);margin-right:.2rem}
+  .viewbtn{
+    font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--bone-2);border:1px solid var(--hair);border-radius:99px;padding:.42em 1.1em;
+    transition:all .25s var(--ease-out);
+  }
+  .viewbtn:hover{border-color:var(--bone-3)}
+  .viewbtn.on{background:var(--red);color:var(--bone);border-color:var(--red)}
+
+  /* role rail (left) - the primary chooser */
+  #role-rail{
+    position:fixed;left:3.5vw;top:35vh;bottom:7vh;z-index:8;width:min(340px,33vw);
+    display:none;flex-direction:column;
+    background:var(--glass);backdrop-filter:blur(7px);
+    border:1px solid var(--hair);border-radius:12px;padding:1.4rem 1.4rem 1.1rem;
+  }
+  #role-rail.show{display:flex}
+  .rr-head{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--bone-2);margin-bottom:.9rem}
+  #rr-list{display:flex;flex-direction:column;gap:.45rem;overflow-y:auto;flex:1;min-height:0}
+  .rr-item{
+    display:flex;align-items:baseline;gap:.8rem;width:100%;text-align:left;
+    padding:.75rem .9rem;border:1px solid var(--hair);border-radius:8px;
+    background:rgba(242,236,225,.03);transition:all .22s var(--ease-out);
+  }
+  .rr-item:hover{background:rgba(242,236,225,.08);border-color:var(--bone-2)}
+  .rr-item.on{background:rgba(227,10,11,.16);border-color:var(--red);box-shadow:0 0 22px -8px rgba(227,10,11,.6)}
+  .rr-item .rr-name{flex:1;font-size:1.05rem;font-weight:600;color:var(--bone);line-height:1.2}
+  .rr-item .rr-n{font-family:var(--mono);font-size:.9rem;font-weight:700;color:var(--red-hi)}
+  .rr-item.on .rr-n{color:var(--bone)}
+
+  /* role brief (center) - the substance */
+  #role-brief{
+    position:fixed;left:calc(3.5vw + min(340px,33vw) + 2.5vw);right:4vw;top:35vh;bottom:7vh;z-index:7;
+    display:none;flex-direction:column;overflow-y:auto;padding-right:.6rem;
+  }
+  #role-brief.show{display:flex}
+  .rb-empty{margin:auto;text-align:center;color:var(--bone-2);max-width:34ch}
+  .rb-empty .rb-arrow{font-size:2.2rem;color:var(--red-hi);display:block;margin-bottom:.8rem}
+  .rb-role{font-family:var(--serif);font-weight:600;font-size:clamp(1.6rem,1.2rem + 1.4vw,2.4rem);color:var(--bone);line-height:1.1}
+  .rb-blurb{color:var(--bone-2);font-size:1.1rem;margin:.6rem 0 1.3rem;max-width:56ch;line-height:1.5}
+  .rb-stats{display:flex;gap:2.2rem;margin-bottom:1.6rem;flex-wrap:wrap}
+  .rb-stats .st b{display:block;font-family:var(--serif);font-size:2.2rem;font-weight:600;color:var(--red-hi);line-height:1}
+  .rb-stats .st span{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone-2);margin-top:.3rem;display:block}
+  .rb-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.4rem;align-items:start}
+  .rb-sec h4{
+    font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--bone);padding-bottom:.5rem;margin-bottom:.7rem;
+    border-bottom:2px solid var(--sc,var(--red));
+  }
+  .rb-sec .rb-note{font-size:.82rem;color:var(--bone-2);margin-bottom:.7rem;line-height:1.45}
+  .rb-chip{
+    display:flex;align-items:baseline;gap:.6rem;width:100%;text-align:left;
+    padding:.55rem .7rem;border:1px solid var(--hair);border-left:3px solid var(--cc,var(--hair));
+    border-radius:6px;margin-bottom:.4rem;background:rgba(242,236,225,.025);
+    transition:all .2s var(--ease-out);
+  }
+  .rb-chip:hover{background:rgba(242,236,225,.07);border-color:var(--cc,var(--bone-2))}
+  .rb-chip .rc-n{font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--cc,var(--bone-2));white-space:nowrap}
+  .rb-chip .rc-t{font-size:.92rem;color:var(--bone);line-height:1.3}
+  .rb-act{padding:.5rem 0;border-bottom:1px dashed var(--hair)}
+  .rb-act .ra-t{font-size:.95rem;color:var(--bone);line-height:1.4}
+  .rb-act .ra-src{font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;color:var(--bone-2);margin-top:.15rem;display:block}
+
+  #field{position:fixed;inset:0;z-index:6}
+  .snode{
+    position:fixed;z-index:6;transform:translate(-50%,-50%);
+    display:flex;flex-direction:column;align-items:center;gap:.4rem;
+    padding:.5rem;border-radius:8px;
+    transition:opacity .45s var(--ease-out),transform .45s var(--ease-out),left .55s var(--ease-move);
+  }
+  .snode .dot{
+    width:11px;height:11px;border-radius:50%;
+    background:var(--pc);box-shadow:0 0 14px var(--pc);
+    transition:transform .35s var(--ease-out),box-shadow .35s var(--ease-out);
+  }
+  .snode .id{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--bone-2)}
+  .snode:hover .dot{transform:scale(1.5)}
+  .snode.sel .dot{transform:scale(1.8);box-shadow:0 0 26px var(--pc),0 0 60px var(--pc)}
+  .snode.sel .id{color:var(--bone);font-weight:600}
+  .snode.dim{opacity:.14;pointer-events:none}
+  .fieldlabel{
+    position:fixed;z-index:5;transform:translateX(-50%);
+    font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--bone-2);pointer-events:none;text-align:center;
+  }
+
+  /* dossier */
+  #dossier{
+    position:fixed;right:0;top:0;bottom:0;z-index:9;width:min(470px,94vw);
+    background:var(--glass);backdrop-filter:blur(8px);
+    border-left:1px solid var(--hair);
+    padding:5.4rem 2.4rem 2.4rem;overflow-y:auto;
+    transform:translateX(103%);transition:transform .6s var(--ease-move);
+  }
+  #dossier.show{transform:none}
+  #dossier .d-num{font-family:var(--mono);font-size:.78rem;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--pc,var(--red-hi))}
+  #dossier h3{font-family:var(--serif);font-weight:600;font-size:1.8rem;line-height:1.15;margin:.5rem 0 .7rem}
+  #dossier .d-desc{color:var(--bone-2);font-size:1.05rem;margin-bottom:1.5rem;max-width:60ch}
+  #d-close{
+    position:absolute;top:1.2rem;right:1.4rem;
+    width:38px;height:38px;border:1px solid var(--hair);border-radius:50%;
+    display:grid;place-items:center;color:var(--bone-2);
+    transition:all .3s var(--ease-out);
+  }
+  #d-close:hover{border-color:var(--red);color:var(--red-hi)}
+
+  /* workflow: swimlane flow (ICA-deck concept, dark) */
+  .wf-panel{margin-top:.4rem}
+  .wf-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.6rem}
+  .wf-meta{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-2)}
+  .wf-fs{display:inline-flex;align-items:center;gap:.5em;cursor:pointer;white-space:nowrap;
+    font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--pc,var(--bone-2));background:transparent;padding:.42em .9em;
+    border:1px solid var(--hair);border-radius:99px;transition:border-color .25s var(--ease-out)}
+  .wf-fs:hover{border-color:var(--pc,var(--red-hi))}
+  .wf-scenario{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--bone-2);margin:1rem 0 .5rem}
+  .svg-scroll{overflow-x:auto;overflow-y:hidden;padding:.2rem 0 .7rem;cursor:zoom-in;-webkit-overflow-scrolling:touch}
+  .svg-scroll .wf-svg{display:block;height:auto}
+  .flow-hint{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;color:var(--bone-3);margin:.5rem 0 0;line-height:1.5}
+  #flow-fs{position:fixed;inset:0;z-index:60;background:var(--fs-scrim);backdrop-filter:blur(7px);
+    display:flex;flex-direction:column;opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .35s var(--ease-out),visibility 0s linear .35s}
+  #flow-fs.show{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .35s var(--ease-out)}
+  #flow-fs .ffs-head{display:flex;align-items:center;gap:1rem;padding:1.3rem 2rem;border-bottom:1px solid var(--hair)}
+  #flow-fs .ffs-num{font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;color:var(--pc,var(--red-hi))}
+  #flow-fs .ffs-head h3{font-family:var(--serif);font-weight:600;font-size:clamp(1.2rem,1rem + .8vw,1.7rem);margin:0;flex:1;color:var(--bone)}
+  #flow-fs .ffs-close{flex:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--hair);
+    background:transparent;color:var(--bone-2);font-size:1.4rem;line-height:1;cursor:pointer;transition:all .25s var(--ease-out)}
+  #flow-fs .ffs-close:hover{border-color:var(--red-hi);color:var(--bone)}
+  #ffs-body{flex:1;overflow:auto;padding:1.8rem 2rem 2.6rem}
+  #ffs-body .ffs-scroll{overflow-x:auto;padding-bottom:1rem}
+  #ffs-body .wf-scenario{font-size:1.15rem;margin-top:1.6rem}
+  .d-rolebadge{
+    display:inline-block;margin-bottom:1rem;
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;
+    color:var(--bone);background:rgba(227,10,11,.16);border:1px solid var(--red);
+    border-radius:99px;padding:.4em 1em;
+  }
+  .d-rolebadge b{color:var(--red-hi)}
+
+  /* filament from node to dossier */
+  #filament{stroke:var(--red);stroke-width:1.4;fill:none;opacity:0;transition:opacity .5s var(--ease-out)}
+  #filament.show{opacity:.8}
+
+  /* ============ NARROW / SHORT GUARD ============ */
+  @media (max-width:1080px){
+    #role-rail{width:min(280px,40vw);left:2.5vw}
+    #role-brief{left:calc(2.5vw + min(280px,40vw) + 2vw);right:2.5vw}
+    #act3 .head, #act2 .head, #act1 .head{left:2.5vw}
+    #a3-controls{right:2.5vw}
+  }
+
+  /* ============ REDUCED MOTION ============ */
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:.001ms!important;animation-iteration-count:1!important;
+      transition-duration:.001ms!important;transition-delay:0s!important;
+      scroll-behavior:auto!important;
+    }
+    #act0 .logo-plate,#act0 .cover-sub,#act0 .cover-for,#act0 .begin{opacity:1;filter:none;transform:none}
+    .wf-pulse{display:none}
+    .open .wf-line,.wf-line{transform:scaleY(1)!important}
+  }
+  /* ---- Act 3: workflows browser ---- */
+  #act3{display:flex; flex-direction:column; padding:max(118px,12vh) 0 0}
+  #act3 .head{position:static; max-width:62rem; top:auto; left:auto; padding:0 5vw}
+  #act3 .head h2{font-size:clamp(1.5rem,1.2rem + 1.1vw,2.15rem); line-height:1.12; margin-top:.45rem}
+  #act3 .head #a3-sub{margin-top:.4rem; color:var(--bone-2)}
+  #wf-home{flex:1 1 auto; min-height:0; overflow-y:auto; padding:1.5rem 5vw 5vh}
+  .cyc-label{font-family:var(--mono); font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--bone-3); margin:1.5rem 0 .7rem}
+  .cyc-label:first-child{margin-top:0}
+  .cycle{display:flex; align-items:stretch; gap:.55rem; flex-wrap:wrap}
+  .added{display:flex; gap:.7rem; flex-wrap:wrap}
+  .pcard{cursor:pointer; text-align:left; font:inherit; flex:1 1 0; min-width:158px; background:var(--surface);
+    border:1px solid var(--hair); border-top:3px solid var(--pc,var(--red)); border-radius:12px; padding:1rem 1.1rem;
+    display:flex; flex-direction:column; gap:.22rem; transition:transform .26s var(--ease-out), background .26s var(--ease-out), box-shadow .26s var(--ease-out)}
+  .added .pcard{flex:0 1 288px}
+  .pcard:hover{transform:translateY(-3px); background:var(--surface-2)}
+  .pcard.open{background:var(--surface-2); box-shadow:0 0 0 1px var(--pc)}
+  .pcard .ph-rn{font-family:var(--mono); font-size:.64rem; letter-spacing:.16em; text-transform:uppercase; color:var(--bone-3)}
+  .pcard .ph-nm{font-family:var(--serif); font-size:1.16rem; font-weight:600; color:var(--pc); line-height:1.1}
+  .pcard .ph-ct{font-family:var(--mono); font-size:.66rem; color:var(--bone-2)}
+  .cyc-arrow{align-self:center; color:var(--bone-3); font-size:1.15rem; flex:none}
+  @media(max-width:820px){ .cyc-arrow{display:none} .cycle .pcard{flex:1 1 42%} .added .pcard{flex:1 1 42%} }
+  #wf-panel{margin-top:1.6rem; background:var(--void-2); border:1px solid var(--hair); border-radius:14px; padding:1.4rem 1.5rem; display:none}
+  #wf-panel.show{display:block; animation:a3fade .4s var(--ease-out)}
+  @keyframes a3fade{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
+  .wp-head{display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap; border-bottom:1px solid var(--hair); padding-bottom:.8rem; margin-bottom:1rem}
+  .wp-head .ph-rn{font-family:var(--mono); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--pc,var(--red-hi))}
+  .wp-head h3{font-family:var(--serif); font-weight:600; font-size:1.4rem; margin:0; color:var(--bone)}
+  .wp-hint{font-family:var(--mono); font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; color:var(--bone-3); margin-left:auto}
+  .wp-back{cursor:pointer; font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; color:var(--bone-2); background:transparent; border:1px solid var(--hair); border-radius:99px; padding:.4em .95em; margin-left:auto; transition:border-color .25s var(--ease-out),color .25s var(--ease-out)}
+  .wp-back:hover{border-color:var(--pc,var(--red-hi)); color:var(--bone)}
+  .wfd-sum{color:var(--bone-2); font-size:1.02rem; line-height:1.5; margin:0 0 1.2rem; max-width:72ch}
+  .wf-flow{display:flex; align-items:center; gap:.6rem; flex-wrap:wrap}
+  .wf-chip{cursor:pointer; text-align:left; font:inherit; display:flex; align-items:center; gap:.6rem;
+    background:var(--surface-2); border:1px solid var(--hair); border-left:3px solid var(--pc,var(--red)); border-radius:10px;
+    padding:.7rem .9rem; max-width:340px; transition:transform .24s var(--ease-out), background .24s var(--ease-out)}
+  .wf-chip:hover{transform:translateY(-2px); background:var(--surface-3)}
+  .wf-chip .wfc-id{font-family:var(--mono); font-size:.72rem; color:var(--pc); font-weight:700; flex:none}
+  .wf-chip .wfc-t{font-size:.92rem; color:var(--bone); line-height:1.3}
+  .wf-arrow{color:var(--bone-3); font-size:1rem; flex:none}
+
+  .hdr-right{display:flex;align-items:center;gap:1.5rem}
+  #theme-toggle{display:inline-flex;align-items:center;gap:.45em;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone-2);border:1px solid var(--hair);border-radius:999px;padding:.42em .9em;transition:border-color .3s var(--ease-out),color .3s var(--ease-out)}
+  #theme-toggle:hover{border-color:var(--red-hi);color:var(--bone)}
+  #theme-toggle .tt-ico{font-size:.95em;line-height:1}
+</style>
+</head>
+<body class="cover">
+
+<svg id="world" aria-hidden="true"></svg>
+<div id="vignette" aria-hidden="true"></div>
+<svg id="grain" aria-hidden="true" width="100%" height="100%">
+  <filter id="gfx"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter>
+  <rect width="100%" height="100%" filter="url(#gfx)"/>
+</svg>
+
+<header>
+  <div class="corner-logo"><img id="corner-logo-img" alt="Danish Red Cross"></div>
+  <div class="hdr-right">
+  <nav aria-label="Acts">
+    <button class="actlink" data-act="0" aria-current="true">00 Cover</button>
+    <button class="actlink" data-act="1">01 The update</button>
+    <button class="actlink" data-act="2">02 The cycle</button>
+    <button class="actlink" data-act="3">03 Workflows</button>
+  </nav>
+  <button id="theme-toggle" type="button" aria-label="Switch between light and dark theme"><span class="tt-ico" aria-hidden="true">&#9680;</span><span class="tt-lbl">Light</span></button>
+  </div>
+</header>
+
+<!-- ============ ACT 0 ============ -->
+<canvas id="dots" aria-hidden="true"></canvas>
+<section class="act on" id="act0" tabindex="-1" aria-label="Danish Red Cross · International Finance SOPs">
+  <div class="inner">
+    <div class="logo-plate"><img class="drc-logo" src="data:image/jpeg;base64,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" alt="Danish Red Cross"></div>
+    <p class="cover-sub">International Finance<br>Standard Operating Procedures</p>
+    <p class="cover-for">For country managers</p>
+    <button class="begin" id="begin">Begin <span aria-hidden="true">&rarr;</span></button>
+  </div>
+</section>
+
+<!-- ============ ACT 1 ============ -->
+<section class="act" id="act1" tabindex="-1" aria-label="The update">
+  <div class="head">
+    <p class="kick">01 The update <em>· where we stand</em></p>
+    <h2>Here is where we stand.</h2>
+  </div>
+  <div id="lower3" aria-live="polite">
+    <p class="l3-when" id="l3-when"></p>
+    <h3 id="l3-title"></h3>
+    <div id="l3-text"></div>
+  </div>
+  <div class="counter" id="a1-counter" aria-hidden="true"></div>
+</section>
+
+<!-- ============ ACT 2 ============ -->
+<section class="act" id="act2" tabindex="-1" aria-label="The cycle">
+  <div class="head">
+    <h2>Project Management and Finance</h2>
+  </div>
+  <aside id="cyc-panel" aria-live="polite"></aside>
+</section>
+
+<!-- ============ ACT 3 ============ -->
+<section class="act" id="act3" tabindex="-1" aria-label="Workflows">
+  <div class="head">
+    <p class="kick">03 <em>· Workflows</em></p>
+    <h2 id="a3-title">The workflows across the project cycle</h2>
+    <p id="a3-sub">Open a phase, then open a workflow to see its full flow.</p>
+  </div>
+  <div id="wf-home"></div>
+</section>
+
+<footer>
+  <div class="navkeys">
+    <button id="prev" aria-label="Back"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button id="next" aria-label="Forward"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+</footer>
+<p id="hint">Arrow keys to travel</p>
+
+<script>
+(function(){
+  "use strict";
+  var RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var SVGNS = "http://www.w3.org/2000/svg";
+
+  /* ================= DATA (verified against the Draft 0 book) ================= */
+  var PHASES = [
+    {rom:"I", name:"Inception", c:"var(--p1)",
+     ess:"Deciding whether, and on what financial terms, to pursue an opportunity."},
+    {rom:"II", name:"Initiation", c:"var(--p2)",
+     ess:"Turning an approved opportunity into a grant and project that are set up to run."},
+    {rom:"III", name:"Implementation", c:"var(--p3)",
+     ess:"Running project finances soundly through the life of the grant."},
+    {rom:"IV", name:"Completion", c:"var(--p4)",
+     ess:"Closing the project and the grant cleanly, and on the record."},
+    {rom:"V", name:"Audit", c:"var(--p5)",
+     ess:"Giving assurance that the finances are complete, correct and compliant."},
+    {rom:"VI", name:"Cross-cutting", c:"var(--p6)",
+     ess:"The standing rules and controls that hold across the whole cycle."}
+  ];
+
+  var STAGES = [
+    {when:"May 2026", t:"Foundation",
+     d:"Contracting and expectations agreed, and the desk review begun: the existing procedures, the SharePoint library, the donor agreements, and the audit findings."},
+    {when:"June 2026", t:"Engagement",
+     d:"Deep consultation with the International Controllers and Advisers, the country finance teams, and colleagues across the international department."},
+    {when:"July 2026", t:"Draft 0",
+     d:"Two tracks at once: drafting each procedure and mapping it to its workflow, and full consultation with the ICAs and the finance community. All 31 procedures written and linked to their workflows."},
+    {when:"Now", t:"Review in motion",
+     d:"The ICAs and colleagues across International Finance review their assigned procedures. It is also showing us what could come next: a digital, smarter solution for colleagues across the organisation. That is one reason we are engaging country management now."},
+    {when:"August 2026", t:"Finalising",
+     d:"Finalising the procedures and assessing the changes and impact ahead, aligned with the international department's restructuring and the organisation's transformation."},
+    {when:"Then", t:"Finalisation and rollout",
+     out:["The procedures, finalised.",
+          "A digital solution in place.",
+          "An e-learning for the international finance teams and for new finance employees."]}
+  ];
+
+  var SOPS = [
+    {n:"1.1", p:0, t:"Finance Inputs to the Go-No-Go Decision",
+     d:"The finance inputs and finance roles behind the Go/No-Go decision on a new funding opportunity, so it is taken with an accurate financial picture."},
+    {n:"1.2", p:0, t:"Costs Incurred Before Application Approval",
+     d:"How costs incurred before a grant application is approved are treated, such as consultancy fees, studies, time registration and travel for project development."},
+    {n:"2.1", p:1, t:"Project Budget Preparation and Approval Workflow",
+     d:"The roles, responsibilities and steps in preparing and approving project budgets, from the budgeting model and templates to the upload of the approved budget in Kompas."},
+    {n:"2.2", p:1, t:"Grant and Project Agreement Drafting (Pre-Signatory)",
+     d:"The finance inputs to the drafting of grant and project agreements, up to and including signature."},
+    {n:"2.3", p:1, t:"Grant Creation and Setup in Kompas and Grant Allocation to Projects",
+     d:"Creating and setting up a signed grant in Kompas, the administration-fee setup, and allocating the grant to one or more projects."},
+    {n:"2.4", p:1, t:"Project Creation and Setup in Kompas",
+     d:"Creating and setting up an operational project and its project contract in Kompas, and handling later changes to the setup."},
+    {n:"2.5", p:1, t:"Donor Invoicing and Payment Reconciliation",
+     d:"Invoicing donors, managing donor payments such as instalments and pre-financing, and reconciling those payments during implementation."},
+    {n:"3.1", p:2, t:"Project Accounting and Cost Allocations",
+     d:"How project costs are accounted for and allocated: the chart of accounts, project coding, recording standards in Kompas, and the cost-allocation framework."},
+    {n:"3.2", p:2, t:"Sub-Partner Financial Management",
+     d:"The financial relationship with implementing partners: the partner bank account, transferring project funds, and controlling and reconciling the partner's reporting."},
+    {n:"3.3", p:2, t:"Project Financial Monitoring",
+     d:"Internal financial monitoring during implementation: the consolidated financial report, expenditure against budget, burn rate, forecast, and the Power BI reports."},
+    {n:"3.4", p:2, t:"Procurement and Payment on Behalf of Projects",
+     d:"How goods, works and services are procured and paid for on behalf of projects, in compliance with procurement procedures and donor rules."},
+    {n:"3.5", p:2, t:"Project Exchange Rate Management",
+     d:"The treatment of foreign currency transactions for budgeting, monitoring and reporting on international projects."},
+    {n:"3.6", p:2, t:"Project Asset Management",
+     d:"Managing project assets across their life: acquiring, recording, depreciating, inventorying, and transferring or disposing of them at closure."},
+    {n:"3.7", p:2, t:"Project Filing and Archiving",
+     d:"How the finance documentation of a project is filed and archived: where it is stored, what is filed, and how long it is retained."},
+    {n:"3.8", p:2, t:"Project Own-Funds Management and Controlling",
+     d:"How own funds are identified, recorded, monitored, governed and recovered: project costs financed by Danish Red Cross itself because they are not recovered from a donor."},
+    {n:"3.9", p:2, t:"Ineligible Costs Project",
+     d:"How ineligible costs are identified, classified, booked, controlled and absorbed, kept off the donor claim."},
+    {n:"3.11", p:2, t:"Donor Financial Reporting",
+     d:"Preparing, quality-assuring and submitting the financial report to a back-donor: the figures, the currency, the deadlines by donor, and the compliance requirements."},
+    {n:"3.12", p:2, t:"Project Cash Management",
+     d:"How cash is held, paid out, recorded, counted and reconciled: petty cash, the cash book, safeguarding, segregation of duties, and the monthly reconciliation."},
+    {n:"3.13", p:2, t:"Advances, Per Diems and Liquidations",
+     d:"How advances are issued, recorded, tracked, settled and cleared: staff and activity advances, travel advances and per diems."},
+    {n:"3.14", p:2, t:"Payroll and Time-Registration Finance Controls",
+     d:"The finance control over staff cost: how working time is registered, how staff cost is charged to projects or recovered, and how it is controlled each month."},
+    {n:"3.15", p:2, t:"Budget Revision, Reallocation and Grant Amendment",
+     d:"How a change to an approved budget or grant is made and approved: reallocations, no-cost extensions, scope changes and other amendments."},
+    {n:"4.2", p:3, t:"Projects Administrative and Financial Closing Procedures",
+     d:"How a project is administratively and financially closed: the closure phases, closing at country level and in Kompas, the transfer and disposal of project assets, and the closing checklist."},
+    {n:"4.4", p:3, t:"Donor Final Invoicing Procedures",
+     d:"Settling the balance of the donor account at closure: a final invoice to the donor, or a return of unused funds and interest."},
+    {n:"4.5", p:3, t:"Final Bookings and Donor Grant Closing in Kompas",
+     d:"The final bookings and the donor grant closing in Kompas, once the final financial report is finalised and the donor account is settled."},
+    {n:"5", p:4, t:"Audit Standard Operating Procedure",
+     d:"A consistent framework for conducting internal and external audits, in compliance with donor requirements, internal policies and legal obligations."},
+    {n:"6.2", p:5, t:"Risk-Based Approach to Financial Control and Compliance",
+     d:"How financial and compliance risks are identified, assessed, responded to and monitored, and how the assessed risk level sets the intensity of controls, monitoring and audit effort."},
+    {n:"6.3", p:5, t:"Disaster and Crisis Specific Financial Procedures",
+     d:"The finance procedures for disaster and crisis responses: allocating and using emergency funds quickly and flexibly while keeping the controls that protect them."},
+    {n:"6.4", p:5, t:"Anchor Budget",
+     d:"How the Anchor Budget is prepared: the summary budget for a country or regional office for the year, and how those costs are covered."},
+    {n:"6.5", p:5, t:"Year-end Annual Closing",
+     d:"How the year is closed: approving, booking, reconciling and cleaning up the year's transactions so the figures feeding the annual accounts are audit-ready."},
+    {n:"6.6", p:5, t:"Delegation of Authority and Financial Authorization Matrix",
+     d:"How financial approval authority is defined, delegated, exercised and evidenced: who may approve a given financial action, on what basis and up to what limit, under segregation of duties."},
+    {n:"6.7", p:5, t:"Financial Irregularity Response, Recovery and Write-off",
+     d:"What finance does when an irregularity is suspected: report, secure, investigate, quantify and recover the loss, write off what is unrecoverable, adjust the affected donor claim and notify the donor."}
+  ];
+
+  /* workflow data (from the Draft 0 book's own diagrams) */
+  var WF = {"5":[{"title":"The audit lifecycle (Country Office, consolidated and headquarters branches)","lanes":["Country Office (Country Finance Focal Point, Country Manager/Project Manager, PD)","International Controller and Advisor (ICA)","External auditors","Internal Control & Compliance"],"steps":[{"n":1,"lane":0,"text":"Appoint / confirm audit firm (SOP 3.4)"},{"n":2,"lane":0,"text":"Prepare statements & docs; reconcile"},{"n":3,"lane":1,"text":"International Controller and Advisor quality assures; plans HQ audit"},{"n":4,"lane":2,"text":"Kick-off; on-site fieldwork"},{"n":5,"lane":2,"text":"Exit meeting; draft report"},{"n":6,"lane":1,"text":"Review draft & findings"},{"n":7,"lane":2,"text":"Finalise & sign report + annexes"},{"n":8,"lane":0,"text":"Plan of action & follow-up"},{"n":9,"lane":3,"text":"Post-audit review & learning"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9]]}],"1.1":[{"title":"Finance contribution to the Go/No-Go phase - by position","lanes":["Country Finance Focal Point","HQ International Finance Controlling (Int'l Finance Officer / International Controller and Advisor)","Head of Operations","Global Partnerships / Country Manager (decision)"],"steps":[{"n":1,"lane":0,"text":"Provide the field financial estimates and the admin-fee, co-financing and risk view for the form"},{"n":2,"lane":1,"text":"Provide the HQ financial input; give the financial view at the Go/No-Go meeting"},{"n":3,"lane":2,"text":"Approve co-financing and admin fee not secured by the country (before submission)"},{"n":4,"lane":3,"text":"Go/No-Go recommendation and approval (the finance input feeds the decision)"},{"n":5,"lane":1,"text":"On GO: hand off to budget preparation (2.1) and grant / project opening (2.2 / 2.3)"}],"flow":[[1,2],[2,3],[3,4],[4,5]]}],"1.2":[{"title":"SOP 1.2 - Costs incurred before application approval","lanes":["Project Manager / Country Manager","Head of Operations","Country Finance Focal Point","International Controller and Advisor"],"steps":[{"n":1,"lane":0,"text":"Go/No-Go agrees Danish Red Cross financing; draft Decision Cover"},{"n":2,"lane":1,"text":"Approve the Decision Cover (financing amount)"},{"n":3,"lane":2,"text":"Create grant ('submitted') + operational project (Time & Material) + budget"},{"n":4,"lane":3,"text":"QA vs Go/No-Go / Decision Cover; activate; inform"},{"n":5,"lane":2,"text":"If approved: set 'active', add to operational project"},{"n":5,"lane":3,"text":"If rejected: set 'rejected', finalise project (own funds)"}],"flow":[[1,2],[2,3],[3,4],[4,5],[4,5]]}],"2.1":[{"title":"Project budget preparation and approval workflow - process flow by position","lanes":["Budget holder / Field Focal Point","Country Finance Focal Point","Head of Region / Country Manager","International Controller and Advisor / HQ"],"steps":[{"n":1,"lane":0,"text":"Prepare the budget on the DRC template (all levels, outputs)"},{"n":2,"lane":1,"text":"Consolidate the budget; check the review checklist"},{"n":3,"lane":3,"text":"International Controller and Advisor financial review + QA: checklist, FX, TA / A3, fee"},{"n":4,"lane":2,"text":"Approve the consolidated budget"},{"n":5,"lane":3,"text":"HQ collates; HoIP approves; submit to the donor"},{"n":6,"lane":3,"text":"On award: upload the WBS / budget in Kompas (SOP 2.4)"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6]]}],"2.2":[{"title":"SOP 2.2 - Scenario A: Danish Red Cross as recipient of a donor grant","lanes":["Project Manager / Country Manager","Partnership Advisor (Global Partnerships)","International Finance (HQ International Finance Controlling Officer)","International Director"],"steps":[{"n":1,"lane":0,"text":"Initiate QA: forward draft grant contract"},{"n":2,"lane":1,"text":"QA & negotiate; verify counter- terrorism"},{"n":3,"lane":2,"text":"Validate final contract against checklist"},{"n":4,"lane":3,"text":"Sign the grant agreement"},{"n":5,"lane":1,"text":"Submit to donor; share & hand over to Portfolio"}],"flow":[[1,2],[2,3],[3,4],[4,5]]},{"title":"SOP 2.2 - Scenario B: Danish Red Cross in the donor position","lanes":["Project Manager","Portfolio Coordinator/Advisor","Partnership Advisor / International Controller and Advisor","Host National Society / International Director"],"steps":[{"n":1,"lane":0,"text":"Initiate & draft Project Agreement; send + budgets"},{"n":2,"lane":1,"text":"QA agreement & budgets vs SOPs & Grant Contract"},{"n":3,"lane":2,"text":"Consulted on unclarities; consortium part QA"},{"n":4,"lane":3,"text":"Host National Society signs, then Danish Red Cross signs (thresholds)"},{"n":5,"lane":1,"text":"File in Atlas; notify; (Kompas: 2.4)"}],"flow":[[1,2],[2,3],[3,4],[4,5]]}],"2.3":[{"title":"Grant creation and setup in Kompas and grant allocation to projects - process flow by position","lanes":["Field Focal Point / Country Office","Country Finance Focal Point","Head of Region / Country Manager","International Controller and Advisor (ICA)"],"steps":[{"n":1,"lane":0,"text":"Notify of the incoming grant / project (signed)"},{"n":2,"lane":1,"text":"Prepare the Grant and Project Opening request + annexes"},{"n":3,"lane":2,"text":"Approve and sign the request"},{"n":4,"lane":3,"text":"Create in Kompas: donor account, grant, grant project, operational project + contract"},{"n":5,"lane":3,"text":"Set the admin fee + allocate the grant; return the form with the new numbers"},{"n":6,"lane":3,"text":"Subsequent grants / allocations during implementation"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6]]}],"2.4":[{"title":"Project creation and setup in Kompas - process flow by position","lanes":["Field Focal Point / Country Office","Country Finance Focal Point (Country Finance Focal Point / Finance Manager)","Head of Region / Country Manager","International Controller and Advisor (ICA)"],"steps":[{"n":1,"lane":0,"text":"Request the project creation (approved budget + grant info)"},{"n":2,"lane":1,"text":"Prepare the project creation request / checklist"},{"n":3,"lane":2,"text":"Approve the request"},{"n":4,"lane":3,"text":"Create the operational project + project contract; funding sources, limits, rules; dimensions"},{"n":5,"lane":3,"text":"Link the grant; set budget control + sub- project budgeting; assign the project roles"},{"n":6,"lane":3,"text":"Subsequent changes, recalculation, and transaction adjustments (ADJ journal)"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6]]}],"2.5":[{"title":"Donor invoicing and payment reconciliation - process flow by position","lanes":["Responsible IFO / International Controller and Advisor (instalment request)","Country Finance Focal Point","HQ International Finance Controlling / HQ Focal Point","HQ Cashier / Bank"],"steps":[{"n":1,"lane":0,"text":"Request the instalment (per the payment schedule)"},{"n":2,"lane":1,"text":"Invoice the instalment on the grant project"},{"n":3,"lane":2,"text":"HQ submits the payment request + report to the donor"},{"n":4,"lane":3,"text":"Donor pays to the HQ bank account; Cashier gives posting"},{"n":5,"lane":1,"text":"Settle and reconcile (bank / cash in Kompas)"},{"n":6,"lane":2,"text":"At closure: final invoice or return of funds (SOP 4.5)"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6]]}],"3.1":[{"title":"Monthly project accounting and cost-allocation cycle - by position","lanes":["All staff on time registration","Country Finance Focal Point","Business controllers / Country International Controller and Advisor","HQ International Finance Controlling"],"steps":[{"n":1,"lane":1,"text":"Record transactions to project, account + cost category"},{"n":2,"lane":0,"text":"Register working time on activities (timesheet)"},{"n":3,"lane":1,"text":"Charge direct; collect shared costs on allocation projects"},{"n":4,"lane":3,"text":"Run the model at month-end; allocate by the allocation keys"},{"n":5,"lane":2,"text":"Confirm off-set; sorting field 3; A.3.b to own funds (3.8)"},{"n":6,"lane":3,"text":"Control the result (HQ financial controlling)"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6]]}],"3.11":[{"title":"Donor financial reporting cycle - by position","lanes":["Country Finance Focal Point","Country Manager / Programme Manager","International Controller and Advisor","Portfolio / programme (risk-based QA and submission)"],"steps":[{"n":1,"lane":0,"text":"Receive partner reports; prepare and consolidate the financial report"},{"n":2,"lane":1,"text":"Review and approve the consolidated financial report"},{"n":3,"lane":2,"text":"Financial quality assurance"},{"n":4,"lane":3,"text":"Risk-based QA; submit to the donor by the deadline"},{"n":5,"lane":0,"text":"File and retain (at least five years)"}],"flow":[[1,2],[2,3],[3,4],[4,5]]}],"3.2":[{"title":"Partner cash-transfer cycle - by position","lanes":["Host / partner national society (Host National Society / PNS)","Danish Red Cross Country Team","Country Finance Focal Point","International Controller and Advisor / headquarters"],"steps":[{"n":1,"lane":0,"text":"Prepare the transfer request (projection, balance, reconciliation)"},{"n":2,"lane":1,"text":"Review and validate (Country Manager / programme)"},{"n":3,"lane":2,"text":"Compile request + supporting documents (reconciliation, FX rate)"},{"n":4,"lane":3,"text":"Quality assure; confirm the correct signatory"},{"n":5,"lane":3,"text":"Execute: Kreditors or FXecute (Mon / Thu, HQ)"}],"flow":[[1,2],[2,3],[3,4],[4,5]]}],"3.3":[{"title":"Project financial monitoring cycle - by position","lanes":["Country Finance Focal Point","International Controller and Advisor (project controller)"],"steps":[{"n":1,"lane":0,"text":"Consolidate the budget and actuals into the CFR"},{"n":2,"lane":1,"text":"Compare budget vs actual; burn rate; funding-limit use"},{"n":3,"lane":0,"text":"Maintain the forecast for the remaining period"},{"n":4,"lane":1,"text":"Review via the Power BI reports (Projects, Grant)"},{"n":5,"lane":1,"text":"Follow up variances (with Country Manager + programme)"},{"n":6,"lane":0,"text":"Feed the donor report (3.11) + own funds (3.8) (with HQ International Finance Controlling)"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6]]}],"3.4":[{"title":"Procurement and payment on behalf of a project - by position","lanes":["Project / Country Office","Budget holder / authorised manager","Supply Chain / Procurement","Country Finance Focal Point"],"steps":[{"n":1,"lane":0,"text":"Plan and budget the purchase (procurement plan; budget, SOP 2.1)"},{"n":2,"lane":1,"text":"Requisition (budget holder approves; finance validates) and authorise"},{"n":3,"lane":2,"text":"Procure per the DRC procurement procedures (two-person PO; screening)"},{"n":4,"lane":0,"text":"Receive and verify (goods received note; invoice check)"},{"n":5,"lane":3,"text":"Pay on behalf; record in Kompas; file and report"}],"flow":[[1,2],[2,3],[3,4],[4,5]]}],"3.6":[{"title":"Project asset lifecycle - by position","lanes":["Country Finance Focal Point","Project / Country Office","International Controller and Advisor / HQ financial controlling","Project / Country Office and International Controller and Advisor (at closure)"],"steps":[{"n":1,"lane":0,"text":"Acquire (procurement, SOP 3.4) and capitalise the asset as a fixed asset"},{"n":2,"lane":1,"text":"Record in the equipment inventory; verify by physical count"},{"n":3,"lane":2,"text":"Depreciate at month-end; control the fixed-asset accounts"},{"n":4,"lane":3,"text":"At closure: hand over, donate or dispose (per the donor rules)"},{"n":5,"lane":0,"text":"Report the assets to the donor; file the handover or donation certificate"}],"flow":[[1,2],[2,3],[3,4],[4,5]]}],"3.7":[{"title":"Project filing and archiving - by position","lanes":["Country Manager","Project / Country Office","Country Finance Focal Point","Portfolio Coordinator/Advisor"],"steps":[{"n":1,"lane":0,"text":"Ensure the Atlas case is created per project (named per the convention)"},{"n":2,"lane":1,"text":"File documentation in Atlas throughout (at least quarterly)"},{"n":3,"lane":2,"text":"File the finance documentation; scan voucher + invoice to Kompas"},{"n":4,"lane":1,"text":"At closure (Project Manager, Portfolio Coord., Partnership Adv.): ensure complete; archiving finalised (<= 3 months)"},{"n":5,"lane":3,"text":"Close the case in Atlas (reports approved by the donor)"}],"flow":[[1,2],[2,3],[3,4],[4,5]]}],"3.9":[{"title":"Ineligible-cost handling cycle - by position","lanes":["Country Finance Focal Point","Business controllers / International Controller and Advisor","HQ International Finance Controlling","Own funds (SOP 3.8) / donor report (SOP 3.11)"],"steps":[{"n":1,"lane":0,"text":"Record the cost and book it; determine chargeability (accepted for donor financing?)"},{"n":2,"lane":1,"text":"Classify as ineligible / non-chargeable (sorting field 3, Invoice status, A4 category)"},{"n":3,"lane":2,"text":"Month-end: collect and confirm via the A3 and DDC control check"},{"n":4,"lane":3,"text":"Exclude from the donor report; absorb to own funds"},{"n":5,"lane":0,"text":"Follow up and recover where possible"}],"flow":[[1,2],[2,3],[3,4],[4,5]]}],"4.2":[{"title":"Project closing - by phase and position","lanes":["Project Manager","Country Finance Focal Point","HQ: Operations Unit and International Controller and Advisor","Country Manager"],"steps":[{"n":1,"lane":0,"text":"Initiate the closure (meeting <= 3 months before the end)"},{"n":2,"lane":1,"text":"Prepare at country level (final financial statement, local audit, asset handover)"},{"n":3,"lane":2,"text":"Quality-assure the final reporting package"},{"n":4,"lane":3,"text":"Approve the package (<= 1 day before the submission deadline)"},{"n":5,"lane":2,"text":"Submit; close accounts and bank; mark the project archived"}],"flow":[[1,2],[2,3],[3,4],[4,5]]}],"4.4":[{"title":"SOP 4.4 - Donor final invoicing procedures","lanes":["Country Finance Focal Point","International Controller and Advisor","Partnership Advisor / Head of Int'l Department","HQ Cashier"],"steps":[{"n":1,"lane":0,"text":"Final financial report finalised (SOP 4.1); compute the balance; prepare the final-payment request or the return"},{"n":2,"lane":1,"text":"Quality assure the report and the settlement"},{"n":3,"lane":2,"text":"Certify & sign; submit request for final payment with the report (ECHO APPEL / PRAG / SPA / Danida)"},{"n":4,"lane":3,"text":"Settle the balance: due by donor -> receive final payment; due to donor -> return unused funds + interest, copy the International Controller and Advisor"}],"flow":[[1,2],[2,3],[3,4]]}],"4.5":[{"title":"SOP 4.5 - Final bookings and donor grant closing in Kompas","lanes":["Country Finance Focal Point","International Controller and Advisor","Country Manager"],"steps":[{"n":1,"lane":0,"text":"Reconcile finance & project modules; book final entries, FX & adjustments"},{"n":2,"lane":1,"text":"Support & quality assure; confirm final balance cleared"},{"n":3,"lane":0,"text":"Transfer remaining funds; close bank accounts; close grant & project in Kompas (residual -> own funds, SOP 3.8)"},{"n":4,"lane":2,"text":"Mark project archived in the Portfolio overview"}],"flow":[[1,2],[2,3],[3,4]]}],"6.2":[{"title":"The risk-based approach applied to financial control and compliance","lanes":["Country Finance Focal Point (Project controller, Country Finance Focal Point)","Financial controlling and International Controller and Advisor","Portfolio / Portfolio Coordinator/Advisor","Management line (Country Manager, Head of Region, Senior Management / Int'l Director)","Internal Control & Compliance"],"steps":[{"n":1,"lane":0,"text":"Identify financial & compliance risks (corruption first)"},{"n":2,"lane":0,"text":"Assess: Impact × Likelihood = risk factor"},{"n":3,"lane":1,"text":"Rate & prioritise; select risk-based controls"},{"n":4,"lane":0,"text":"Run the controls in Kompas (Power BI / Azure)"},{"n":5,"lane":2,"text":"Monitor: bi-monthly risk meeting + Portfolio Coordinator/Advisor (distinct)"},{"n":6,"lane":3,"text":"Approve & escalate by risk factor"},{"n":7,"lane":4,"text":"Post-audit review & learning"},{"n":8,"lane":3,"text":"Consolidate register; Board twice a year (Int'l Director)"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[6,7],[6,2]]}],"6.3":[{"title":"Disaster and Crisis specific financial procedures - process flow by position","lanes":["Country Manager / Country Office","Approving authority (by funding threshold)","Operations Coordinator / Disaster & Crisis Response","International Finance (ICA / Country Finance Focal Point)"],"steps":[{"n":1,"lane":0,"text":"Monitor needs; raise the Emergency Request (with budget)"},{"n":2,"lane":1,"text":"Approve by threshold: <1M Team Coord-Global Resp; 1-3M Head of D&C; >3M Int'l Director (waiver)"},{"n":3,"lane":2,"text":"OpsCo + International Controller and Advisor initiate fast-track finance; open the Atlas case"},{"n":4,"lane":3,"text":"International Controller and Advisor opens the Kompas project; transfer up to 1M DKK; instalments per budget"},{"n":5,"lane":3,"text":"International Controller and Advisor quality-assures the budget + funding source/ limits vs the Request"},{"n":6,"lane":2,"text":"Handover at 45 days -> General SOP; Scale Up if it becomes a regular project"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6]]}],"6.4":[{"title":"The Anchor Budget (Country / Regional Office Master Budget) preparation cycle","lanes":["Country / Regional finance","International Controller and Advisor (ICA)","Country Manager / Head of Region","Head of International Operations / HQ"],"steps":[{"n":1,"lane":0,"text":"Gather all Country / Regional office costs for the year"},{"n":2,"lane":1,"text":"Provide hourly rates for Time Registration"},{"n":3,"lane":0,"text":"Classify: direct to projects / A3 shared / DDC / ineligible"},{"n":4,"lane":0,"text":"Convert to DKK (12-month average rate)"},{"n":5,"lane":0,"text":"Fair-share distribution by expenditure weight"},{"n":6,"lane":0,"text":"Ratio controls + deficit to be covered"},{"n":7,"lane":1,"text":"Quality-assure the budget (ICA)"},{"n":8,"lane":2,"text":"Review & approve (Country Manager / Head of Region)"},{"n":9,"lane":3,"text":"Head of Int'l Operations (strategic initiatives)"}],"flow":[[1,2],[2,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8]]}],"6.5":[{"title":"The year-end annual closing cycle","lanes":["Country Finance Focal Point / Project controllers","Financial Controlling","Accounting and Payroll","Team leads (Head of Accounting and Payroll / Head of Int'l Finance)","Annual accounts & audit (SOP 5)"],"steps":[{"n":1,"lane":0,"text":"Approve all transactions in Kompas before the cut-offs"},{"n":2,"lane":2,"text":"Month-end hard-close"},{"n":3,"lane":1,"text":"Reconcile balance-sheet accounts (reconciliation model)"},{"n":4,"lane":0,"text":"Clean up: open postings, grants with debit balances, accruals"},{"n":5,"lane":0,"text":"Prepare correction journal"},{"n":6,"lane":1,"text":"Quality-assure the correction journal"},{"n":7,"lane":3,"text":"Approve finalised reconciliations"},{"n":8,"lane":2,"text":"Year-end book close"},{"n":9,"lane":4,"text":"Annual accounts (income + expenditure notes) + annual audit (SOP 5)"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[7,2]]}],"3.5":[{"title":"Project Exchange Rate Management Workflow","lanes":["Country Finance Focal Point","International Controller and Advisor (ICA)"],"steps":[{"n":1,"lane":0,"text":"Set budget rate in donor currency"},{"n":2,"lane":0,"text":"Record transactions in Kompas, auto-convert DKK"},{"n":3,"lane":0,"text":"Transfer to partners at weighted-average rate"},{"n":4,"lane":0,"text":"Convert partner expenditure report to DKK"},{"n":5,"lane":0,"text":"Book foreign exchange gains and losses"},{"n":6,"lane":0,"text":"Monitor budget-versus-actual and rate variance"},{"n":7,"lane":1,"text":"Grant documented derogation, upload to Atlas"},{"n":8,"lane":0,"text":"Reconcile and settle with partners in DKK"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8]]}],"3.8":[{"title":"Project Own-Funds Management and Controlling Workflow","lanes":["Country and Regional Offices","Country Finance Focal Point","International Controller and Advisor (ICA)","Head of International Finance"],"steps":[{"n":1,"lane":0,"text":"Ineligible cost lands on the project"},{"n":2,"lane":1,"text":"Detect own funds via Kompas control"},{"n":3,"lane":1,"text":"Record own-funds line with comment"},{"n":4,"lane":2,"text":"Own, explain and investigate the line"},{"n":5,"lane":2,"text":"Split year-end balance three ways"},{"n":6,"lane":3,"text":"Approve annual own-funds position"},{"n":7,"lane":2,"text":"Recover by reallocation to funded grant"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6],[6,7]]}],"3.12":[{"title":"Project Cash Management Workflow","lanes":["Cashier","Independent Checker","Country Finance Focal Point","Country Manager"],"steps":[{"n":1,"lane":0,"text":"Pay out cash within limit, last resort"},{"n":2,"lane":0,"text":"Record every movement in cash book"},{"n":3,"lane":1,"text":"Count cash against the book independently"},{"n":4,"lane":2,"text":"Post expenses, reconcile cash and bank monthly"},{"n":5,"lane":3,"text":"Approve monthly posting and reconciliation"}],"flow":[[1,2],[2,3],[3,4],[4,5]]}],"3.13":[{"title":"Advances, Per Diems and Liquidations Workflow","lanes":["Requester","Country Finance Focal Point","Country Manager"],"steps":[{"n":1,"lane":0,"text":"Request advance with purpose and budget line"},{"n":2,"lane":1,"text":"Check budget, confirm no unsettled advance"},{"n":3,"lane":2,"text":"Approve advance before issue"},{"n":4,"lane":1,"text":"Issue and record advance in Kompas"},{"n":5,"lane":0,"text":"Use advance, keep the receipts"},{"n":6,"lane":0,"text":"Liquidate within period, return balance"},{"n":7,"lane":1,"text":"Clear advance, follow up outstanding"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6],[6,7]]}],"3.14":[{"title":"Payroll and Time-Registration Finance Controls Workflow","lanes":["All Staff","Timesheet Approver","Headquarters Salary Function","Country Finance Focal Point","HQ International Finance Controlling","International Controller and Advisor (ICA)"],"steps":[{"n":1,"lane":0,"text":"Register working hours on activities"},{"n":2,"lane":1,"text":"Review and approve the timesheet"},{"n":3,"lane":2,"text":"Run payroll and book staff cost"},{"n":4,"lane":3,"text":"Charge staff cost directly via timesheet"},{"n":5,"lane":3,"text":"Collect cross-cutting time as shared cost"},{"n":6,"lane":4,"text":"Run RKF allocation and DDC distribution monthly"},{"n":7,"lane":5,"text":"Perform monthly A3 and DDC control check"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6],[6,7]]}],"3.15":[{"title":"Budget Revision, Reallocation and Grant Amendment Workflow","lanes":["Project Manager","Portfolio Coordinator/Advisor","Country Finance Focal Point","Country Manager","Partnership Advisor"],"steps":[{"n":1,"lane":0,"text":"Identify the change and consult donor"},{"n":2,"lane":1,"text":"Determine amendment type and approval route"},{"n":3,"lane":2,"text":"Develop revised budget and justification"},{"n":4,"lane":3,"text":"Approve the amendment internally"},{"n":5,"lane":4,"text":"Submit request to donor before deadline"},{"n":6,"lane":2,"text":"Reflect approved change in Kompas and agreement"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6]]}],"6.6":[{"title":"Delegation of Authority and Financial Authorization Workflow","lanes":["Project Manager / Budget Holder","Country Finance Focal Point","Country Manager","Head of Region","Director of the International Department"],"steps":[{"n":1,"lane":0,"text":"Initiate financial action within approved budget"},{"n":2,"lane":1,"text":"Verify budget, funds and segregation of duties"},{"n":3,"lane":2,"text":"Approve under delegated Country Office authority"},{"n":4,"lane":3,"text":"Escalate above threshold to regional authority"},{"n":5,"lane":4,"text":"Authorise at headquarters above regional limits"},{"n":6,"lane":1,"text":"Record authorisation in system of record"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6],[3,6]]}],"6.7":[{"title":"Financial Irregularity Response, Recovery and Write-off Workflow","lanes":["Country Finance Focal Point","Head of Region","Head of International","Investigation Team","Head of International Finance","Write-off Authority (SOP 6.6)","Internal Control and Compliance Section"],"steps":[{"n":1,"lane":0,"text":"Detect, secure records and suspend payments"},{"n":2,"lane":1,"text":"Report in writing within five days"},{"n":3,"lane":2,"text":"Notify the back donor without delay"},{"n":4,"lane":3,"text":"Investigate the facts and persons involved"},{"n":5,"lane":0,"text":"Quantify the financial loss from records"},{"n":6,"lane":4,"text":"Pursue recovery of the loss"},{"n":7,"lane":5,"text":"Approve write-off of unrecoverable amount"},{"n":8,"lane":0,"text":"Exclude irregular cost from donor claim"},{"n":9,"lane":2,"text":"Confirm case outcome to donor"},{"n":10,"lane":6,"text":"Assess violated controls and learn"}],"flow":[[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10]]}]};
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  /* ================= ROLE LENS (canonical roles matched from the workflow lanes) ================= */
+  var ROLES = [
+    {k:"cffp", name:"Country Finance Focal Point", short:"Country Finance",
+     blurb:"The main finance person in the country office. Involved in almost every procedure, from budget to close-out.",
+     re:/country finance|country office finance|country \/ regional finance|country and regional offices|country \/ country office/i},
+    {k:"ica", name:"International Controller and Advisor", short:"Controller / Advisor",
+     blurb:"Checks the quality of country finance work and advises both the country office and headquarters.",
+     re:/international controller|\bica\b|financial controlling and international/i},
+    {k:"cm", name:"Country Manager", short:"Country Manager",
+     blurb:"You. The person who decides and approves in the country office.",
+     re:/country manager|head of region \/ country manager|country manager \/|management line/i},
+    {k:"hq", name:"HQ International Finance", short:"HQ Finance",
+     blurb:"Headquarters finance: controlling, the cashier, payroll and accounting.",
+     re:/hq international finance|headquarters financial|hq focal point|hq cashier|headquarters salary|accounting and payroll|head of international finance|head of accounting|financial controlling(?!\s+and)|international finance \(hq/i},
+    {k:"pm", name:"Project / Budget Holder", short:"Project / Budget",
+     blurb:"The people who start spending and payment requests on projects.",
+     re:/project manager|budget holder|programme manager|authorised manager|field focal point|requester|all staff|timesheet approver/i},
+    {k:"pf", name:"Portfolio / Global Partnerships", short:"Portfolio / Partnerships",
+     blurb:"The advisers who manage donor relationships and agreements.",
+     re:/portfolio|partnership/i},
+    {k:"sr", name:"Senior Management", short:"Senior Management",
+     blurb:"Heads of region and operations, and the International Director. The largest decisions come here.",
+     re:/head of region|head of international operations|head of international$|international director|director of the international|senior management|head of operations|head of int'l|approving authority/i},
+    {k:"hns", name:"Host / Partner National Society", short:"Partner Society",
+     blurb:"The national societies that implement or co-fund the work.",
+     re:/host national society|partner national society|host \/ partner|hns/i},
+    {k:"aud", name:"Auditors / Internal Control", short:"Audit / Control",
+     blurb:"External auditors and Internal Control and Compliance. They check that the rules were followed.",
+     re:/auditor|\baudit\b|internal control|investigation team/i}
+  ];
+
+  /* per-SOP: for each role, which step DOM indices it acts in (flattened across scenarios) */
+  var roleData = {};   /* roleData[sid] = { flatLanes:[laneText per step], byRole:{k:[idx,...]} } */
+  var roleSops = {};   /* roleSops[k] = [sid,...] */
+  var roleSteps = {};  /* roleSteps[k] = total step count */
+  ROLES.forEach(function(r){ roleSops[r.k] = []; roleSteps[r.k] = 0; });
+  Object.keys(WF).forEach(function(sid){
+    var flat = [];
+    WF[sid].forEach(function(w){
+      w.steps.forEach(function(st){ flat.push(w.lanes[st.lane] || ""); });
+    });
+    var byRole = {};
+    ROLES.forEach(function(r){
+      var idx = [];
+      flat.forEach(function(lane, i){ if(r.re.test(lane)) idx.push(i); });
+      if(idx.length){ byRole[r.k] = idx; roleSops[r.k].push(sid); roleSteps[r.k] += idx.length; }
+    });
+    roleData[sid] = {flat:flat, byRole:byRole};
+  });
+  function rolePhaseSpread(k){
+    var counts = [0,0,0,0,0,0];
+    roleSops[k].forEach(function(sid){
+      var s = null;
+      for(var i=0;i<SOPS.length;i++) if(SOPS[i].n===sid) s=SOPS[i];
+      if(s) counts[s.p]++;
+    });
+    var best = 0;
+    for(var i=1;i<6;i++) if(counts[i]>counts[best]) best=i;
+    return counts[best] ? PHASES[best].name : "";
+  }
+
+  /* ================= WORLD (svg thread + comet) ================= */
+  var world = document.getElementById("world");
+  var W = 0, H = 0;
+  function sz(){
+    W = innerWidth || document.documentElement.clientWidth || 1280;
+    H = innerHeight || document.documentElement.clientHeight || 800;
+    world.setAttribute("viewBox", "0 0 " + W + " " + H);
+    world.setAttribute("width", W); world.setAttribute("height", H);
+  }
+  sz();
+
+  function el(tag, attrs, parent){
+    var e = document.createElementNS(SVGNS, tag);
+    for(var k in attrs) e.setAttribute(k, attrs[k]);
+    (parent || world).appendChild(e);
+    return e;
+  }
+
+  /* groups per act */
+  var g0 = el("g", {id:"g0"});
+  var g1 = el("g", {id:"g1", opacity:0});
+  var g2 = el("g", {id:"g2", opacity:0});
+  var g3 = el("g", {id:"g3", opacity:0});
+  var gC = el("g", {id:"gC"}); /* comet on top */
+
+  /* comet */
+  var trailN = 12, trail = [];
+  for(var i = trailN - 1; i >= 0; i--){
+    trail.push(el("circle", {r: 1 + (i / trailN) * 3.2,
+      fill: "rgba(227,10,11," + (0.05 + (i / trailN) * 0.35) + ")"}, gC));
+  }
+  var cometGlow = el("circle", {id:"comet-glow", r:7, opacity:.55}, gC);
+  var cometCore = el("circle", {id:"comet-core", r:3}, gC);
+  var hist = [];
+
+  var comet = {path:null, L:0, u:0, mode:"idle", speed:0, fly:null, drawMax:0, drawing:false, visible:true};
+
+  function setPath(p, u0, drawing){
+    comet.path = p; comet.L = p ? p.getTotalLength() : 0;
+    comet.u = u0 || 0; comet.drawMax = u0 || 0; comet.drawing = !!drawing;
+    comet.fly = null;
+    if(p && drawing){
+      p.style.strokeDasharray = comet.L;
+      p.style.strokeDashoffset = comet.L * (1 - comet.u);
+    }
+    hist = [];
+    if(RM) renderComet();
+  }
+  function flyTo(u1, dur, onDone){
+    comet.mode = "fly";
+    comet.fly = {from: comet.u, to: u1, start: performance.now(), dur: dur, onDone: onDone};
+  }
+  function orbit(speed){ comet.mode = "orbit"; comet.speed = speed; }
+  function easeInOut(t){ return t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2; }
+
+  function renderComet(){
+    if(!comet.path) return;
+    var pt = comet.path.getPointAtLength(Math.max(0, Math.min(1, comet.u)) * comet.L);
+    cometCore.setAttribute("cx", pt.x); cometCore.setAttribute("cy", pt.y);
+    cometGlow.setAttribute("cx", pt.x); cometGlow.setAttribute("cy", pt.y);
+    hist.unshift({x:pt.x, y:pt.y});
+    if(hist.length > trailN * 3) hist.length = trailN * 3;
+    for(var i = 0; i < trailN; i++){
+      var h = hist[Math.min(hist.length - 1, i * 3)];
+      if(h){ trail[trailN-1-i].setAttribute("cx", h.x); trail[trailN-1-i].setAttribute("cy", h.y); }
+    }
+  }
+  var last = performance.now();
+  function loop(now){
+    var dt = Math.min(50, now - last); last = now;
+    if(comet.path && comet.visible && comet.mode !== "idle"){
+      if(comet.mode === "fly" && comet.fly){
+        var f = comet.fly, k = Math.min(1, (now - f.start) / f.dur);
+        comet.u = f.from + (f.to - f.from) * easeInOut(k);
+        if(k >= 1){ comet.mode = "idle"; var cb = f.onDone; comet.fly = null; if(cb) cb(); }
+      } else if(comet.mode === "orbit"){
+        comet.u = (comet.u + dt * comet.speed) % 1;
+      }
+      if(comet.drawing && comet.u > comet.drawMax){
+        comet.drawMax = comet.u;
+        comet.path.style.strokeDashoffset = comet.L * (1 - comet.drawMax);
+      }
+      renderComet();
+    }
+    if(!RM) cometRaf = requestAnimationFrame(loop);
+  }
+  var cometRaf = null;
+  function startComet(){ if(RM || cometRaf) return; last = performance.now(); cometRaf = requestAnimationFrame(loop); }
+  function stopComet(){ if(cometRaf){ cancelAnimationFrame(cometRaf); cometRaf = null; } }
+  startComet();
+  document.addEventListener("visibilitychange", function(){
+    if(document.hidden) stopComet(); else startComet();
+  });
+
+  /* ================= cover: floating red dots ================= */
+  var dots = document.getElementById("dots");
+  var dctx = dots.getContext("2d");
+  var dparts = [], draf = null, dW = 0, dH = 0, dlast = 0;
+  var REDS = ["#E30613", "#D90012", "#F01822"];
+  function dotsResize(){
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    dW = innerWidth || 1280; dH = innerHeight || 800;
+    dots.width = dW * dpr; dots.height = dH * dpr;
+    dots.style.width = dW + "px"; dots.style.height = dH + "px";
+    dctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function makeDots(){
+    var n = Math.min(70, Math.round(dW * dH * 0.000035));
+    if(dW < 640) n = Math.min(n, 32);
+    dparts = [];
+    for(var i = 0; i < n; i++){
+      var r = 1.2 + Math.random() * 1.6;
+      if(Math.random() < 0.12) r = 2.8 + Math.random() * 0.7;
+      dparts.push({
+        x: Math.random() * dW, y: Math.random() * dH, r: r,
+        c: REDS[(Math.random() * REDS.length) | 0],
+        a: 0.18 + Math.random() * 0.37,
+        ap: Math.random() * Math.PI * 2, as: 0.4 + Math.random() * 0.8,
+        vx: (Math.random() - 0.5) * 0.34, vy: -(0.08 + Math.random() * 0.2),
+        ph: Math.random() * Math.PI * 2,
+        glow: Math.random() < 0.3
+      });
+    }
+  }
+  function drawDot(p, a){
+    dctx.beginPath();
+    dctx.globalAlpha = a;
+    dctx.fillStyle = p.c;
+    dctx.shadowBlur = p.glow ? 4 : 0;
+    if(p.glow) dctx.shadowColor = p.c;
+    dctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    dctx.fill();
+  }
+  function dotsLoop(now){
+    var dt = Math.min(50, now - dlast) / 16.67; dlast = now;
+    dctx.clearRect(0, 0, dW, dH);
+    for(var i = 0; i < dparts.length; i++){
+      var p = dparts[i];
+      p.x += (p.vx + Math.sin(p.ph) * 0.14) * dt;
+      p.y += p.vy * dt;
+      p.ph += 0.005 * dt;
+      p.ap += 0.012 * p.as * dt;
+      if(p.x < -6) p.x = dW + 6; else if(p.x > dW + 6) p.x = -6;
+      if(p.y < -6) p.y = dH + 6; else if(p.y > dH + 6) p.y = -6;
+      drawDot(p, p.a * (0.68 + 0.32 * Math.sin(p.ap)));
+    }
+    dctx.globalAlpha = 1; dctx.shadowBlur = 0;
+    draf = requestAnimationFrame(dotsLoop);
+  }
+  function startDots(){
+    dotsResize(); makeDots();
+    if(RM){
+      dctx.clearRect(0, 0, dW, dH);
+      dparts.forEach(function(p){ drawDot(p, p.a); });
+      dctx.globalAlpha = 1; dctx.shadowBlur = 0;
+      return;
+    }
+    if(draf) cancelAnimationFrame(draf);
+    dlast = performance.now();
+    draf = requestAnimationFrame(dotsLoop);
+  }
+  function stopDots(){ if(draf){ cancelAnimationFrame(draf); draf = null; } }
+  document.addEventListener("visibilitychange", function(){
+    if(document.hidden) stopDots(); else if(act === 0) startDots();
+  });
+
+  /* ================= geometry builders ================= */
+  var p0, p1line, ring, stations = [], stationDots = [], pnodeEls = [], hubEl = null;
+
+  function buildAct0(){
+    g0.innerHTML = "";
+    var y = H * 0.72, x0 = W * 0.32, x1 = W * 0.68;
+    p0 = el("path", {"class":"thread", d:"M " + x0 + " " + y + " L " + x1 + " " + y}, g0);
+    return p0;
+  }
+  function stationX(i){ return W * 0.08 + (W * 0.84) * (i / (STAGES.length - 1)); }
+  function buildAct1(){
+    g1.innerHTML = ""; stationDots = [];
+    var y = H * 0.42;
+    p1line = el("path", {"class":"thread", d:"M " + (W*0.08) + " " + y + " L " + (W*0.92) + " " + y}, g1);
+    el("path", {"class":"thread-dim", d:"M " + (W*0.08) + " " + y + " L " + (W*0.92) + " " + y}, g1);
+    g1.insertBefore(g1.lastChild, p1line); /* dim under draw */
+    for(var i = 0; i < STAGES.length; i++){
+      var d = el("circle", {cx: stationX(i), cy: y, r: 5, fill: "rgba(242,236,225,.14)",
+        stroke: "rgba(242,236,225,.2)", "stroke-width": 1}, g1);
+      stationDots.push(d);
+    }
+  }
+  function ringGeom(){
+    /* ring sits left of centre so its right node clears the SOP panel */
+    var cx = W * 0.31, cy = H * 0.56, r = Math.min(W * 0.21, H * 0.25);
+    return {cx:cx, cy:cy, r:r};
+  }
+  var orbitPath = null, corePath = null;
+  function orbitR(){ return ringGeom().r * 1.38; }
+  function circlePath(cx, cy, r, cls, parent){
+    return el("path", {"class":cls, d:
+      "M " + cx + " " + (cy - r) +
+      " A " + r + " " + r + " 0 1 1 " + (cx - 0.01) + " " + (cy - r)}, parent);
+  }
+  function buildAct2(){
+    g2.innerHTML = "";
+    var g = ringGeom(), R = orbitR();
+    /* the assurance orbit: a single faint dashed circle, audit sits on it */
+    var od = el("circle", {"class":"thread-dim", cx:g.cx, cy:g.cy, r:R, fill:"none"}, g2);
+    od.setAttribute("stroke-dasharray", "3 9");
+    orbitPath = circlePath(g.cx, g.cy, R, "thread-dim", g2);
+    orbitPath.setAttribute("stroke", "rgba(227,10,11,0)"); /* invisible carrier for the comet */
+    /* the cycle ring */
+    el("circle", {"class":"thread-dim", cx:g.cx, cy:g.cy, r:g.r, fill:"none"}, g2);
+    ring = circlePath(g.cx, g.cy, g.r, "thread", g2);
+    /* invisible core carrier for the comet, no decoration */
+    corePath = circlePath(g.cx, g.cy, g.r * 0.52, "thread-dim", g2);
+    corePath.setAttribute("stroke", "rgba(227,10,11,0)");
+  }
+  function phaseAngle(i){ return -90 + i * 90; } /* phases I..IV on the ring */
+  function phasePoint(i){
+    var g = ringGeom(), a = phaseAngle(i) * Math.PI / 180;
+    return {x: g.cx + g.r * Math.cos(a), y: g.cy + g.r * Math.sin(a)};
+  }
+  var AUDIT_ANGLE = -58;
+  function auditPoint(){
+    var g = ringGeom(), R = orbitR(), a = AUDIT_ANGLE * Math.PI / 180;
+    return {x: g.cx + R * Math.cos(a), y: g.cy + R * Math.sin(a)};
+  }
+  function uForPhase(i){ return (i * 90) / 360; }
+
+  /* Act 3 field */
+  var fieldPos = {};
+  function hash(s){ var h = 9; for(var i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 387420489); return ((h >>> 9) % 1000) / 1000; }
+  function buildFieldPositions(){
+    fieldPos = {};
+    var counts = [0,0,0,0,0,0];
+    SOPS.forEach(function(s){ counts[s.p]++; });
+    var idx = [0,0,0,0,0,0];
+    SOPS.forEach(function(s){
+      var col = s.p;
+      var x = W * (0.10 + col * 0.152);
+      var n = counts[col], i = idx[col]++;
+      var y0 = H * 0.34, y1 = H * 0.84;
+      var y = n === 1 ? (y0 + y1) / 2 : y0 + (y1 - y0) * (i / (n - 1));
+      x += (hash(s.n) - 0.5) * W * 0.055;
+      y += (hash(s.n + "y") - 0.5) * H * 0.05;
+      fieldPos[s.n] = {x:x, y:y};
+    });
+  }
+  var filament = null;
+  function buildAct3(){ g3.innerHTML = ""; }
+
+  /* ================= html overlays ================= */
+  var act1El = document.getElementById("act1");
+  var act2El = document.getElementById("act2");
+  var act3El = document.getElementById("act3");
+  var stationLabels = [];
+
+  function buildAct1Html(){
+    stationLabels.forEach(function(l){ l.remove(); });
+    stationLabels = [];
+    var y = H * 0.42;
+    STAGES.forEach(function(st, i){
+      var b = document.createElement("button");
+      b.className = "station-label";
+      b.textContent = st.when;
+      b.style.left = stationX(i) + "px";
+      b.style.top = (y + 22) + "px";
+      b.setAttribute("aria-label", "Step " + (i+1) + ": " + st.t);
+      b.addEventListener("click", function(){ goBeat(1 + i); });
+      act1El.appendChild(b);
+      stationLabels.push(b);
+    });
+    document.getElementById("a1-counter").textContent = "1/" + NS;
+  }
+  var auditEl = null;
+  function pcount(i){ return SOPS.filter(function(s){ return s.p === i; }).length; }
+  function buildAct2Html(){
+    pnodeEls.forEach(function(n){ n.remove(); });
+    pnodeEls = [];
+    if(hubEl) hubEl.remove();
+    if(auditEl) auditEl.remove();
+    var g = ringGeom();
+    /* four ring phases I..IV */
+    for(var i = 0; i < 4; i++){
+      (function(i){
+        var pt = phasePoint(i), p = PHASES[i];
+        var b = document.createElement("button");
+        b.className = "pnode";
+        b.style.setProperty("--pc", p.c);
+        var dx = (pt.x - g.cx) / g.r, dy = (pt.y - g.cy) / g.r;
+        b.style.left = (pt.x + dx * 84) + "px";
+        b.style.top = (pt.y + dy * 72) + "px";
+        b.innerHTML = '<span class="rom">' + p.rom + '</span>' +
+          '<span class="pname">' + esc(p.name) + '</span>' +
+          '<span class="pcount">' + pcount(i) + ' procedures</span>';
+        b.addEventListener("click", function(){ goBeat(PHASE_B0 + i); });
+        act2El.appendChild(b);
+        pnodeEls.push(b);
+      })(i);
+    }
+    /* the audit satellite, out on the assurance orbit */
+    var ap = auditPoint();
+    auditEl = document.createElement("button");
+    auditEl.className = "pnode satellite";
+    auditEl.style.setProperty("--pc", PHASES[4].c);
+    auditEl.style.left = (ap.x + 46) + "px";
+    auditEl.style.top = (ap.y - 26) + "px";
+    auditEl.innerHTML = '<span class="rom">V</span>' +
+      '<span class="pname">' + esc(PHASES[4].name) + '</span>' +
+      '<span class="pcount">' + pcount(4) + (pcount(4) === 1 ? ' procedure' : ' procedures') + '</span>';
+    auditEl.addEventListener("click", function(){ goBeat(PHASE_B0 + 4); });
+    act2El.appendChild(auditEl);
+    /* the cross-cutting core */
+    hubEl = document.createElement("button");
+    hubEl.id = "hub";
+    hubEl.style.left = g.cx + "px";
+    hubEl.style.top = g.cy + "px";
+    hubEl.style.width = hubEl.style.height = (g.r * 0.86) + "px";
+    hubEl.innerHTML = '<span class="rom">VI</span><span class="pname">Cross-cutting</span>' +
+      '<span class="pcount">' + pcount(5) + ' procedures</span>';
+    hubEl.addEventListener("click", function(){ goBeat(PHASE_B0 + 5); });
+    act2El.appendChild(hubEl);
+  }
+
+  var snodes = {};
+  var field = document.getElementById("field");
+  var fieldLabels = [];
+  function buildAct3Html(){ buildWorkflows(); }
+  /* ================= acts + beats engine ================= */
+  /* beats: 0=title, 1..NS stages, NS+1..NS+6 phases, NS+7=field */
+  var NS = STAGES.length;
+  var PHASE_B0 = NS + 1;      /* first phase beat */
+  var FIELD_B = NS + 7;       /* the procedures field */
+  var BEAT_MAX = FIELD_B;
+  var beat = 0, act = 0;
+  var acts = [document.getElementById("act0"), act1El, act2El, act3El];
+  var groups = [g0, g1, g2, g3];
+  var actlinks = Array.prototype.slice.call(document.querySelectorAll(".actlink"));
+  var hint = document.getElementById("hint");
+  var interacted = false;
+
+  function actOfBeat(b){ return b === 0 ? 0 : b <= NS ? 1 : b <= NS + 6 ? 2 : 3; }
+  function firstBeatOfAct(a){ return a === 0 ? 0 : a === 1 ? 1 : a === 2 ? PHASE_B0 : FIELD_B; }
+
+  function fadeGroup(g, on){
+    g.style.transition = "opacity .8s ease";
+    g.style.opacity = on ? 1 : 0;
+  }
+
+  function enterAct(a){
+    acts.forEach(function(s, i){ s.classList.toggle("on", i === a); });
+    groups.forEach(function(g, i){ fadeGroup(g, i === a); });
+    /* the comet blinks through the darkness between acts (not on the cover or the field) */
+    if(!RM && a !== 0 && a !== 3){
+      gC.style.transition = "opacity .3s ease";
+      gC.style.opacity = 0;
+      setTimeout(function(){ if(act !== 0 && act !== 3){ gC.style.transition = "opacity .5s ease"; gC.style.opacity = 1; } }, 420);
+    }
+    /* the floating red dots live only on the cover */
+    dots.classList.toggle("show", a === 0);
+    if(a === 0) startDots(); else stopDots();
+    /* the cover carries no header, footer or hint */
+    document.body.classList.toggle("cover", a === 0);
+    /* the cycle panel only shows on arrival; never leave it stale */
+    if(cycPanel && a !== 2) cycPanel.classList.remove("show");
+    actlinks.forEach(function(l, i){ l.setAttribute("aria-current", i === a ? "true" : "false"); });
+    if(a === 0){
+      /* pure cover: logo, subtitle, begin, over the drifting dots. No comet here. */
+      comet.visible = false; gC.style.opacity = 0;
+      var c0 = document.getElementById("act0");
+      c0.classList.remove("lit");
+      if(RM) c0.classList.add("lit");
+      else setTimeout(function(){ if(act === 0) c0.classList.add("lit"); }, 120);
+    }
+    if(a === 1){
+      buildAct1(); buildAct1Html();
+      setPath(p1line, 0, true);
+      if(RM){ p1line.style.strokeDashoffset = 0; }
+    }
+    if(a === 2){
+      buildAct2(); buildAct2Html();
+      /* the ring draws itself on entry (CSS), the comet rides on top */
+      var RL = ring.getTotalLength();
+      ring.style.strokeDasharray = RL;
+      if(RM){
+        ring.style.strokeDashoffset = 0;
+        setPath(ring, 0, false);
+      } else {
+        ring.style.transition = "none";
+        ring.style.strokeDashoffset = RL;
+        void ring.getBoundingClientRect();
+        ring.style.transition = "stroke-dashoffset 1.3s cubic-bezier(.65,.05,.36,1)";
+        ring.style.strokeDashoffset = 0;
+        setPath(ring, 0, false);
+      }
+    }
+    if(a === 3){
+      buildAct3(); buildAct3Html();
+      comet.visible = false;
+      gC.style.opacity = 0;
+    }
+    if(a === 1 || a === 2){
+      comet.visible = true;
+      gC.style.opacity = 1;
+    }
+    if(a !== 3) closeWF();
+    acts[a].focus({preventScroll:true});
+  }
+
+  var lower3 = document.getElementById("lower3");
+  function applyBeat(){
+    var a = actOfBeat(beat);
+    if(a !== act){ act = a; enterAct(a); }
+    if(a === 1){
+      var i = beat - 1;
+      var u = i / (STAGES.length - 1);
+      /* earlier stations stay lit; the current one ignites when the comet arrives */
+      stationLabels.forEach(function(l, j){
+        l.classList.toggle("lit", j < i);
+        l.classList.toggle("now", false);
+      });
+      stationDots.forEach(function(d, j){
+        d.setAttribute("fill", j < i ? "#E30A0B" : "rgba(242,236,225,.14)");
+        d.setAttribute("r", 5);
+      });
+      lower3.classList.remove("show");
+      var st = STAGES[i];
+      var arrive = function(){
+        if(beat !== 1 + i) return;   /* stale arrival, presenter moved on */
+        if(stationLabels[i]) stationLabels[i].classList.add("now");
+        if(stationDots[i]){
+          stationDots[i].setAttribute("fill", "#E30A0B");
+          stationDots[i].setAttribute("r", 6.5);
+        }
+        document.getElementById("l3-when").textContent = st.when;
+        document.getElementById("l3-title").textContent = st.t;
+        var l3t = document.getElementById("l3-text");
+        if(st.out){
+          l3t.innerHTML = '<ul class="l3-out">' +
+            st.out.map(function(o){ return '<li>' + esc(o) + '</li>'; }).join("") + '</ul>';
+        } else {
+          l3t.textContent = st.d;
+        }
+        document.getElementById("a1-counter").textContent = (i+1) + "/" + NS;
+        lower3.classList.add("show");
+      };
+      if(RM){ comet.u = u; p1line.style.strokeDashoffset = 0; renderComet(); arrive(); }
+      else flyTo(u, 520 + 140 * Math.abs(u - comet.u) * (STAGES.length - 1), arrive);
+    }
+    if(a === 2){
+      var p = beat - PHASE_B0; /* 0..3 ring · 4 audit · 5 core */
+      /* as the comet leaves, the previous phase de-powers at once */
+      pnodeEls.forEach(function(n){ n.classList.remove("on"); });
+      if(auditEl) auditEl.classList.remove("on");
+      if(hubEl) hubEl.classList.remove("on");
+      /* the target only powers up, and its panel appears, the moment the comet ARRIVES */
+      var powerUp = function(){
+        if(beat !== PHASE_B0 + p) return;   /* the presenter moved on mid-flight */
+        if(p <= 3){ if(pnodeEls[p]) pnodeEls[p].classList.add("on"); }
+        else if(p === 4){ if(auditEl) auditEl.classList.add("on"); }
+        else { if(hubEl) hubEl.classList.add("on"); }
+        showCycPanel(p);
+      };
+      if(p <= 3){
+        /* fly the comet along the ring; power up on arrival */
+        var tgt = uForPhase(p);
+        if(comet.path !== ring) setPath(ring, tgt, false);
+        if(RM || Math.abs(tgt - comet.u) < 0.001){
+          comet.u = tgt; renderComet(); orbit(0.0000125); powerUp();  /* already here: no dead wait */
+        } else {
+          flyTo(tgt, 640, function(){ orbit(0.0000125); powerUp(); });
+        }
+      } else if(p === 4){
+        /* audit swings out onto the assurance orbit */
+        setPath(orbitPath, 0.375, false);
+        if(RM){ renderComet(); powerUp(); }
+        else { orbit(0.000055); var t4 = navToken; setTimeout(function(){ if(navToken === t4) powerUp(); }, 300); }
+      } else {
+        /* cross-cutting draws inward to the core */
+        setPath(corePath, 0, false);
+        if(RM){ renderComet(); powerUp(); }
+        else { orbit(0.00008); var t5 = navToken; setTimeout(function(){ if(navToken === t5) powerUp(); }, 300); }
+      }
+    }
+    document.getElementById("prev").disabled = beat === 0;
+    /* in the field, forward walks the procedures; never dead */
+    document.getElementById("next").disabled = false;
+  }
+
+  var navToken = 0;   /* invalidates any pending deferred navigation/power-up */
+  function goBeat(n){
+    if(n < 0 || n > BEAT_MAX) return;
+    navToken++;
+    beat = n;
+    applyBeat();
+    if(!interacted){ interacted = true; hint.classList.add("gone"); }
+  }
+
+  /* ================= act 2 panel ================= */
+  var cycPanel = document.getElementById("cyc-panel");
+  function showCycPanel(p){
+    var ph = PHASES[p];
+    var list = SOPS.filter(function(s){ return s.p === p; });
+    cycPanel.style.setProperty("--pc", ph.c);
+    cycPanel.innerHTML =
+      '<p class="kick" style="color:' + ph.c + '">Phase ' + ph.rom + ' · ' + esc(ph.name) +
+      (p === 5 ? ' <em>· across every phase</em>' : '') + '</p>' +
+      '<h3>' + list.length + ' procedure' + (list.length === 1 ? '' : 's') + '</h3>' +
+      '<p class="ess">' + esc(ph.ess) + '</p>' +
+      list.map(function(s, j){
+        return '<button class="cyc-chip" style="--pc:' + ph.c + ';--j:' + j + '" data-sop="' + esc(s.n) + '">' +
+          '<span class="num">SOP ' + esc(s.n) + '</span><span class="ttl">' + esc(s.t) + '</span></button>';
+      }).join("");
+    cycPanel.classList.add("show");
+  }
+  cycPanel.addEventListener("click", function(e){
+    var chip = e.target.closest ? e.target.closest(".cyc-chip") : null;
+    if(!chip) return;
+    var id = chip.dataset.sop;
+    goBeat(FIELD_B);
+    var t = navToken;
+    setTimeout(function(){ if(navToken === t && act === 3) openWFForSop(id); }, RM ? 0 : 450);
+  });
+
+  /* ================= act 3: workflows browser (ICA-deck concept) ================= */
+  var _mctx=null;
+  function textPx(s,font){ try{ if(!_mctx) _mctx=document.createElement('canvas').getContext('2d'); _mctx.font=font; if(String(_mctx.font).indexOf('px')<0) return String(s).length*8; return _mctx.measureText(String(s)).width; }catch(e){ return String(s).length*8; } }
+  function wrapPx(text,maxPx,font){ var words=String(text).split(/\s+/),lines=[],cur=""; for(var i=0;i<words.length;i++){ var word=words[i]; if(!word) continue; while(textPx(word,font)>maxPx&&word.length>1){ var n=word.length; while(n>1&&textPx(word.slice(0,n),font)>maxPx) n--; n=Math.max(1,n); if(cur){lines.push(cur);cur="";} lines.push(word.slice(0,n)); word=word.slice(n); } var tst=cur?cur+" "+word:word; if(textPx(tst,font)<=maxPx){cur=tst;}else{ if(cur)lines.push(cur); cur=word; } } if(cur)lines.push(cur); return lines.length?lines:['']; }
+  function cleanAct(a){ return String(a).replace(/\s+/g,' ').trim(); }
+  function cssHex(c){ c=String(c).trim(); var m=c.match(/^var\((--[a-z0-9-]+)\)$/i); if(m){ var v=getComputedStyle(document.documentElement).getPropertyValue(m[1]).trim(); return v||"#C08D82"; } return c; }
+  function flowStepsFor(w){ return (w.steps||[]).map(function(st){ return { role:(w.lanes&&w.lanes[st.lane]!==undefined)?w.lanes[st.lane]:"", action:st.text }; }); }
+  function buildFlowSVG(steps, opt){
+    opt=opt||{}; var big=!!opt.big; var box=opt.hex||"#C08D82";
+    var TV=function(n,fb){try{var v=getComputedStyle(document.documentElement).getPropertyValue(n).trim();return v||fb;}catch(e){return fb;}};
+    var C_BANDA=TV('--band-a','rgba(244,239,230,.05)'),C_BANDB=TV('--band-b','rgba(244,239,230,.12)'),C_ROLE=TV('--wf-role','#E6DECF'),C_LINE=TV('--wf-line','rgba(242,236,225,.24)'),C_INK=TV('--wf-ink','#12100E'),C_NUMBG=TV('--wf-numbg','#12100E'),C_NUM=TV('--wf-num','#F4EFE6'),C_ARROW=TV('--wf-arrow','rgba(224,216,203,.62)');
+    steps=(steps||[]).filter(function(s){ return s && s.role; });
+    if(!steps.length) return '<div class="flow-hint">This one is documented as rules, not a step-by-step hand-off.</div>';
+    var seen=[]; steps.forEach(function(s){ if(seen.indexOf(s.role)<0) seen.push(s.role); });
+    var SW=big?300:212, SG=big?52:26, LL=big?280:176, PAD=big?28:14;
+    var afs=big?15:11, alh=big?21:15, boxPadY=big?15:9, boxGapY=big?22:12, minBox=big?46:30, MAXLN=big?30:5;
+    var rfs=big?15:10.5, rlh=big?20:13, nfs=big?15:11, ncr=big?15:11, padL=big?54:36;
+    var actFont=afs+"px 'Source Sans 3','Inter',sans-serif", roleFont="700 "+rfs+"px 'Source Sans 3','Inter',sans-serif";
+    var actMaxPx=SW-padL-(big?18:12), roleMaxPx=LL-(big?26:20);
+    var wrapped=steps.map(function(s){ var ln=wrapPx(cleanAct(s.action),actMaxPx,actFont); if(ln.length>MAXLN){ ln=ln.slice(0,MAXLN); ln[MAXLN-1]=String(ln[MAXLN-1]).replace(/.$/,'')+'…'; } return ln; });
+    var boxH=wrapped.map(function(ln){ return Math.max(minBox, ln.length*alh+2*boxPadY); });
+    var laneH=seen.map(function(){ return minBox+2*boxPadY+2*boxGapY; });
+    steps.forEach(function(s,j){ var li=seen.indexOf(s.role); if(boxH[j]+2*boxGapY>laneH[li]) laneH[li]=boxH[j]+2*boxGapY; });
+    var fwd=(opt.fwd&&opt.fwd.length)?opt.fwd:(function(){var e=[];for(var q=1;q<steps.length;q++)e.push([q,q+1]);return e;})();
+    var loop=opt.loop||[];
+    var hasSkip=fwd.some(function(e){return e[1]>e[0]+1;});
+    var topC=hasSkip?(big?38:24):0, botC=loop.length?(big?46:30):0;
+    var laneY=[],acc=PAD+topC; seen.forEach(function(r,i){ laneY[i]=acc; acc+=laneH[i]; });
+    var laneBottom=acc;
+    var H=acc+botC+PAD, W=LL+steps.length*(SW+SG)-SG+PAD;
+    var mkid=big?'wfarrB':'wfarr';
+    var p=['<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" class="wf-svg">'];
+    p.push('<defs><marker id="'+mkid+'" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="'+C_ARROW+'"/></marker></defs>');
+    var rolesWrapped=seen.map(function(r){ return wrapPx(String(r),roleMaxPx,roleFont).slice(0,3); });
+    seen.forEach(function(role,i){ var y=laneY[i], lh=laneH[i];
+      p.push('<rect x="0" y="'+y+'" width="'+W+'" height="'+lh+'" fill="'+(i%2?C_BANDA:C_BANDB)+'"/>');
+      var rls=rolesWrapped[i], cy=y+lh/2, sy=cy-(rls.length-1)*rlh/2+rfs*0.34;
+      rls.forEach(function(rl,k){ p.push('<text x="'+(LL-16)+'" y="'+(sy+k*rlh)+'" text-anchor="end" font-family="Source Sans 3,Inter,sans-serif" font-size="'+rfs+'" font-weight="700" fill="'+C_ROLE+'">'+esc(rl)+'</text>'); });
+    });
+    p.push('<line x1="'+(LL-2)+'" y1="'+(PAD+topC)+'" x2="'+(LL-2)+'" y2="'+laneBottom+'" stroke="'+C_LINE+'" stroke-width="1"/>');
+    function boxX(j){ return LL+j*(SW+SG); }
+    function boxTop(j){ var li=seen.indexOf(steps[j].role); return laneY[li]+(laneH[li]-boxH[j])/2; }
+    function boxMidY(j){ return boxTop(j)+boxH[j]/2; }
+    steps.forEach(function(s,j){ var x=boxX(j), y=boxTop(j), bh=boxH[j], cy=y+bh/2;
+      p.push('<rect x="'+x+'" y="'+y+'" width="'+SW+'" height="'+bh+'" rx="'+(big?11:9)+'" fill="'+box+'"/>');
+      p.push('<circle cx="'+(x+(big?27:19))+'" cy="'+cy+'" r="'+ncr+'" fill="'+C_NUMBG+'"/>');
+      p.push('<text x="'+(x+(big?27:19))+'" y="'+(cy+nfs*0.34)+'" text-anchor="middle" font-family="Consolas,monospace" font-size="'+nfs+'" font-weight="700" fill="'+C_NUM+'">'+(j+1)+'</text>');
+      var lines=wrapped[j], ty0=cy-(lines.length-1)*alh/2+afs*0.34;
+      lines.forEach(function(ln,k){ var lw=textPx(ln,actFont); var tl=(lw>1?'textLength="'+lw.toFixed(1)+'" lengthAdjust="spacingAndGlyphs" ':''); p.push('<text x="'+(x+padL)+'" y="'+(ty0+k*alh)+'" '+tl+'font-family="Source Sans 3,Inter,sans-serif" font-weight="400" font-size="'+afs+'" fill="'+C_INK+'">'+esc(ln)+'</text>'); });
+    });
+    var stroke=C_ARROW, sw=(big?2.5:2), mk='url(#'+mkid+')';
+    function boxBottom(j){ return boxTop(j)+boxH[j]; }
+    var inCount={}; fwd.forEach(function(e){ inCount[e[1]]=(inCount[e[1]]||0)+1; });
+    var inSeen={};
+    fwd.forEach(function(e){
+      var ia=e[0]-1, ib=e[1]-1, x1=boxX(ia)+SW, x2=boxX(ib), y1=boxMidY(ia), y2=boxMidY(ib);
+      var ic=inCount[e[1]]||1; if(inSeen[e[1]]===undefined) inSeen[e[1]]=0;
+      var eoff=ic>1?((inSeen[e[1]]-(ic-1)/2)*(big?15:10)):0; inSeen[e[1]]++;
+      if(e[1]===e[0]+1){
+        if(steps[ia].role===steps[ib].role){
+          p.push('<path d="M '+x1+' '+y1+' L '+(x2-6)+' '+(y2+eoff)+'" stroke="'+stroke+'" stroke-width="'+sw+'" fill="none" marker-end="'+mk+'"/>');
+        } else {
+          var mx=x1+SG/2, r=8, down=((y2+eoff)>y1)?1:-1;
+          var d='M '+x1+' '+y1+' H '+(mx-r)+' Q '+mx+' '+y1+' '+mx+' '+(y1+down*r)+' V '+(y2+eoff-down*r)+' Q '+mx+' '+(y2+eoff)+' '+(mx+r)+' '+(y2+eoff)+' H '+(x2-6);
+          p.push('<path d="'+d+'" stroke="'+stroke+'" stroke-width="'+sw+'" fill="none" marker-end="'+mk+'"/>');
+        }
+      } else {
+        var ty=PAD+topC*0.42, sx=boxX(ia)+SW*0.5, tx=boxX(ib)+SW*0.5;
+        p.push('<path d="M '+sx+' '+boxTop(ia)+' V '+ty+' H '+tx+' V '+(boxTop(ib)-6)+'" stroke="'+stroke+'" stroke-width="'+sw+'" fill="none" marker-end="'+mk+'"/>');
+      }
+    });
+    loop.forEach(function(e){
+      var ia=e[0]-1, ib=e[1]-1, by=laneBottom+botC*0.55, sx=boxX(ia)+SW*0.5, tx=boxX(ib)+SW*0.5;
+      p.push('<path d="M '+sx+' '+boxBottom(ia)+' V '+by+' H '+tx+' V '+(boxBottom(ib)+6)+'" stroke="'+C_ARROW+'" stroke-width="'+(big?2:1.6)+'" stroke-dasharray="'+(big?'6 5':'5 4')+'" fill="none" marker-end="'+mk+'"/>');
+    });
+    p.push('</svg>'); return p.join("");
+  }
+  /* real SOP topology for the 5 non-linear workflows (position-based edges; verified vs the Draft 0 swimlane images) */
+  var SPECIAL_FLOW={
+    "1.2":{fwd:[[1,2],[2,3],[3,4],[4,5],[4,6]],loop:[]},
+    "6.2":{fwd:[[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[6,8]],loop:[[6,2]]},
+    "6.4":{fwd:[[1,3],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9]],loop:[]},
+    "6.5":{fwd:[[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9]],loop:[[7,2]]},
+    "6.6":{fwd:[[1,2],[2,3],[3,4],[4,5],[5,6],[3,6]],loop:[]}
+  };
+  /* ---- workflows browser: phases -> workflow chips -> swimlane ---- */
+  var CYCLE_IDX=[0,1,2,3], ALONG_IDX=[4,5], openPhase=null, _curWF=null, _fsSop=null;
+  function sopByN(n){ for(var i=0;i<SOPS.length;i++) if(SOPS[i].n===n) return SOPS[i]; return null; }
+  function sopsInPhase(i){ return SOPS.filter(function(s){ return s.p===i && WF[s.n] && WF[s.n].length; }); }
+  function phaseCard(i){ var p=PHASES[i], n=sopsInPhase(i).length;
+    return '<button class="pcard" type="button" data-ph="'+i+'" style="--pc:'+p.c+'">'+
+      '<span class="ph-rn">Phase '+p.rom+'</span><span class="ph-nm">'+esc(p.name)+'</span>'+
+      '<span class="ph-ct">'+n+' workflow'+(n===1?'':'s')+'</span></button>'; }
+  function buildWorkflows(){
+    var home=document.getElementById("wf-home"); if(!home) return;
+    var cyc=""; CYCLE_IDX.forEach(function(i,k){ cyc+=phaseCard(i); if(k<CYCLE_IDX.length-1) cyc+='<span class="cyc-arrow" aria-hidden="true">&rarr;</span>'; });
+    var along=ALONG_IDX.map(phaseCard).join("");
+    home.innerHTML='<div class="cyc-label">The project cycle</div><div class="cycle">'+cyc+'</div>'+
+      '<div class="cyc-label">Alongside the project cycle</div><div class="added">'+along+'</div>'+
+      '<div id="wf-panel"></div>';
+    Array.prototype.forEach.call(home.querySelectorAll(".pcard"), function(c){ c.addEventListener("click", function(){ var i=+c.getAttribute("data-ph"); if(openPhase===i){ closeWF(); } else { renderPhase(i); } }); });
+    openPhase=null;
+  }
+  function setPhaseOpen(i){ openPhase=i; var home=document.getElementById("wf-home"); if(home) Array.prototype.forEach.call(home.querySelectorAll(".pcard"), function(c){ c.classList.toggle("open", +c.getAttribute("data-ph")===i); }); }
+  function renderPhase(i){
+    _curWF=null; setPhaseOpen(i); var p=PHASES[i], panel=document.getElementById("wf-panel"); if(!panel) return;
+    var sops=sopsInPhase(i), chips="";
+    sops.forEach(function(s,k){ chips+='<button class="wf-chip" type="button" data-sop="'+esc(s.n)+'" style="--pc:'+p.c+'"><span class="wfc-id">'+esc(s.n)+'</span><span class="wfc-t">'+esc(s.t)+'</span></button>'; if(k<sops.length-1) chips+='<span class="wf-arrow" aria-hidden="true">&rarr;</span>'; });
+    panel.style.setProperty("--pc",p.c);
+    panel.innerHTML='<div class="wp-head"><span class="ph-rn">Phase '+p.rom+'</span><h3>'+esc(p.name)+'</h3><span class="wp-hint">Open a workflow for its flow</span></div>'+
+      '<p class="wfd-sum">'+esc(p.ess)+'</p><div class="wf-flow">'+chips+'</div>';
+    panel.classList.add("show");
+    Array.prototype.forEach.call(panel.querySelectorAll(".wf-chip"), function(ch){ ch.addEventListener("click", function(){ renderWF(ch.getAttribute("data-sop"), i); }); });
+    panel.scrollIntoView({block:"nearest", behavior: RM?"auto":"smooth"});
+  }
+  function renderWF(sopN, phaseIdx){
+    var s=sopByN(sopN); if(!s) return; var p=PHASES[s.p], hex=cssHex(p.c), panel=document.getElementById("wf-panel"); if(!panel) return;
+    _curWF={sop:sopN, ph:(typeof phaseIdx==='number'?phaseIdx:s.p)};
+    var wfs=WF[sopN]||[];
+    var sf=(wfs.length===1)?SPECIAL_FLOW[sopN]:null;
+    var flows=wfs.map(function(w){ var head=wfs.length>1?'<p class="wf-scenario">'+esc(String(w.title).replace(/^SOP\s+[\d.]+\s*-\s*/,''))+'</p>':""; return head+'<div class="svg-scroll">'+buildFlowSVG(flowStepsFor(w),{hex:hex,fwd:sf&&sf.fwd,loop:sf&&sf.loop})+'</div>'; }).join("");
+    panel.style.setProperty("--pc",p.c);
+    panel.innerHTML='<div class="wp-head"><span class="ph-rn">SOP '+esc(s.n)+'</span><h3>'+esc(s.t)+'</h3><button class="wp-back" type="button">&larr; '+esc(p.name)+'</button></div>'+
+      '<p class="wfd-sum">'+esc(s.d)+'</p><button class="wf-fs" type="button" aria-label="Open full screen">&#9974; full screen</button>'+flows+
+      '<p class="flow-hint">Each box is a step in its role lane. The arrows are the hand-offs. Tap for full screen.</p>';
+    panel.classList.add("show");
+    var bk=panel.querySelector(".wp-back"); if(bk) bk.addEventListener("click", function(){ renderPhase(typeof phaseIdx==='number'?phaseIdx:s.p); });
+    var fsb=panel.querySelector(".wf-fs"); if(fsb) fsb.addEventListener("click", function(){ openFlowFS(sopN); });
+    Array.prototype.forEach.call(panel.querySelectorAll(".svg-scroll"), function(sc){ sc.addEventListener("click", function(){ openFlowFS(sopN); }); });
+    panel.scrollIntoView({block:"nearest", behavior: RM?"auto":"smooth"});
+  }
+  function openWFForSop(id){ var s=sopByN(id); if(!s) return; renderPhase(s.p); renderWF(id, s.p); }
+  function closeWF(){ openPhase=null; _curWF=null; var home=document.getElementById("wf-home"); if(home){ Array.prototype.forEach.call(home.querySelectorAll(".pcard"), function(c){ c.classList.remove("open"); }); var pnl=document.getElementById("wf-panel"); if(pnl){ pnl.classList.remove("show"); pnl.innerHTML=""; } } closeFlowFS(); }
+  function openFlowFS(sopN){
+    _fsSop=sopN;
+    var s=sopByN(sopN); if(!s) return; var p=PHASES[s.p], hex=cssHex(p.c), wfs=WF[sopN]||[];
+    var sf=(wfs.length===1)?SPECIAL_FLOW[sopN]:null;
+    var body=wfs.map(function(w){ var head=wfs.length>1?'<p class="wf-scenario">'+esc(String(w.title).replace(/^SOP\s+[\d.]+\s*-\s*/,''))+'</p>':""; return head+'<div class="ffs-scroll">'+buildFlowSVG(flowStepsFor(w),{hex:hex,big:true,fwd:sf&&sf.fwd,loop:sf&&sf.loop})+'</div>'; }).join("");
+    var box=document.getElementById("flow-fs"); if(!box){ box=document.createElement("div"); box.id="flow-fs"; document.body.appendChild(box); }
+    box.style.setProperty("--pc",p.c);
+    box.innerHTML='<div class="ffs-head"><span class="ffs-num">SOP '+esc(s.n)+'</span><h3>'+esc(s.t)+'</h3><button class="ffs-close" type="button" aria-label="Close">&#215;</button></div><div id="ffs-body">'+body+'</div>';
+    box.querySelector(".ffs-close").addEventListener("click",closeFlowFS);
+    box.classList.add("show");
+  }
+  function closeFlowFS(){ var box=document.getElementById("flow-fs"); if(box) box.classList.remove("show"); }
+  function stopRun(panel){
+    if(panel._run){ panel._run.timers.forEach(clearTimeout); panel._run = null; }
+    panel.classList.remove("running");
+  }
+  function setRan(panel){
+    stopRun(panel);
+    panel.classList.add("ran");
+    Array.prototype.forEach.call(panel.querySelectorAll(".wf-step"), function(s){
+      s.classList.remove("current"); s.classList.add("done");
+    });
+    Array.prototype.forEach.call(panel.querySelectorAll(".wf-line"), function(l){
+      l.style.transform = "scaleY(1)";
+    });
+    Array.prototype.forEach.call(panel.querySelectorAll(".wf-steps"), function(o){
+      o.classList.remove("live");
+    });
+  }
+  function runPanel(panel, from){
+    stopRun(panel);
+    panel.classList.remove("ran");
+    var steps = Array.prototype.slice.call(panel.querySelectorAll(".wf-step"));
+    if(!steps.length){ setRan(panel); return; }
+    var state = {i: from || 0, timers: []};
+    panel._run = state;
+    panel.classList.add("running");
+    steps.forEach(function(s, idx){
+      s.classList.remove("current");
+      s.classList.toggle("done", idx < state.i);
+    });
+    var ols = Array.prototype.slice.call(panel.querySelectorAll(".wf-steps"));
+    function place(st){
+      var ol = st.parentElement;
+      var oi = ols.indexOf(ol);
+      ols.forEach(function(o, idx){
+        o.classList.toggle("live", o === ol);
+        if(o !== ol){
+          var l0 = o.querySelector(".wf-line");
+          if(l0) l0.style.transform = idx < oi ? "scaleY(1)" : "scaleY(0)";
+        }
+      });
+      var disc = st.offsetTop + 8 + 14;
+      var pulse = ol.querySelector(".wf-pulse");
+      if(pulse) pulse.style.top = (disc - 7) + "px";
+      var line = ol.querySelector(".wf-line");
+      if(line){
+        var h = ol.clientHeight - 36;
+        var f = h > 0 ? Math.max(0, Math.min(1, (disc - 18) / h)) : 1;
+        line.style.transform = "scaleY(" + f + ")";
+      }
+      st.scrollIntoView({block:"nearest", behavior: RM ? "auto" : "smooth"});
+    }
+    function tick(){
+      if(panel._run !== state) return;
+      if(state.i >= steps.length){
+        panel.classList.remove("running");
+        panel.classList.add("ran");
+        ols.forEach(function(o){ o.classList.remove("live"); });
+        panel._run = null;
+        return;
+      }
+      var st = steps[state.i];
+      steps.forEach(function(s){ s.classList.remove("current"); });
+      st.classList.remove("done");
+      st.classList.add("current");
+      place(st);
+      var dwell = st.classList.contains("hand") ? 1000 : 780;
+      state.timers.push(setTimeout(function(){
+        if(panel._run !== state) return;
+        st.classList.remove("current"); st.classList.add("done");
+        state.i++;
+        tick();
+      }, dwell));
+    }
+    tick();
+  }
+  document.addEventListener("keydown", function(e){
+    if(e.key==="Escape"){ var box=document.getElementById("flow-fs"); if(box && box.classList.contains("show")){ e.stopImmediatePropagation(); closeFlowFS(); } }
+  });
+
+  /* ================= navigation ================= */
+  document.getElementById("begin").addEventListener("click", function(){ goBeat(1); });
+  document.getElementById("prev").addEventListener("click", function(){ stepBack(); });
+  document.getElementById("next").addEventListener("click", function(){ stepFwd(); });
+  actlinks.forEach(function(l){
+    l.addEventListener("click", function(){ goBeat(firstBeatOfAct(parseInt(l.dataset.act, 10))); });
+  });
+
+  /* arrows in Act 3 walk only the procedures the current filter/role shows */
+  function stepFwd(){ goBeat(beat + 1); }
+  function stepBack(){ goBeat(beat - 1); }
+
+  document.addEventListener("keydown", function(e){
+    if(e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+    if(e.key === "Escape" && act === 3){ closeWF(); return; }
+    if(e.key === " " && e.target.closest && e.target.closest("button,[role='button']")) return;
+    if(e.key === "ArrowRight" || e.key === " "){ e.preventDefault(); stepFwd(); }
+    else if(e.key === "ArrowLeft"){ e.preventDefault(); stepBack(); }
+  });
+
+  addEventListener("resize", function(){
+    sz();
+    if(act === 0){ enterAct(0); document.getElementById("act0").classList.add("lit"); }
+    if(act === 1){ enterAct(1); applyBeat(); }
+    if(act === 2){ enterAct(2); applyBeat(); }
+    if(act === 3){
+      var op = openPhase;
+      enterAct(3);   /* rebuilds the phase cards */
+      if(op !== null) renderPhase(op);
+    }
+  });
+
+  /* ================= ignition ================= */
+  /* the corner mark reuses the cover logo, no second copy of the image */
+  (function(){
+    var cover = document.querySelector(".drc-logo"), corner = document.getElementById("corner-logo-img");
+    if(cover && corner) corner.src = cover.src;
+  })();
+  /* theme toggle */
+  var themeBtn=document.getElementById("theme-toggle");
+  function curTheme(){ return document.documentElement.getAttribute("data-theme")==="light"?"light":"dark"; }
+  function themeLabel(){ if(!themeBtn) return; var l=themeBtn.querySelector(".tt-lbl"); if(l) l.textContent=curTheme()==="light"?"Dark":"Light"; }
+  function setTheme(t){
+    if(t==="light") document.documentElement.setAttribute("data-theme","light");
+    else document.documentElement.removeAttribute("data-theme");
+    try{ localStorage.setItem("cmj_theme",t); }catch(e){}
+    themeLabel();
+    if(act===3){ if(_curWF) renderWF(_curWF.sop,_curWF.ph); else if(openPhase!==null) renderPhase(openPhase); }
+    var fb=document.getElementById("flow-fs"); if(fb && fb.classList.contains("show") && _fsSop) openFlowFS(_fsSop);
+  }
+  if(themeBtn){ themeBtn.addEventListener("click", function(){ setTheme(curTheme()==="light"?"dark":"light"); }); themeLabel(); }
+  enterAct(0);
+  document.getElementById("prev").disabled = true;
+})();
+__CMPRES_ENDSCRIPT__
+</body>
+</html>
+
 </script>
 </body>
 </html>
