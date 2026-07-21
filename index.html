@@ -878,9 +878,17 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 @media(prefers-reduced-motion:reduce){#tab-draft0 .d0-life.play::before,#tab-draft0 .d0-life.play .d0-phase{animation:none!important}#tab-draft0 .d0-node{transition:none}}
   #tab-cmpres{padding:0;overflow:hidden}
   #cmpres-frame{width:100%;height:100%;border:0;display:block;background:#F5F5F7}
-  #tab-review{padding:0;overflow:hidden;position:relative}
-  .review-load{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--g2,#8a8a8e);background:#fff}
-  #review-frame{width:100%;height:100%;border:0;display:block;background:#ffffff}
+  #tab-review{padding:0}
+  .rev-wrap{min-height:calc(100vh - 70px);display:flex;align-items:center;justify-content:center;padding:40px 24px}
+  .rev-card{max-width:560px;text-align:center;background:var(--paper,#fff);border:1px solid var(--rule,#e6e6e6);border-radius:20px;padding:46px 40px;box-shadow:var(--shadow-lg,0 24px 60px -30px rgba(0,0,0,.25))}
+  .rev-kick{font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--red,#E30A0B)}
+  .rev-h{font-family:var(--sans);font-size:30px;font-weight:800;letter-spacing:-.01em;color:var(--ink,#1a1a1a);margin:14px 0 10px}
+  .rev-p{font-family:var(--sans);font-size:15.5px;line-height:1.55;color:var(--g2,#555);margin:0 auto 28px;max-width:44ch}
+  .rev-btn{font-family:var(--sans);font-size:15px;font-weight:700;color:#fff;background:var(--ink,#1a1a1a);border:0;border-radius:999px;padding:15px 30px;cursor:pointer;transition:transform .15s ease,background .15s ease}
+  .rev-btn:hover{transform:translateY(-2px);background:var(--red,#E30A0B)}
+  .rev-btn:active{transform:translateY(0)}
+  .rev-btn:focus-visible{outline:3px solid var(--pc,#E30A0B);outline-offset:3px}
+  .rev-url{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--g4,#999);margin-top:20px}
 </style>
 </head>
 <body>
@@ -926,7 +934,17 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
     <section class="tab" id="tab-room"></section>
     <section class="tab" id="tab-donor"></section>
     <section class="tab" id="tab-draft0"></section>
-    <section class="tab" id="tab-review"><div class="review-load" id="review-load">Loading the review portal</div><iframe id="review-frame" title="SOP Review Portal" loading="lazy"></iframe></section>
+    <section class="tab" id="tab-review">
+      <div class="rev-wrap">
+        <div class="rev-card">
+          <div class="rev-kick">International Finance &middot; Draft 0 review</div>
+          <h2 class="rev-h">The reviewer portal</h2>
+          <p class="rev-p">Each reviewer finds the SOPs assigned to them for the Draft 0 review. The portal opens in its own browser tab.</p>
+          <button class="rev-btn" type="button" onclick="openReviewPortal()">Open the Review Portal &rarr;</button>
+          <div class="rev-url">alialmokdad.github.io/sop-review-portal</div>
+        </div>
+      </div>
+    </section>
     <section class="tab" id="tab-cmpres"><iframe id="cmpres-frame" title="Country Managers Presentation"></iframe></section>
     <section class="tab" id="tab-roles">
 <div class="rs">
@@ -4162,13 +4180,7 @@ function mountCMPres(){
   /* reassign srcdoc each open so the presentation always starts fresh on the cover */
   fr.srcdoc=doc.textContent.split("__CMPRES_ENDSCRIPT__").join("</scr"+"ipt>");
 }
-function mountReview(){
-  var fr=document.getElementById("review-frame"); if(!fr) return;
-  if(!fr.getAttribute("src")){
-    fr.addEventListener("load",function(){ var l=document.getElementById("review-load"); if(l) l.style.display="none"; });
-    fr.setAttribute("src","https://alialmokdad.github.io/sop-review-portal/");
-  }
-}
+function openReviewPortal(){ window.open("https://alialmokdad.github.io/sop-review-portal/","_blank","noopener,noreferrer"); }
 function go(tabId){
   if(tabId==="elearn"){ launchElearn(); return; }   /* the live prototype opens through the launch sequence, not a panel */
   view = tabId;
@@ -4178,7 +4190,7 @@ function go(tabId){
   if(active){ active.scrollTop=0; revealIn(active); }
   if(tabId==="draft0"){ d0play(); }
   if(tabId==="cmpres"){ mountCMPres(); }
-  if(tabId==="review"){ mountReview(); }
+  if(tabId==="review" && !window._revOpened){ window._revOpened=true; openReviewPortal(); }
   if(tabId==="exercise"){ var i=$("#ex-input"); if(i) setTimeout(function(){ i.focus(); },130); }
   if(tabId==="hub"){ var hq=$("#hub-q"); if(hq) setTimeout(function(){ hq.focus(); },150); }
 }
