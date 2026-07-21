@@ -4816,27 +4816,33 @@ kpis();legend();renderLevels();list();
     position:fixed;right:0;top:0;bottom:0;z-index:7;width:min(520px,42vw);
     background:var(--glass);backdrop-filter:blur(7px);
     border-left:1px solid var(--hair);
-    padding:7rem 3.4rem 5rem;overflow-y:auto;
+    padding:7rem 3.4rem 3.2rem;overflow-y:auto;display:flex;flex-direction:column;
     transform:translateX(102%);transition:transform .6s var(--ease-move);
   }
   #cyc-panel.show{transform:none}
-  #cyc-panel .kick{color:var(--pc,var(--red-hi));font-size:1rem}
-  #cyc-panel h3{font-family:var(--serif);font-weight:600;font-size:2.1rem;margin:.6rem 0 .7rem;color:var(--bone)}
-  #cyc-panel .ess{font-family:var(--serif);font-style:italic;color:var(--bone-2);
-    font-size:1.18rem;line-height:1.5;margin-bottom:2rem;padding-left:1.1rem;border-left:2px solid var(--pc,var(--hair))}
+  /* header: oversized phase-colour numeral + eyebrow + serif name (rhymes with the cycle hub) */
+  #cyc-panel .cyc-head{display:grid;grid-template-columns:auto 1fr;column-gap:1.4rem;align-items:center;margin-bottom:2.1rem;padding-bottom:1.5rem;border-bottom:1px solid var(--hair);position:relative}
+  #cyc-panel .cyc-head::after{content:"";position:absolute;left:0;bottom:-1px;width:56px;height:2px;background:var(--pc,var(--red))}
+  #cyc-panel .cyc-rom{font-family:var(--serif);font-weight:600;font-size:clamp(3rem,2.2rem + 2.6vw,4.4rem);line-height:.82;letter-spacing:-.01em;color:var(--pc,var(--red-hi))}
+  #cyc-panel .cyc-eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-3);margin:0 0 .4rem}
+  #cyc-panel .cyc-name{font-family:var(--serif);font-weight:600;font-size:clamp(1.8rem,1.4rem + 1.3vw,2.4rem);line-height:1.02;letter-spacing:-.01em;color:var(--bone);margin:0}
+  .cyc-list{display:flex;flex-direction:column;gap:.9rem}
   .cyc-chip{
-    display:flex;align-items:baseline;gap:1rem;width:100%;text-align:left;
-    padding:1rem 1.2rem;border:1px solid var(--hair);border-left:3px solid var(--pc,var(--hair));
-    border-radius:8px;margin-bottom:.7rem;background:var(--surface);
+    display:flex;flex-direction:column;align-items:flex-start;gap:.4rem;width:100%;text-align:left;
+    padding:1.15rem 1.4rem;border:1px solid var(--hair);border-left:3px solid var(--pc,var(--hair));
+    border-radius:10px;background:var(--surface);box-shadow:0 1px 2px rgba(0,0,0,.05);
     opacity:0;transform:translateX(16px);
     transition:opacity .5s var(--ease-out),transform .5s var(--ease-out),
-      background .3s,border-color .3s;
+      background .3s,border-color .3s,box-shadow .3s;
     transition-delay:calc(var(--j,0) * 55ms);
   }
   #cyc-panel.show .cyc-chip{opacity:1;transform:none}
-  .cyc-chip:hover{background:var(--surface-2);border-color:var(--pc)}
-  .cyc-chip .num{font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--pc);white-space:nowrap}
-  .cyc-chip .ttl{font-size:1.08rem;font-weight:600;line-height:1.4;color:var(--bone)}
+  #cyc-panel.show .cyc-chip:hover{border-color:color-mix(in srgb,var(--pc) 45%,var(--hair));box-shadow:0 6px 18px -8px color-mix(in srgb,var(--pc) 30%,transparent);transform:translateY(-1px)}
+  .cyc-chip .num{font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pc);white-space:nowrap}
+  .cyc-chip .ttl{font-size:1.16rem;font-weight:600;line-height:1.35;color:var(--bone)}
+  .cyc-foot{margin-top:auto;padding-top:1.5rem;border-top:1px solid var(--hair);display:flex;align-items:center;gap:.6rem}
+  .cyc-foot-dot{width:7px;height:7px;border-radius:50%;background:var(--pc,var(--red));flex:none}
+  .cyc-foot-mk{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-3)}
 
   /* ============ ACT 3 · THE PROCEDURES ============ */
   #act3 .head{position:absolute;top:7vh;left:5vw;max-width:22rem;z-index:8}
@@ -5821,12 +5827,20 @@ kpis();legend();renderLevels();list();
     var list = SOPS.filter(function(s){ return s.p === p; });
     cycPanel.style.setProperty("--pc", ph.c);
     cycPanel.innerHTML =
-      '<p class="kick" style="color:' + ph.c + '">Phase ' + ph.rom + ' · ' + esc(ph.name) +
-      (p === 5 ? ' <em>· across every phase</em>' : '') + '</p>' +
+      '<header class="cyc-head">' +
+        '<span class="cyc-rom">' + esc(ph.rom) + '</span>' +
+        '<div class="cyc-head-txt">' +
+          '<p class="cyc-eyebrow">Phase ' + esc(ph.rom) + (p === 5 ? ' · across every phase' : '') + '</p>' +
+          '<h3 class="cyc-name">' + esc(ph.name) + '</h3>' +
+        '</div>' +
+      '</header>' +
+      '<div class="cyc-list">' +
       list.map(function(s, j){
         return '<button class="cyc-chip" style="--pc:' + ph.c + ';--j:' + j + '" data-sop="' + esc(s.n) + '">' +
           '<span class="num">SOP ' + esc(s.n) + '</span><span class="ttl">' + esc(s.t) + '</span></button>';
-      }).join("");
+      }).join("") +
+      '</div>' +
+      '<div class="cyc-foot"><span class="cyc-foot-dot"></span><span class="cyc-foot-mk">Røde Kors · International Finance</span></div>';
     cycPanel.classList.add("show");
   }
   cycPanel.addEventListener("click", function(e){
