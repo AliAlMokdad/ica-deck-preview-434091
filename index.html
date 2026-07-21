@@ -5823,8 +5823,6 @@ kpis();legend();renderLevels();list();
     cycPanel.innerHTML =
       '<p class="kick" style="color:' + ph.c + '">Phase ' + ph.rom + ' · ' + esc(ph.name) +
       (p === 5 ? ' <em>· across every phase</em>' : '') + '</p>' +
-      '<h3>' + list.length + ' procedure' + (list.length === 1 ? '' : 's') + '</h3>' +
-      '<p class="ess">' + esc(ph.ess) + '</p>' +
       list.map(function(s, j){
         return '<button class="cyc-chip" style="--pc:' + ph.c + ';--j:' + j + '" data-sop="' + esc(s.n) + '">' +
           '<span class="num">SOP ' + esc(s.n) + '</span><span class="ttl">' + esc(s.t) + '</span></button>';
