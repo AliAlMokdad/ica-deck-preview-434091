@@ -1161,14 +1161,14 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 .sc-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
 </style>
-<div class="sopchat" id="sopchat" data-theme="light">
+<div class="sopchat" id="sopchat" data-theme="light" role="region" aria-label="International Finance SOP assistant">
 
   <div class="sc-wm" aria-hidden="true">
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#E30A0B" d="M38 8h24v30h30v24H62v30H38V62H8V38h30z"/></svg>
   </div>
   <div class="sc-dots" id="scDots" aria-hidden="true"></div>
 
-  <header class="sc-top">
+  <div class="sc-top">
     <div class="sc-brand">
       <span class="sc-spark" id="scSparkTop"></span>
       <div class="sc-title-wrap">
@@ -1185,7 +1185,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
       </button>
     </div>
-  </header>
+  </div>
 
   <div class="sc-focus" id="scFocus" hidden>
     <span class="sc-focus-label">Thread focus</span>
@@ -1193,13 +1193,13 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
   </div>
 
   <div class="sc-sr" id="scStatus" role="status" aria-live="polite"></div>
-  <main class="sc-stream" id="scStream" aria-label="Conversation about the International Finance SOPs">
+  <div class="sc-stream" id="scStream">
     <div class="sc-inner" id="scInnerReset">
       <div class="sc-empty" id="scEmpty">
         <h2>Ask anything about the <span class="grad">International Finance SOPs</span></h2>
       </div>
     </div>
-  </main>
+  </div>
 
   <div class="sc-input-wrap">
     <form class="sc-input-form" id="scForm" aria-label="Ask about the International Finance SOPs">
