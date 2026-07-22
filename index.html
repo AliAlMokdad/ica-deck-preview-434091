@@ -949,15 +949,16 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 <style>
 /* fill the deck tab edge-to-edge (host .tab has padding + its own scroll) */
 #tab-sopchat{padding:0;overflow:hidden}
+/* Gemini-gradient nav label for this tab (readable on light and on the active dark chip) */
+[data-tab="sopchat"] .lbl{background:linear-gradient(90deg,#4285F4,#9B72CB 55%,#D96570);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#8250C4;font-weight:600}
 
 /* ============ SOP LEDGER · Gemini-aesthetic chat ============ */
 .sopchat *{box-sizing:border-box;margin:0;padding:0}
 .sopchat{
   /* Gemini spectrum */
-  --g-blue:#4285F4; --g-indigo:#5B7CE8; --g-purple:#9B72CB; --g-rose:#D96570; --g-amber:#F9AB55;
+  --g-blue:#4285F4; --g-purple:#9B72CB; --g-rose:#D96570; --g-amber:#F9AB55;
   --grad:linear-gradient(105deg,var(--g-blue) 0%,var(--g-purple) 48%,var(--g-rose) 100%);
   --grad-soft:linear-gradient(105deg,rgba(66,133,244,.14),rgba(155,114,203,.14) 50%,rgba(217,101,112,.14));
-  --grad-4:linear-gradient(120deg,var(--g-blue),var(--g-purple) 40%,var(--g-rose) 72%,var(--g-amber));
   /* light surface (warm-clean, not pure white) */
   --bg:#FBFBFD; --panel:#FFFFFF; --ink:#1B1C1E; --ink-2:#5F6266; --ink-3:#6B6E74;
   --line:#E7E8EC; --line-2:#EFF0F3; --bubble:#F3F5F9;
@@ -975,24 +976,17 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   position:relative; overflow:hidden;
 }
-.sopchat[data-theme="dark"]{
-  --bg:#161719; --panel:#1E1F20; --ink:#E8EAED; --ink-2:#B8BBC0; --ink-3:#888B90;
-  --line:#303236; --line-2:#26282B; --bubble:#26282B;
-  --grad-soft:linear-gradient(105deg,rgba(66,133,244,.20),rgba(155,114,203,.20) 50%,rgba(217,101,112,.18));
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 30px rgba(0,0,0,.35);
-  --shadow-lg:0 10px 50px rgba(0,0,0,.5);
-  /* dark mode: the vivid brand values already pass, keep them */
-  --amber-ink:var(--g-amber); --rose-ink:var(--g-rose); --grad-strong:var(--grad);
-}
-/* ambient gradient wash, extremely subtle, top corners */
+/* ambient gradient wash, extremely subtle, top corners (light only) */
 .sopchat::before{
   content:""; position:absolute; inset:0; pointer-events:none; z-index:0; opacity:.5;
   background:
     radial-gradient(60% 45% at 12% -8%,rgba(66,133,244,.10),transparent 70%),
     radial-gradient(55% 40% at 92% -6%,rgba(217,101,112,.09),transparent 70%);
 }
-.sopchat[data-theme="dark"]::before{opacity:.7}
 .sopchat > *{position:relative; z-index:1}
+/* faint Danish Red Cross watermark, behind the conversation only */
+.sopchat > .sc-wm{position:absolute; inset:0; z-index:0; pointer-events:none; display:grid; place-items:center; overflow:hidden}
+.sc-wm svg{width:min(34%,320px); height:auto; opacity:.03; transform:translateY(6%)}
 
 /* ---- top bar ---- */
 .sc-top{display:flex;align-items:center;justify-content:space-between;gap:16px;
@@ -1010,6 +1004,19 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 .sc-iconbtn:hover{color:var(--ink);border-color:var(--ink-3);transform:translateY(-1px)}
 .sc-iconbtn svg{width:18px;height:18px}
 .sc-iconbtn:focus-visible{outline:2px solid var(--g-purple);outline-offset:2px}
+/* Gemini-style link to the full SOPs (Draft 0) */
+.sc-soplink{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:999px;
+  border:1px solid var(--line);background:var(--panel);color:var(--ink);text-decoration:none;
+  font-size:.8rem;font-weight:500;transition:.2s var(--ease);position:relative;white-space:nowrap}
+.sc-soplink svg{width:15px;height:15px;color:var(--ink-2);transition:.2s var(--ease)}
+.sc-soplink .sc-ext{width:12px;height:12px;opacity:.8}
+.sc-soplink:hover{border-color:transparent;transform:translateY(-1px);box-shadow:var(--shadow)}
+.sc-soplink:hover svg{color:var(--g-purple)}
+.sc-soplink::after{content:"";position:absolute;inset:-1px;border-radius:999px;padding:1px;
+  background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .25s;pointer-events:none}
+.sc-soplink:hover::after{opacity:1}
+.sc-soplink:focus-visible{outline:2px solid var(--g-purple);outline-offset:2px}
 
 /* ---- thread focus strip ---- */
 .sc-focus{flex:0 0 auto;display:flex;align-items:center;gap:9px;flex-wrap:wrap;
@@ -1033,24 +1040,15 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 .sc-stream::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px;border:3px solid var(--bg)}
 .sc-inner{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:26px}
 
-/* empty state */
-.sc-empty{text-align:center;padding:34px 8px 20px;animation:scFade .6s var(--ease)}
+@keyframes scFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* empty state: centered in the stream so the opening frame is balanced, not top-anchored */
+.sc-inner:has(.sc-empty){min-height:100%;justify-content:center}
+.sc-empty{text-align:center;padding:20px 8px;animation:scFade .6s var(--ease);display:flex;flex-direction:column;align-items:center;justify-content:center}
 .sc-empty-spark{width:64px;height:64px;margin:0 auto 22px}
 .sc-empty-spark svg{width:100%;height:100%}
-.sc-empty h2{font-size:clamp(1.9rem,4.5vw,2.7rem);font-weight:600;letter-spacing:-.025em;line-height:1.14;margin-bottom:12px}
+.sc-empty h2{font-size:clamp(1.9rem,4.5vw,2.7rem);font-weight:600;letter-spacing:-.025em;line-height:1.14;max-width:16ch}
 .sc-empty h2 .grad{background:var(--grad);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:scHue 9s var(--ease) infinite alternate}
 @keyframes scHue{to{background-position:100% center}}
-.sc-empty p{color:var(--ink-2);font-size:.94rem;max-width:52ch;margin:0 auto 26px;line-height:1.55}
-.sc-starters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;max-width:620px;margin:0 auto}
-.sc-starter{text-align:left;padding:15px 16px;border-radius:16px;border:1px solid var(--line);
-  background:var(--panel);cursor:pointer;transition:.2s var(--ease);font-size:.86rem;color:var(--ink);
-  line-height:1.4;font-weight:450;position:relative;overflow:hidden}
-.sc-starter::before{content:"";position:absolute;inset:0;background:var(--grad-soft);opacity:0;transition:opacity .2s}
-.sc-starter:hover{border-color:transparent;transform:translateY(-2px);box-shadow:var(--shadow)}
-.sc-starter:hover::before{opacity:1}
-.sc-starter span{position:relative;z-index:1;display:block}
-.sc-starter .k{font-size:.7rem;color:var(--g-purple);font-weight:600;margin-bottom:3px;letter-spacing:.02em}
-.sc-starter:focus-visible{outline:2px solid var(--g-purple);outline-offset:2px}
 
 /* message rows */
 .sc-msg{display:flex;gap:14px;animation:scFade .45s var(--ease)}
@@ -1058,6 +1056,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 .sc-avatar{width:30px;height:30px;flex:0 0 auto;border-radius:9px;display:grid;place-items:center;margin-top:2px}
 .sc-avatar svg{width:26px;height:26px}
 .sc-body{min-width:0}
+.sc-text{overflow-wrap:anywhere}
 .sc-msg.assistant .sc-body{max-width:var(--measure)}
 .sc-msg.user .sc-body{max-width:min(80%,560px)}
 .sc-msg.user .sc-text{background:var(--bubble);border-radius:20px 20px 6px 20px;padding:12px 16px;
@@ -1072,7 +1071,6 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 /* to-confirm inline note */
 .sc-tbc{margin-top:12px;padding:10px 13px;border-radius:12px;font-size:.82rem;line-height:1.45;
   background:rgba(249,171,85,.10);border:1px solid rgba(249,171,85,.35);color:var(--ink)}
-.sopchat[data-theme="dark"] .sc-tbc{background:rgba(249,171,85,.12)}
 .sc-tbc b{color:var(--amber-ink);font-weight:700}
 
 /* citations */
@@ -1135,7 +1133,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 .sc-sheet-top .num{font-family:var(--mono);font-weight:700;font-size:.78rem;padding:3px 9px;border-radius:7px;background:var(--grad-strong);color:#fff;display:inline-block;margin-bottom:8px}
 .sc-sheet-top h3{font-size:1rem;font-weight:600;line-height:1.3}
 .sc-sheet-top .sec{font-size:.78rem;color:var(--ink-2);margin-top:4px}
-.sc-sheet-body{padding:20px;overflow-y:auto;font-size:.9rem;line-height:1.62;color:var(--ink-2);white-space:pre-wrap}
+.sc-sheet-body{padding:20px;overflow-y:auto;font-size:.9rem;line-height:1.62;color:var(--ink-2);white-space:pre-wrap;overflow-wrap:anywhere}
 .sc-sheet-body .lead{font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
 .sc-sheet-note{margin:16px 20px 20px;padding:11px 13px;border-radius:11px;font-size:.78rem;line-height:1.45;color:var(--ink-2);background:var(--line-2)}
 
@@ -1144,12 +1142,13 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
   border:1px solid rgba(217,101,112,.3);border-radius:12px;padding:11px 14px;line-height:1.5}
 
 @media (max-width:640px){
-  .sc-starters{grid-template-columns:1fr}
-  .sc-top{padding:13px 15px}.sc-focus{padding:11px 15px 10px}
+  .sc-top{padding:13px 15px;gap:10px}.sc-focus{padding:11px 15px 10px}
   .sc-stream{padding:20px 15px 6px}.sc-input-wrap{padding:12px 15px 14px}
   .sc-iconbtn{width:44px;height:44px}.sc-send{width:44px;height:44px}
+  .sc-soplink{height:44px}
   .sc-cite{padding-top:9px;padding-bottom:9px}
 }
+@media (max-width:520px){ .sc-soplink span{display:none} .sc-soplink{padding:0 12px} }
 @media (prefers-reduced-motion:reduce){
   .sopchat *{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   .sopchat svg *{animation-play-state:paused}
@@ -1161,20 +1160,26 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 </style>
 <div class="sopchat" id="sopchat" data-theme="light">
 
+  <div class="sc-wm" aria-hidden="true">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#E30A0B" d="M38 8h24v30h30v24H62v30H38V62H8V38h30z"/></svg>
+  </div>
+
   <header class="sc-top">
     <div class="sc-brand">
       <span class="sc-spark" id="scSparkTop"></span>
       <div class="sc-title-wrap">
-        <h1 class="sc-title">Ledger</h1>
-        <p class="sc-sub">International Finance SOPs · answers cited to the SOP and section</p>
+        <h1 class="sc-title">International Finance SOP</h1>
+        <p class="sc-sub">Grounded in all 31 SOPs · every answer cites its source</p>
       </div>
     </div>
     <div class="sc-actions">
+      <a class="sc-soplink" id="scSopLink" href="https://rodekors.sharepoint.com/sites/esdh_456/LKSag12013/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fesdh_456%2FLKSag12013%2FDocuments%2FINTERNAL%20CONTROL%20%26%20COMPLIANCE%2FSOP%20International%20finance%2FInternational%20Finance%20SOPs%20in%20development%2FDraft%200%20-%20Individual%20SOPs%20%28one%20file%20per%20SOP%29" target="_blank" rel="noopener noreferrer" title="Open the full International Finance SOPs (Draft 0)" aria-label="Open the full International Finance SOPs, Draft 0, in a new tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        <span>The Finance SOPs</span>
+        <svg class="sc-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+      </a>
       <button class="sc-iconbtn" id="scNew" title="New conversation" aria-label="New conversation">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-      </button>
-      <button class="sc-iconbtn" id="scTheme" title="Toggle theme" aria-label="Toggle light or dark theme">
-        <svg id="scThemeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
     </div>
   </header>
@@ -1185,13 +1190,11 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
   </div>
 
   <div class="sc-sr" id="scStatus" role="status" aria-live="polite"></div>
-  <main class="sc-stream" id="scStream" aria-label="Conversation with Ledger">
+  <main class="sc-stream" id="scStream" aria-label="Conversation about the International Finance SOPs">
     <div class="sc-inner" id="scInnerReset">
       <div class="sc-empty" id="scEmpty">
         <div class="sc-empty-spark" id="scSparkBig"></div>
-        <h2>Ask about any <span class="grad">International Finance SOP</span></h2>
-        <p>I answer only from the 31 SOPs and cite the exact SOP and section. I never invent a rule, and I flag what is still to be confirmed.</p>
-        <div class="sc-starters" id="scStarters"></div>
+        <h2>Ask about anything about the <span class="grad">International Finance SOP</span></h2>
       </div>
     </div>
   </main>
@@ -1199,12 +1202,12 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
   <div class="sc-input-wrap">
     <form class="sc-input-form" id="scForm">
       <div class="sc-input-inner" id="scInputInner">
-        <textarea id="scInput" rows="1" placeholder="Ask about a role, control, donor rule, or process" aria-label="Ask Ledger"></textarea>
+        <textarea id="scInput" rows="1" placeholder="Ask about a role, control, donor rule, or process" aria-label="Ask about the International Finance SOPs"></textarea>
         <button type="submit" class="sc-send" id="scSend" disabled aria-label="Send">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
         </button>
       </div>
-      <p class="sc-disclaimer">Ledger is an AI assistant grounded in the SOPs. It is not legal counsel or a substitute for management approval. Draft 0 content.</p>
+      <p class="sc-disclaimer">This is an AI assistant grounded in the SOPs. It is not legal counsel or a substitute for ICA or management guidance. Draft 0 content, always verify against the source SOP.</p>
     </form>
   </div>
 
@@ -1221,7 +1224,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
       </button>
     </div>
     <div class="sc-sheet-body"><div class="lead">Retrieved SOP text</div><div id="scSheetBody"></div></div>
-    <div class="sc-sheet-note">This is the exact passage Ledger retrieved to answer. Verify against the source SOP before acting.</div>
+    <div class="sc-sheet-note">This is the exact passage retrieved to answer your question. Verify against the source SOP before acting.</div>
   </aside>
 
 </div>
@@ -1264,23 +1267,6 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
   document.getElementById('scSparkTop').innerHTML = spark('gtop', false);
   document.getElementById('scSparkBig').innerHTML = spark('gbig', !RM);
 
-  /* ----- starters ----- */
-  var STARTERS = [
-    {k:'Approvals', q:'Who approves partner payments, and what checks come first?'},
-    {k:'Donors', q:'How does ECHO documentation differ from Danida on eligible costs?'},
-    {k:'Records', q:'How long must we keep financial records, and per which donor?'},
-    {k:'Process', q:'Walk me through the month-end close for a country office.'},
-    {k:'Controls', q:'What must happen before a sub-partner receives a fund transfer?'},
-    {k:'Integrity', q:'How do I report a suspected fraud or financial irregularity?'}
-  ];
-  var sc = document.getElementById('scStarters');
-  STARTERS.forEach(function(s){
-    var b=document.createElement('button'); b.type='button'; b.className='sc-starter';
-    b.innerHTML='<span class="k">'+s.k+'</span><span>'+esc(s.q)+'</span>';
-    b.addEventListener('click',function(){ input.value=s.q; resize(); ask(s.q); });
-    sc.appendChild(b);
-  });
-
   /* ----- helpers ----- */
   function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
   function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
@@ -1313,7 +1299,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
     if(!sops.length && !donors.length){focusBar.hidden=true;return;}
     focusBar.hidden=false; focusChips.innerHTML='';
     donors.forEach(function(d){ focusChips.appendChild(el('span','sc-chip-focus donor',d)); });
-    sops.slice(0,6).forEach(function(s){ focusChips.appendChild(el('span','sc-chip-focus','SOP '+s)); });
+    sops.slice(0,6).forEach(function(s){ focusChips.appendChild(el('span','sc-chip-focus','SOP '+esc(s))); });
   }
 
   /* ----- side sheet ----- */
@@ -1321,7 +1307,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
   var lastFocusEl=null;
   function openSheet(c){
     lastFocusEl=document.activeElement;
-    document.getElementById('scSheetNum').textContent='SOP '+c.sop_id;
+    document.getElementById('scSheetNum').textContent='SOP '+(c.sop_id||'');
     document.getElementById('scSheetTitle').textContent=c.sop_title||'';
     document.getElementById('scSheetSec').textContent=(c.section||'')+(c.is_tbc?'  ·  flagged to be confirmed':'');
     document.getElementById('scSheetBody').textContent=c.excerpt||'(No excerpt returned.)';
@@ -1373,7 +1359,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
       data.citations.forEach(function(c){
         var chip=el('button','sc-cite');
         chip.type='button';
-        chip.innerHTML='<span class="num">'+esc(c.sop_id)+'</span><span class="ttl">'+esc(c.sop_title||'')+'</span>'+(c.is_tbc?'<span class="tbcbadge">TBC</span>':'');
+        chip.innerHTML='<span class="num">'+esc(c.sop_id||'?')+'</span><span class="ttl">'+esc(c.sop_title||'')+'</span>'+(c.is_tbc?'<span class="tbcbadge">TBC</span>':'');
         chip.title='Open the retrieved SOP text (match '+(c.score!=null?Math.round(c.score*100)+'%':'')+')';
         chip.addEventListener('click',function(){openSheet(c);});
         rowc.appendChild(chip);
@@ -1466,31 +1452,10 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
     inner.innerHTML='';
     var e=el('div','sc-empty');e.id='scEmpty';
     e.innerHTML='<div class="sc-empty-spark">'+spark('gbig2',!RM)+'</div>'
-      +'<h2>Ask about any <span class="grad">International Finance SOP</span></h2>'
-      +'<p>I answer only from the 31 SOPs and cite the exact SOP and section. I never invent a rule, and I flag what is still to be confirmed.</p>'
-      +'<div class="sc-starters" id="scStarters2"></div>';
+      +'<h2>Ask about anything about the <span class="grad">International Finance SOP</span></h2>';
     inner.appendChild(e);
-    var sc2=document.getElementById('scStarters2');
-    STARTERS.forEach(function(s){
-      var b=document.createElement('button');b.type='button';b.className='sc-starter';
-      b.innerHTML='<span class="k">'+s.k+'</span><span>'+esc(s.q)+'</span>';
-      b.addEventListener('click',function(){input.value=s.q;resize();ask(s.q);});
-      sc2.appendChild(b);
-    });
-    input.focus();
+    if(isVisible()) input.focus();
   });
-
-  /* ----- theme ----- */
-  var themeBtn=document.getElementById('scTheme');
-  function setTheme(t){root.setAttribute('data-theme',t);
-    themeBtn.setAttribute('aria-pressed', t==='dark' ? 'true' : 'false');
-    document.getElementById('scThemeIcon').innerHTML = t==='dark'
-      ? '<circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'
-      : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
-    try{localStorage.setItem('sopledger_theme',t);}catch(e){}
-  }
-  themeBtn.addEventListener('click',function(){setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark');});
-  try{var st=localStorage.getItem('sopledger_theme');if(st)setTheme(st);else if(window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches)setTheme('dark');}catch(e){}
 
   setSend();
   // focus the composer only when visible: standalone now, or when this deck tab is opened
@@ -1582,10 +1547,9 @@ var TABS = [
   {id:"roles",     n:"09", label:"Role Standards"},
   {id:"draft0",    n:"10", label:"Draft 0"},
   {id:"review",    n:"11", label:"Review Portal"},
-  {id:"sopchat",   n:"12", label:"SOPs Digital Solution Test"},
-  {id:"cmpres",    n:"13", label:"Country Managers Presentation"},
-  {id:"elearn",    n:"14", label:"E-Learning Prototype", launch:true},
-  {id:"aiact",     n:"15", label:"AI EU Act"}
+  {id:"cmpres",    n:"12", label:"Country Managers Presentation"},
+  {id:"elearn",    n:"13", label:"E-Learning Prototype", launch:true},
+  {id:"sopchat",   n:"14", label:"SOPs Digital Solution - Prototype"}
 ];
 var ELEARN_URL = "https://alialmokdad.github.io/finance-platform-preview-891561/?present=1";
 
