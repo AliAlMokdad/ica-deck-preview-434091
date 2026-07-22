@@ -978,17 +978,19 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 }
 /* ambient gradient wash, extremely subtle, top corners (light only) */
 .sopchat::before{
-  content:""; position:absolute; inset:0; pointer-events:none; z-index:0; opacity:.5;
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:0; opacity:.75;
   background:
-    radial-gradient(60% 45% at 12% -8%,rgba(66,133,244,.10),transparent 70%),
-    radial-gradient(55% 40% at 92% -6%,rgba(217,101,112,.09),transparent 70%);
+    radial-gradient(34% 26% at 0% 0%, rgba(66,133,244,.11), transparent 72%),
+    radial-gradient(34% 26% at 100% 0%, rgba(217,101,112,.10), transparent 72%),
+    radial-gradient(36% 28% at 0% 100%, rgba(155,114,203,.10), transparent 72%),
+    radial-gradient(38% 30% at 100% 100%, rgba(249,171,85,.08), transparent 72%);
 }
 .sopchat > *{position:relative; z-index:1}
 /* faint Danish Red Cross watermark, behind the conversation only */
 .sopchat > .sc-wm{position:absolute; inset:0; z-index:0; pointer-events:none; display:grid; place-items:center; overflow:hidden}
 .sc-wm svg{width:min(34%,320px); height:auto; opacity:.03; transform:translateY(6%)}
 /* tiny elegant dots gently floating along the bottom of the background */
-.sopchat > .sc-dots{position:absolute; left:0; right:0; bottom:0; height:42%; z-index:0; pointer-events:none; overflow:hidden}
+.sopchat > .sc-dots{position:absolute; left:0; right:0; top:0; height:48%; z-index:0; pointer-events:none; overflow:hidden}
 .sc-dot{position:absolute; border-radius:50%; animation:scFloat var(--dur,9s) ease-in-out infinite}
 @keyframes scFloat{0%,100%{transform:translateY(0) translateX(0); opacity:.28}50%{transform:translateY(-16px) translateX(5px); opacity:.85}}
 
@@ -1048,7 +1050,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 /* empty state: centered in the stream so the opening frame is balanced, not top-anchored */
 .sc-inner:has(.sc-empty){min-height:100%;justify-content:center}
 .sc-empty{text-align:center;padding:20px 8px;animation:scFade .6s var(--ease);display:flex;flex-direction:column;align-items:center;justify-content:center}
-.sc-empty h2{font-size:clamp(1.9rem,4.5vw,2.7rem);font-weight:600;letter-spacing:-.025em;line-height:1.14;max-width:16ch}
+.sc-empty h2{font-size:clamp(2.3rem,5.4vw,3.4rem);font-weight:600;letter-spacing:-.026em;line-height:1.12;max-width:17ch}
 .sc-empty h2 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 
 /* message rows */
@@ -1266,15 +1268,15 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
       + '</svg>';
   }
   document.getElementById('scSparkTop').innerHTML = spark('gtop', false);
-  // tiny elegant dots gently floating along the bottom of the background
+  // a few tiny elegant dots gently floating in the top of the background
   (function(){
     var wrap=document.getElementById('scDots'); if(!wrap) return;
     var cols=['66,133,244','155,114,203','217,101,112']; // blue, purple, rose
-    for(var i=0;i<16;i++){
+    for(var i=0;i<9;i++){
       var s=document.createElement('span'); s.className='sc-dot';
       var sz=(2+Math.random()*2.6).toFixed(1);
       s.style.left=(Math.random()*100).toFixed(1)+'%';
-      s.style.bottom=(6+Math.random()*84).toFixed(1)+'%';
+      s.style.top=(22+Math.random()*66).toFixed(1)+'%';
       s.style.width=sz+'px'; s.style.height=sz+'px';
       s.style.background='rgb('+cols[i%3]+')';
       s.style.setProperty('--dur',(7+Math.random()*7).toFixed(1)+'s');
