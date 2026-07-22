@@ -1087,7 +1087,9 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
 .sc-cite:focus-visible{outline:2px solid var(--g-purple);outline-offset:2px}
 .sc-cite .num{font-weight:700;font-family:var(--mono);font-size:.74rem;padding:2px 6px;border-radius:6px;
   background:var(--grad-strong);color:#fff;flex:0 0 auto}
+.sc-cite-txt{display:flex;flex-direction:column;gap:1px;min-width:0}
 .sc-cite .ttl{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px}
+.sc-cite .csec{font-size:.64rem;font-weight:600;letter-spacing:.02em;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px}
 .sc-cite .tbcbadge{font-size:.62rem;font-weight:700;color:var(--amber-ink);border:1px solid rgba(249,171,85,.5);
   border-radius:5px;padding:1px 5px;letter-spacing:.03em}
 
@@ -1378,7 +1380,8 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
       data.citations.forEach(function(c){
         var chip=el('button','sc-cite');
         chip.type='button';
-        chip.innerHTML='<span class="num">'+esc(c.sop_id||'?')+'</span><span class="ttl">'+esc(c.sop_title||'')+'</span>'+(c.is_tbc?'<span class="tbcbadge">TBC</span>':'');
+        var csec=(c.section && c.section!==c.sop_title)?'<span class="csec">'+esc(c.section)+'</span>':'';
+        chip.innerHTML='<span class="num">'+esc(c.sop_id||'?')+'</span><span class="sc-cite-txt"><span class="ttl">'+esc(c.sop_title||'')+'</span>'+csec+'</span>'+(c.is_tbc?'<span class="tbcbadge">TBC</span>':'');
         chip.title='Open the retrieved SOP text (match '+(c.score!=null?Math.round(c.score*100)+'%':'')+')';
         chip.addEventListener('click',function(){openSheet(c);});
         rowc.appendChild(chip);
