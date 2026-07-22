@@ -1202,7 +1202,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
   </main>
 
   <div class="sc-input-wrap">
-    <form class="sc-input-form" id="scForm">
+    <form class="sc-input-form" id="scForm" aria-label="Ask about the International Finance SOPs">
       <div class="sc-input-inner" id="scInputInner">
         <textarea id="scInput" rows="1" placeholder="Ask about a role, control, donor rule, or process" aria-label="Ask about the International Finance SOPs"></textarea>
         <button type="submit" class="sc-send" id="scSend" disabled aria-label="Send">
@@ -1214,7 +1214,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
   </div>
 
   <div class="sc-sheet-bg" id="scSheetBg"></div>
-  <aside class="sc-sheet" id="scSheet" aria-hidden="true" role="dialog" aria-modal="true" aria-label="SOP excerpt">
+  <aside class="sc-sheet" id="scSheet" aria-hidden="true" inert role="dialog" aria-modal="true" aria-label="SOP excerpt">
     <div class="sc-sheet-top">
       <div>
         <span class="num" id="scSheetNum">SOP</span>
@@ -1328,6 +1328,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
     document.getElementById('scSheetTitle').textContent=c.sop_title||'';
     document.getElementById('scSheetSec').textContent=(c.section||'')+(c.is_tbc?'  ·  flagged to be confirmed':'');
     document.getElementById('scSheetBody').textContent=c.excerpt||'(No excerpt returned.)';
+    sheet.removeAttribute('inert');
     sheet.classList.add('open');sheetBg.classList.add('open');sheet.setAttribute('aria-hidden','false');
     document.getElementById('scSheetClose').focus();
   }
@@ -1335,6 +1336,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
     // move focus out BEFORE hiding, so focus never rests inside an aria-hidden subtree
     if(lastFocusEl){ try{ lastFocusEl.focus(); }catch(e){} }
     sheet.classList.remove('open');sheetBg.classList.remove('open');sheet.setAttribute('aria-hidden','true');
+    sheet.setAttribute('inert','');  // closed: not focusable, not in the a11y tree
   }
   document.getElementById('scSheetClose').addEventListener('click',closeSheet);
   sheetBg.addEventListener('click',closeSheet);
@@ -1465,6 +1467,7 @@ body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans)
     // abort any in-flight request so its reply cannot land in the fresh thread
     reqSeq++; if(currentCtrl){ try{ currentCtrl.abort(); }catch(e){} currentCtrl=null; }
     busy=false; loadingRow=null;
+    input.value='';resize();setSend();
     history=[];focusSops={};focusDonors={};renderFocus();
     inner.innerHTML='';
     var e=el('div','sc-empty');e.id='scEmpty';
